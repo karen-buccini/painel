@@ -46,7 +46,7 @@ jobs:
         run: node scripts/fetch-hubspot.js > /tmp/hubspot.json
 
       - name: Atualizar data.json
-        run: node scripts/merge-and-save.js /tmp/hubspot.json "" "" data.json
+        run: node scripts/merge-and-save.js /tmp/hubspot.json "" data.json
 
       - name: Commitar mudanças
         run: |

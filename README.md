@@ -31,7 +31,7 @@ De 2 em 2 horas, rotinas do GitHub Actions buscam os dados e reescrevem o
 | Desempenho — Closing, Parcerias Hunting e Farming | HubSpot |
 | Desempenho — Retargeting, Frete e Câmbio | HubSpot |
 | Card de crédito aprovado, em Novidades | HubSpot |
-| Clima e trânsito (rodízio e lentidão por região) | CET-SP |
+| Temperatura de São Paulo, ao lado do relógio | Open-Meteo (direto da TV, a cada 15 min) |
 
 ### O que continua manual
 
@@ -71,7 +71,6 @@ O app privado do HubSpot precisa dos escopos `crm.objects.deals.read` e
 ### As rotinas
 
 - `.github/workflows/update-hubspot.yml` — de 2 em 2 horas.
-- `.github/workflows/update-transito.yml` — de 2 em 2 horas, sem segredo nenhum.
 - `.github/workflows/update-cr2.yml` — **desligada**. O gráfico da carteira vem
   do CR2, que exige login; enquanto não existirem os segredos `CR2_EMAIL` e
   `CR2_PASSWORD`, ela só roda se alguém clicar em *Run workflow*.
@@ -79,7 +78,6 @@ O app privado do HubSpot precisa dos escopos `crm.objects.deals.read` e
 ### Os scripts
 
 - `scripts/fetch-hubspot.js` — consulta o HubSpot e imprime um JSON.
-- `scripts/fetch-transito.js` — lê o "Trânsito Agora" da CET-SP.
 - `scripts/fetch-cr2.js` — busca a evolução da carteira no CR2.
 - `scripts/merge-and-save.js` — aplica esses JSONs por cima do `data.json`,
   preservando tudo que é manual.

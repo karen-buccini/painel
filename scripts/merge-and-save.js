@@ -2,7 +2,7 @@
  * merge-and-save.js
  * ------------------------------------------------------------------
  * Lê o data.json atual, aplica por cima os dados coletados pelos outros
- * scripts (HubSpot, trânsito, carteira) e grava de volta.
+ * scripts (HubSpot, carteira) e grava de volta.
  *
  * Só os campos automatizados são tocados. Tudo que continua manual —
  * aniversariantes, aniversários de casa, novo talento, novidades da
@@ -10,18 +10,18 @@
  *
  * Uso:
  *   node scripts/fetch-hubspot.js > /tmp/hubspot.json
- *   node scripts/fetch-transito.js > /tmp/transito.json
  *   node scripts/fetch-cr2.js > /tmp/cr2.json
- *   node scripts/merge-and-save.js /tmp/hubspot.json /tmp/transito.json /tmp/cr2.json data.json
+ *   node scripts/merge-and-save.js /tmp/hubspot.json /tmp/cr2.json data.json
  *
- * Qualquer um dos três primeiros argumentos pode ser "" (string vazia)
- * para atualizar só uma parte dos dados.
+ * Qualquer um dos dois primeiros argumentos pode ser "" (string vazia)
+ * para atualizar só uma parte dos dados. O trânsito da CET-SP saiu do
+ * painel em 23/10, junto com o slide de clima e trânsito.
  * ------------------------------------------------------------------
  */
 
 const fs = require('fs');
 
-const [, , hubspotPath, transitoPath, cr2Path, dataJsonPath = 'data.json'] = process.argv;
+const [, , hubspotPath, cr2Path, dataJsonPath = 'data.json'] = process.argv;
 
 function readJSON(path, fallback = null) {
   try {
@@ -180,7 +180,6 @@ function main() {
   }
 
   const hubspot = hubspotPath ? readJSON(hubspotPath) : null;
-  const transito = transitoPath ? readJSON(transitoPath) : null;
   const cr2 = cr2Path ? readJSON(cr2Path) : null;
 
   const elenco = montarElenco(slides);
@@ -285,17 +284,6 @@ function main() {
     if (cardCredito && hubspot.ativados && hubspot.ativados.creditoAprovado) {
       cardCredito.title = `Crédito aprovado chega a ${milhoes(hubspot.ativados.creditoAprovado)} no mês`;
       mudancas.push('card de crédito aprovado');
-    }
-  }
-
-  if (transito) {
-    const weather = findSlide(slides, 'weather');
-    if (weather) {
-      // Só para telas com o index.html antigo em cache; o painel novo calcula.
-      weather.rodizio = transito.rodizio;
-      weather.trafficUpdatedAt = transito.trafficUpdatedAt;
-      weather.traffic = transito.traffic;
-      mudancas.push('trânsito');
     }
   }
 

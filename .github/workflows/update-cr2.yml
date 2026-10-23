@@ -56,7 +56,7 @@ jobs:
         run: node scripts/fetch-cr2.js > /tmp/cr2.json
 
       - name: Atualizar data.json
-        run: node scripts/merge-and-save.js "" "" /tmp/cr2.json data.json
+        run: node scripts/merge-and-save.js "" /tmp/cr2.json data.json
 
       - name: Commitar mudanças
         run: |

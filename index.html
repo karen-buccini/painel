@@ -81,7 +81,10 @@ html,body{
   text-align:right;
   color:var(--paper);
 }
+.clockbox .linha{display:flex;align-items:baseline;justify-content:flex-end;gap:clamp(10px,1vw,16px);}
 .clockbox .time{font-size:clamp(20px,2.4vw,30px);font-weight:500;letter-spacing:0.02em;}
+.clockbox .clima{font-size:clamp(14px,1.35vw,18px);color:var(--muted);white-space:nowrap;}
+.clockbox .clima:empty{display:none;}
 .clockbox .date{font-size:clamp(14px,1.35vw,18px);color:var(--muted);text-transform:capitalize;}
 
 /* ===== STAGE ===== */
@@ -501,37 +504,6 @@ html,body{
 }
 .news-lista .oque{color:var(--muted);font-size:clamp(16px,1.26vw,18px);line-height:1.4;}
 
-/* ===== SLIDE: WEATHER ===== */
-.weather-wrap{display:flex;gap:clamp(32px,6vw,80px);flex-wrap:wrap;align-items:center;}
-.weather-main .city{color:var(--muted);font-family:var(--font);font-variant-numeric:tabular-nums;font-size:clamp(16px,1.32vw,19px);}
-.weather-main .temp{
-  font-family:var(--font);font-weight:300;letter-spacing:-0.02em;
-  font-size:clamp(56px,7.20vw,112px);line-height:1;display:flex;align-items:flex-start;gap:10px;
-}
-.weather-main .temp span.ico{font-size:0.5em;}
-.weather-main .cond{font-size:clamp(15px,1.4vw,19px);color:var(--paper);}
-.traffic-col{flex:1;min-width:280px;}
-.rodizio-tag{
-  display:inline-block;
-  background:rgba(95,192,233,0.12);border:1px solid rgba(95,192,233,0.3);
-  color:var(--gold);font-family:var(--font);font-variant-numeric:tabular-nums;
-  font-size:clamp(15px,1.35vw,18px);
-  padding:6px 14px;border-radius:999px;
-  margin-bottom:16px;
-}
-.traffic-title{color:var(--muted);font-size:clamp(16px,1.32vw,19px);margin-bottom:14px;}
-.route{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 0;border-bottom:1px solid var(--panel-line);
-}
-.route:last-child{border-bottom:none;}
-.route .led{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.led.ok{background:var(--mint);box-shadow:0 0 8px var(--mint);}
-.led.mid{background:var(--amber);box-shadow:0 0 8px var(--amber);}
-.led.bad{background:var(--coral);box-shadow:0 0 8px var(--coral);}
-.route .rname{font-weight:500;font-size:clamp(16px,1.26vw,18px);}
-.route .rstatus{color:var(--muted);font-size:clamp(16px,1.28vw,18px);margin-left:auto;font-family:var(--font);font-variant-numeric:tabular-nums;}
-
 /* ===== SLIDE: EVOLUÇÃO DA CARTEIRA ===== */
 .wallet-top{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:clamp(14px,2vh,20px);}
 .wallet-value{
@@ -737,7 +709,6 @@ html,body{
 
 @media (max-width:720px){
   .spotlight{flex-direction:column;text-align:center;}
-  .weather-wrap{flex-direction:column;align-items:flex-start;}
 }
 </style>
 </head>
@@ -747,7 +718,10 @@ html,body{
   <div class="topbar">
     <div class="brand"><img class="logo" src="logo-vixtra.png" alt="Vixtra"><span class="sep"></span><span class="dot"></span> TV Comercial · Ao vivo</div>
     <div class="clockbox">
-      <div class="time" id="clockTime">--:--</div>
+      <div class="linha">
+        <span class="clima" id="clockWeather"></span>
+        <span class="time" id="clockTime">--:--</span>
+      </div>
       <div class="date" id="clockDate">—</div>
     </div>
   </div>
@@ -900,23 +874,6 @@ const DEFAULT_SLIDES = [
     ]
   },
   {
-    type:'weather', duration:18000,
-    eyebrow:'Clima e trânsito',
-    city:'São Paulo, SP',
-    lat:-23.5505, lon:-46.6333,
-    temp:'23°C', cond:'Parcialmente nublado', icon:'⛅',
-    updatedAt:'—',
-    rodizio:'Placas final 7 e 8',
-    trafficUpdatedAt:'20/08/2026 (fonte: CET-SP)',
-    traffic:[
-      {name:'Oeste', km:151, pct:32, level:'bad'},
-      {name:'Sul', km:122, pct:26, level:'bad'},
-      {name:'Leste', km:89, pct:19, level:'mid'},
-      {name:'Centro', km:58, pct:12, level:'ok'},
-      {name:'Norte', km:50, pct:11, level:'ok'},
-    ]
-  },
-  {
     type:'currency', duration:16000,
     eyebrow:'Cotação de moedas',
     updatedAt:'—',
@@ -1000,7 +957,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-23-05';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-23-06';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1077,19 +1034,6 @@ function buildWalletSVG(series){
       ${labeled.map(p=>`<text x="${p.x.toFixed(1)}" y="${Math.max(16,p.y-14).toFixed(1)}" font-size="19" font-weight="500" fill="var(--paper)" text-anchor="middle" font-family="'Rubik', sans-serif">${fmtCompactM(p.v)}</text>`).join('')}
       ${labeled.map(p=>`<text x="${p.x.toFixed(1)}" y="${H-8}" font-size="19" fill="var(--muted)" text-anchor="middle" font-family="'Rubik', sans-serif">${p.t}</text>`).join('')}
     </svg>`;
-}
-
-// O rodízio é regra fixa, não notícia: segunda 1 e 2, terça 3 e 4, quarta 5 e 6,
-// quinta 7 e 8, sexta 9 e 0, e não vale no fim de semana. Antes vinha raspado
-// do site da CET junto com a lentidão, e bastava a página vir de cache para a
-// TV anunciar o rodízio do dia anterior. Calculado aqui, sempre acompanha o dia
-// que a TV está mostrando.
-// Observação: feriados suspendem o rodízio, e isso esta conta não sabe.
-function rodizioDeHoje(){
-  const hoje = new Date(new Date().toLocaleString('en-US',{timeZone:'America/Sao_Paulo'}));
-  const finais = {1:'1 e 2', 2:'3 e 4', 3:'5 e 6', 4:'7 e 8', 5:'9 e 0'};
-  const f = finais[hoje.getDay()];
-  return f ? `Placas final ${f}` : 'Sem rodízio no fim de semana';
 }
 
 function eyebrowText(s){
@@ -1301,27 +1245,6 @@ function renderSlide(s){
               ? `<div class="news-lista">${n.linhas.map(l=>`<div class="linha"><span class="quando">${l.quando}</span><span class="oque">${l.oque}</span></div>`).join('')}</div>`
               : `<p>${n.text}</p>`}
           </div>`).join('')}
-      </div>`;
-  }
-  if(s.type==='weather'){
-    return `
-      <div class="eyebrow">${eyebrowText(s)}</div>
-      <div class="weather-wrap">
-        <div class="weather-main">
-          <div class="city">${s.city}</div>
-          <div class="temp"><span class="ico">${s.icon}</span>${s.temp}</div>
-          <div class="cond">${s.cond}</div>
-        </div>
-        <div class="traffic-col">
-          <div class="rodizio-tag">🚗 Rodízio hoje: ${rodizioDeHoje()}</div>
-          <div class="traffic-title">Lentidão por região <span style="opacity:.6">(${s.trafficUpdatedAt} · CET-SP)</span></div>
-          ${s.traffic.map(r=>`
-            <div class="route">
-              <span class="led ${r.level}"></span>
-              <span class="rname">${r.name}</span>
-              <span class="rstatus">${r.km} km · ${r.pct}%</span>
-            </div>`).join('')}
-        </div>
       </div>`;
   }
   if(s.type==='ranking'){
@@ -1589,27 +1512,25 @@ function mapWeatherCode(code){
   return table[code] || ['—','⛅'];
 }
 
+// Temperatura de São Paulo ao lado do relógio. Antes ia para o slide de clima e
+// trânsito, que saiu do painel em 23/10.
+const CLIMA_LAT = -23.5505, CLIMA_LON = -46.6333;
 async function refreshWeather(){
-  const slide = slides.find(s=>s.type==='weather');
-  if(!slide) return;
+  const alvo = document.getElementById('clockWeather');
   try{
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${slide.lat}&longitude=${slide.lon}&current_weather=true`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${CLIMA_LAT}&longitude=${CLIMA_LON}&current_weather=true`;
     const res = await fetch(url);
-    const data = await res.json();
-    const cw = data.current_weather;
-    slide.temp = `${Math.round(cw.temperature)}°C`;
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const cw = (await res.json()).current_weather;
     const [cond, icon] = mapWeatherCode(cw.weathercode);
-    slide.cond = cond;
-    slide.icon = icon;
+    alvo.textContent = `${icon} ${Math.round(cw.temperature)}°C`;
+    alvo.title = cond;
   }catch(err){
-    // API indisponível. Em vez de deixar no ar a última temperatura conhecida,
-    // que numa TV passa por atual e engana quem olha, o painel assume que não
-    // sabe. Trânsito e rodízio continuam, porque vêm de outra fonte.
-    slide.temp = '—';
-    slide.cond = 'Sem conexão com o serviço de clima';
-    slide.icon = '📡';
+    // Sem resposta, a temperatura some em vez de ficar a última conhecida:
+    // numa TV, número velho passa por atual.
+    console.warn('Falha ao buscar o clima (Open-Meteo):', err);
+    alvo.textContent = '';
   }
-  if(slides[current].type==='weather') renderCurrent();
 }
 
 // ---------- START ----------
