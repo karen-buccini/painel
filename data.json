@@ -46,29 +46,6 @@
     "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
   },
   {
-    "type": "celebration",
-    "duration": 16000,
-    "eyebrow": "Nova ativação",
-    "showMonth": false,
-    "who": "Jarbas Vinícius",
-    "client": "Total Comércio de Importação e Exportação",
-    "valorAtivado": 839319.43,
-    "limiteAprovado": 1000000,
-    "pessoas": [
-      {
-        "name": "Jarbas Vinícius",
-        "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
-      },
-      {
-        "name": "Matheus Ferreira",
-        "photo": "https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_512.jpg"
-      }
-    ],
-    "postedAt": "2026-10-15T13:40:42.736Z",
-    "diasVisivel": 7,
-    "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
-  },
-  {
     "type": "newhire",
     "duration": 16000,
     "eyebrow": "Novo talento no time",
@@ -246,7 +223,7 @@
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
     "quenteTotal": 2300000,
-    "mornoTotal": 30861000,
+    "mornoTotal": 28450000,
     "top3": [
       {
         "name": "Kabel Industria e Comercio de Chicotes Eletricos",
