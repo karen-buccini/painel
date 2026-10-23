@@ -38,7 +38,7 @@
       },
       {
         "name": "Matheus Ferreira",
-        "photo": "https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_512.jpg"
+        "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg"
       }
     ],
     "postedAt": "2026-10-16T13:12:54.709Z",
@@ -61,7 +61,7 @@
         "texto": "desenhar e organizar coisas — tem uma Marie Kondo que vive nela e fica muito feliz colocando tudo em ordem."
       }
     ],
-    "photo": "fotos/bruna-marques.jpg",
+    "photo": "https://avatars.slack-edge.com/2026-10-20/12366690926210_5fd71d2456bd902af7fc_512.png",
     "visivelAte": "2026-10-26"
   },
   {
@@ -332,13 +332,14 @@
             "name": "Raquel Figueiredo",
             "oportunidades": 6,
             "color": "var(--sky)",
-            "metricLabel": "oportunidades"
+            "metricLabel": "oportunidades",
+            "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg"
           },
           {
             "name": "Matheus Ferreira",
             "oportunidades": 3,
             "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_512.jpg",
+            "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
           }
         ]
@@ -414,7 +415,8 @@
       {
         "name": "Raquel Figueiredo",
         "date": "03/10",
-        "color": "var(--sky)"
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg"
       },
       {
         "name": "Alisson Felicio",
