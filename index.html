@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TV Comercial — Protótipo de Rotação</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  --ink:#0A0F26;
+  --ink-2:#11183A;
+  --panel:#161E48;
+  --panel-line: rgba(244,246,251,0.09);
+  --gold:#FFB627;
+  --mint:#2DD9A8;
+  --coral:#FF5C7A;
+  --sky:#5CC8FF;
+  --paper:#F4F6FB;
+  --muted:#8C94BE;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html,body{
+  height:100%;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Inter',system-ui,sans-serif;
+  overflow:hidden;
+}
+
+.tv{
+  position:relative;
+  width:100%;
+  height:100vh;
+  min-height:560px;
+  display:flex;
+  flex-direction:column;
+  background:
+    radial-gradient(circle at 85% -10%, rgba(92,200,255,0.10), transparent 45%),
+    radial-gradient(circle at -5% 110%, rgba(255,182,39,0.08), transparent 40%),
+    var(--ink);
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: clamp(14px,2vh,22px) clamp(20px,3vw,48px);
+  border-bottom:1px solid var(--panel-line);
+  flex-shrink:0;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,1.1vw,14px);
+  letter-spacing:0.14em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.brand .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--mint);
+  box-shadow:0 0 10px var(--mint);
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+.clockbox{
+  font-family:'IBM Plex Mono',monospace;
+  text-align:right;
+  color:var(--paper);
+}
+.clockbox .time{font-size:clamp(20px,2.4vw,30px);font-weight:600;letter-spacing:0.02em;}
+.clockbox .date{font-size:clamp(10px,1vw,13px);color:var(--muted);text-transform:capitalize;}
+
+/* ===== STAGE ===== */
+.stage{
+  flex:1;
+  position:relative;
+  overflow:hidden;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  padding:clamp(28px,4vh,56px) clamp(28px,5vw,72px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .55s ease, transform .55s ease;
+  pointer-events:none;
+}
+.slide.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,1.05vw,14px);
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:clamp(10px,1.6vh,18px);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:'';
+  width:22px;height:2px;
+  background:var(--gold);
+  display:inline-block;
+}
+
+/* ===== SLIDE: META ===== */
+.goal-num{
+  font-family:'Big Shoulders Display',sans-serif;
+  font-weight:800;
+  font-size:clamp(56px,9vw,150px);
+  line-height:0.95;
+  color:var(--paper);
+}
+.goal-num .accent{color:var(--mint);}
+.goal-sub{
+  font-size:clamp(15px,1.5vw,20px);
+  color:var(--muted);
+  margin-top:8px;
+  max-width:700px;
+}
+.progress-wrap{
+  margin-top:clamp(24px,4vh,40px);
+  max-width:900px;
+}
+.progress-track{
+  height:22px;
+  border-radius:999px;
+  background:var(--panel);
+  border:1px solid var(--panel-line);
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--mint),var(--sky));
+  box-shadow:0 0 18px rgba(45,217,168,0.5);
+  width:0%;
+  transition:width 1.2s cubic-bezier(.2,.8,.2,1);
+}
+.progress-labels{
+  display:flex;justify-content:space-between;
+  margin-top:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,1vw,13px);
+  color:var(--muted);
+}
+.tiles-row{
+  display:flex;gap:clamp(14px,2vw,28px);
+  margin-top:clamp(24px,4vh,40px);
+  flex-wrap:wrap;
+}
+.tile{
+  background:var(--panel);
+  border:1px solid var(--panel-line);
+  border-radius:16px;
+  padding:clamp(16px,1.8vw,22px) clamp(20px,2.2vw,28px);
+  min-width:180px;
+}
+.tile .n{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:clamp(30px,3.4vw,46px);color:var(--gold);line-height:1;}
+.tile .l{font-size:clamp(12px,1vw,14px);color:var(--muted);margin-top:6px;}
+.clientes-lista{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:clamp(16px,2.4vh,24px);
+}
+.client-chip{
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:999px;padding:8px 18px;
+  font-size:clamp(12px,1.05vw,15px);font-weight:600;
+  color:var(--paper);
+}
+.client-chip::before{content:'✓ ';color:var(--mint);}
+
+/* ===== SLIDE: FUNIL ===== */
+.funnel-subtitle{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,1vw,13px);
+  color:var(--muted);
+  margin-top:-6px;
+  margin-bottom:clamp(20px,3vh,32px);
+}
+.funnel-single{max-width:960px;}
+.temp-tiles{display:flex;gap:16px;margin-bottom:clamp(24px,3.4vh,36px);max-width:520px;}
+.temp-tile{
+  flex:1;border-radius:14px;padding:16px 20px;
+  display:flex;flex-direction:column;gap:4px;
+  border:1px solid;
+}
+.temp-tile.quente{background:rgba(255,92,122,0.10);border-color:rgba(255,92,122,0.3);}
+.temp-tile.morno{background:rgba(255,182,39,0.10);border-color:rgba(255,182,39,0.3);}
+.temp-tile .temp-label{font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,0.95vw,13px);color:var(--muted);}
+.temp-tile .temp-total{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:clamp(26px,2.8vw,38px);}
+.temp-tile.quente .temp-total{color:var(--coral);}
+.temp-tile.morno .temp-total{color:var(--gold);}
+.temp-tile .temp-count{font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,0.85vw,12px);color:var(--muted);}
+.hot-title{font-size:clamp(13px,1.1vw,16px);color:var(--muted);margin-bottom:14px;}
+.deal-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;}
+.deal-card{
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:14px;padding:14px 18px;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+}
+.deal-card .name{font-weight:600;font-size:clamp(13px,1.05vw,15px);}
+.deal-card .val{font-family:'IBM Plex Mono',monospace;color:var(--mint);font-size:clamp(12px,0.95vw,14px);margin-top:2px;}
+.deal-card .stage-tag{color:var(--muted);font-size:clamp(10px,0.85vw,12px);margin-top:4px;}
+.temp{font-size:12px;padding:3px 9px;border-radius:999px;font-family:'IBM Plex Mono',monospace;flex-shrink:0;}
+.temp.quente{background:rgba(255,92,122,0.15);color:var(--coral);}
+.temp.morno{background:rgba(255,182,39,0.15);color:var(--gold);}
+.temp.frio{background:rgba(92,200,255,0.15);color:var(--sky);}
+
+/* ===== SLIDE: CELEBRATION ===== */
+.celebrate{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  justify-content:center;height:100%;position:relative;
+}
+.celebrate .badge{
+  font-size:clamp(40px,6vw,72px);
+  margin-bottom:10px;
+}
+.celebrate .headline{
+  font-family:'Big Shoulders Display',sans-serif;
+  font-weight:900;
+  font-size:clamp(38px,6.4vw,96px);
+  line-height:1.02;
+  max-width:1100px;
+}
+/* Razao social longa cabe encolhendo a manchete, nao quebrando em tres linhas
+   e empurrando o sino e os valores para fora da tela. O renderer escolhe a
+   faixa pelo tamanho do nome, entao vale para qualquer ativacao futura. */
+.celebrate .headline.medio{font-size:clamp(32px,4.9vw,74px);max-width:1180px;}
+.celebrate .headline.compacto{font-size:clamp(26px,3.7vw,56px);max-width:1240px;line-height:1.08;}
+.celebrate .headline .who{color:var(--gold);}
+.celebrate .sub{
+  margin-top:16px;
+  font-size:clamp(15px,1.6vw,22px);
+  color:var(--muted);
+}
+.celebrate .amount{
+  margin-top:clamp(20px,3vh,30px);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(20px,2.2vw,30px);
+  color:var(--mint);
+  border:1px solid rgba(45,217,168,0.35);
+  padding:10px 26px;border-radius:999px;
+  background:rgba(45,217,168,0.08);
+}
+/* O sino balança sozinho, como no slide do PowerPoint. */
+.celebrate .sino{
+  font-size:clamp(46px,7vw,86px);
+  transform-origin:50% 12%;
+  animation:sobe .7s cubic-bezier(.2,.8,.2,1) both, badalo 1.6s ease-in-out .7s 6;
+}
+@keyframes badalo{
+  0%,100%{transform:rotate(0deg);}
+  10%{transform:rotate(16deg);} 25%{transform:rotate(-13deg);}
+  40%{transform:rotate(9deg);}  55%{transform:rotate(-6deg);}
+  70%{transform:rotate(3deg);}  85%{transform:rotate(-1deg);}
+}
+/* Entradas em cascata: cada bloco sobe um pouquinho depois do anterior. */
+@keyframes sobe{ from{opacity:0;transform:translateY(26px);} to{opacity:1;transform:translateY(0);} }
+.celebrate .toca,
+.celebrate .headline,
+.celebrate .closer,
+.celebrate .cel-valores{ animation:sobe .7s cubic-bezier(.2,.8,.2,1) both; }
+.celebrate .toca{animation-delay:.15s;}
+.celebrate .headline{animation-delay:.3s;}
+.celebrate .closer{animation-delay:.5s;}
+.celebrate .cel-valores{animation-delay:.7s;}
+
+.celebrate .toca{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(13px,1.3vw,18px);
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-top:4px;
+}
+.celebrate .closer{
+  display:flex;align-items:center;gap:12px;
+  margin-top:clamp(16px,2.4vh,26px);
+  font-size:clamp(14px,1.4vw,20px);color:var(--muted);
+}
+.celebrate .closer b{color:var(--paper);font-weight:600;}
+.celebrate .closer .foto{
+  width:clamp(38px,3.6vw,50px);height:clamp(38px,3.6vw,50px);
+  border-radius:50%;overflow:hidden;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;color:#04121a;
+  font-size:clamp(14px,1.2vw,17px);
+}
+.celebrate .closer .foto img{width:100%;height:100%;object-fit:cover;}
+.fotos-ativacao{display:flex;flex-shrink:0;}
+.fotos-ativacao .foto{border:2px solid var(--ink);}
+.fotos-ativacao .foto:not(:first-child){margin-left:-12px;}
+.cel-valores{
+  display:flex;gap:clamp(12px,1.6vw,20px);flex-wrap:wrap;justify-content:center;
+  margin-top:clamp(20px,3vh,30px);
+}
+.cel-chip{
+  border-radius:16px;padding:clamp(12px,1.4vw,18px) clamp(20px,2.4vw,32px);
+  border:1px solid;display:flex;flex-direction:column;gap:4px;min-width:220px;
+}
+.cel-chip .rot{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(10px,0.9vw,12px);letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+.cel-chip .val{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(28px,3.2vw,46px);line-height:1;
+}
+.cel-chip.destaque{background:rgba(45,217,168,0.10);border-color:rgba(45,217,168,0.35);}
+.cel-chip.destaque .val{color:var(--mint);animation:pulsar 1.8s ease-in-out 1.2s 3;}
+.cel-chip.credito{background:rgba(255,182,39,0.08);border-color:rgba(255,182,39,0.3);}
+.cel-chip.credito .val{color:var(--gold);}
+@keyframes pulsar{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.07);} }
+
+.confetti{position:absolute;top:-20px;border-radius:2px;opacity:0.9;animation:fall linear infinite;}
+@keyframes fall{
+  0%{transform:translateY(-40px) rotate(0deg);}
+  100%{transform:translateY(115vh) rotate(360deg);}
+}
+
+/* ===== SLIDE: EVENTO (Vixtra Talks) ===== */
+.evento-topo{display:flex;align-items:baseline;gap:clamp(16px,2.4vw,30px);flex-wrap:wrap;}
+.evento-num{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:900;
+  font-size:clamp(56px,8vw,128px);line-height:0.95;color:var(--gold);
+}
+.evento-topo .oque{font-size:clamp(16px,1.7vw,24px);line-height:1.25;max-width:640px;}
+.evento-topo .oque b{color:var(--paper);}
+.evento-sub{color:var(--muted);font-size:clamp(13px,1.15vw,17px);margin-top:6px;}
+.evento-corpo{
+  display:flex;gap:clamp(24px,4vw,56px);align-items:center;flex-wrap:wrap;
+  margin-top:clamp(20px,3vh,32px);
+}
+.evento-campeao{display:flex;align-items:center;gap:clamp(16px,2.4vw,28px);}
+/* O .avatar-big so tinha tamanho dentro de .spotlight; fora dali a foto saia no
+   tamanho original e engolia o slide inteiro. */
+.evento-campeao .avatar-big{
+  width:clamp(96px,11vw,150px);height:clamp(96px,11vw,150px);
+  border-radius:24px;flex-shrink:0;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg, var(--sky), var(--mint));
+  font-family:'Big Shoulders Display',sans-serif;font-weight:900;
+  font-size:clamp(34px,3.6vw,52px);color:#04121a;
+}
+.evento-campeao .avatar-big img{width:100%;height:100%;object-fit:cover;}
+.evento-campeao .rotulo{
+  font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,0.95vw,13px);
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);
+}
+.evento-campeao .nome{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(28px,3.4vw,50px);line-height:1.05;
+}
+.evento-campeao .feito{color:var(--muted);font-size:clamp(13px,1.1vw,16px);margin-top:6px;max-width:340px;line-height:1.4;}
+.evento-premio{
+  display:inline-block;margin-top:12px;
+  background:rgba(255,182,39,0.10);border:1px solid rgba(255,182,39,0.3);
+  color:var(--gold);border-radius:999px;padding:7px 16px;
+  font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1vw,14px);
+}
+.podio{display:flex;flex-direction:column;gap:10px;flex:1;min-width:300px;}
+.podio-linha{
+  display:flex;align-items:center;gap:12px;
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:14px;padding:10px 16px;
+}
+.podio-linha .medalha{font-size:clamp(20px,1.9vw,26px);flex-shrink:0;}
+.podio-linha .nome{flex:1;font-weight:600;font-size:clamp(13px,1.15vw,16px);}
+.podio-linha .quantos{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(16px,1.5vw,21px);color:var(--gold);flex-shrink:0;
+}
+.podio-linha .quantos span{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:0.62em;color:var(--muted);margin-left:5px;}
+
+/* ===== SLIDE: BIRTHDAYS ===== */
+.grid-people{
+  display:flex;gap:clamp(16px,2.4vw,28px);flex-wrap:wrap;margin-top:8px;
+}
+.person-card{
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:18px;padding:clamp(18px,2vw,26px);
+  width:clamp(170px,18vw,220px);
+  text-align:center;
+}
+.avatar{
+  width:clamp(56px,6vw,76px);height:clamp(56px,6vw,76px);
+  border-radius:50%;
+  margin:0 auto 14px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Big Shoulders Display',sans-serif;
+  font-weight:800;font-size:clamp(20px,2.2vw,28px);
+  color:#04121a;
+  overflow:hidden;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+.person-card .name{font-weight:600;font-size:clamp(14px,1.1vw,17px);}
+.person-card .date{color:var(--muted);font-size:clamp(12px,0.95vw,14px);margin-top:4px;font-family:'IBM Plex Mono',monospace;}
+
+/* ===== SLIDE: ANIVERSÁRIOS DE CASA ===== */
+.anniv-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(280px,1fr));
+  gap:10px 28px;
+  max-width:920px;
+}
+.anniv-row{
+  display:flex;align-items:center;gap:12px;
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:12px;padding:12px 16px;
+}
+.anniv-avatar{
+  width:clamp(30px,2.8vw,38px);height:clamp(30px,2.8vw,38px);
+  border-radius:50%;flex-shrink:0;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(11px,1vw,13px);color:#04121a;
+}
+.anniv-avatar img{width:100%;height:100%;object-fit:cover;}
+.anniv-name{font-weight:600;font-size:clamp(13px,1.1vw,15px);flex:1;}
+.anniv-years{
+  color:var(--gold);font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,0.95vw,13px);white-space:nowrap;
+}
+.anniv-date{
+  color:var(--muted);font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,0.95vw,13px);white-space:nowrap;
+}
+
+/* ===== SLIDE: NEW HIRE ===== */
+.spotlight{
+  display:flex;align-items:center;gap:clamp(28px,5vw,64px);
+}
+.spotlight .avatar-big{
+  width:clamp(120px,14vw,200px);height:clamp(120px,14vw,200px);
+  border-radius:28px;
+  background:linear-gradient(135deg, var(--sky), var(--mint));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Big Shoulders Display',sans-serif;
+  font-weight:900;font-size:clamp(44px,5vw,72px);
+  color:#04121a;flex-shrink:0;
+  overflow:hidden;
+}
+.spotlight .avatar-big img{width:100%;height:100%;object-fit:cover;}
+.spotlight .role{
+  font-family:'IBM Plex Mono',monospace;color:var(--mint);
+  font-size:clamp(13px,1.1vw,16px);margin-top:6px;
+}
+.spotlight .quote{
+  margin-top:16px;font-size:clamp(15px,1.5vw,20px);
+  color:var(--muted);max-width:560px;font-style:italic;
+}
+.spotlight .fato{
+  margin-top:14px;font-size:clamp(14px,1.35vw,19px);
+  color:var(--muted);max-width:620px;line-height:1.45;
+}
+.spotlight .fato b{color:var(--paper);font-weight:600;}
+
+/* ===== SLIDE: NEWS ===== */
+.news-row{display:flex;gap:clamp(16px,2.2vw,26px);flex-wrap:wrap;}
+.news-card{
+  flex:1;min-width:260px;
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:18px;padding:clamp(20px,2.2vw,26px);
+}
+.news-tag{
+  display:inline-block;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:999px;margin-bottom:14px;
+}
+.news-tag.produto{background:rgba(92,200,255,0.15);color:var(--sky);}
+.news-tag.imprensa{background:rgba(255,182,39,0.15);color:var(--gold);}
+.news-tag.parceria{background:rgba(45,217,168,0.15);color:var(--mint);}
+.news-tag.credito{background:rgba(255,92,122,0.15);color:var(--coral);}
+.news-tag.aviso{background:rgba(155,140,255,0.15);color:#9B8CFF;}
+.news-card h3{font-size:clamp(17px,1.5vw,21px);line-height:1.25;margin-bottom:8px;}
+.news-card p{color:var(--muted);font-size:clamp(13px,1.05vw,15px);line-height:1.45;}
+.news-tag.evento{background:rgba(45,217,168,0.15);color:var(--mint);}
+.news-lista{display:flex;flex-direction:column;gap:10px;}
+.news-lista .linha{display:flex;gap:10px;align-items:baseline;}
+.news-lista .quando{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  font-size:clamp(12px,1vw,14px);color:var(--gold);flex-shrink:0;
+}
+.news-lista .oque{color:var(--muted);font-size:clamp(13px,1.05vw,15px);line-height:1.4;}
+
+/* ===== SLIDE: WEATHER ===== */
+.weather-wrap{display:flex;gap:clamp(32px,6vw,80px);flex-wrap:wrap;align-items:center;}
+.weather-main .city{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:clamp(13px,1.1vw,16px);}
+.weather-main .temp{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(70px,9vw,140px);line-height:1;display:flex;align-items:flex-start;gap:10px;
+}
+.weather-main .temp span.ico{font-size:0.5em;}
+.weather-main .cond{font-size:clamp(15px,1.4vw,19px);color:var(--paper);}
+.traffic-col{flex:1;min-width:280px;}
+.rodizio-tag{
+  display:inline-block;
+  background:rgba(255,182,39,0.12);border:1px solid rgba(255,182,39,0.3);
+  color:var(--gold);font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,1vw,13px);
+  padding:6px 14px;border-radius:999px;
+  margin-bottom:16px;
+}
+.traffic-title{color:var(--muted);font-size:clamp(13px,1.1vw,16px);margin-bottom:14px;}
+.route{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--panel-line);
+}
+.route:last-child{border-bottom:none;}
+.route .led{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.led.ok{background:var(--mint);box-shadow:0 0 8px var(--mint);}
+.led.mid{background:var(--gold);box-shadow:0 0 8px var(--gold);}
+.led.bad{background:var(--coral);box-shadow:0 0 8px var(--coral);}
+.route .rname{font-weight:600;font-size:clamp(13px,1.05vw,15px);}
+.route .rstatus{color:var(--muted);font-size:clamp(12px,0.95vw,13px);margin-left:auto;font-family:'IBM Plex Mono',monospace;}
+
+/* ===== SLIDE: EVOLUÇÃO DA CARTEIRA ===== */
+.wallet-top{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:clamp(14px,2vh,20px);}
+.wallet-value{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(40px,6vw,84px);line-height:1;color:var(--paper);
+}
+.wallet-change{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  font-size:clamp(14px,1.3vw,18px);
+  padding:5px 14px;border-radius:999px;
+}
+.wallet-change.up{background:rgba(45,217,168,0.12);color:var(--mint);}
+.wallet-change.down{background:rgba(255,92,122,0.12);color:var(--coral);}
+.wallet-metas{
+  display:flex;gap:clamp(10px,1.2vw,16px);flex-wrap:wrap;
+  margin:-4px 0 clamp(12px,1.8vh,18px);
+}
+.wallet-chip{
+  display:flex;flex-direction:column;gap:2px;
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:12px;padding:8px clamp(12px,1.3vw,18px);
+}
+.wallet-chip .rot{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(9px,0.8vw,11px);letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--muted);
+}
+.wallet-chip .val{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(20px,2vw,30px);line-height:1;color:var(--paper);
+}
+.wallet-chip.alvo .val{color:var(--sky);}
+.wallet-chip.falta .val{color:var(--gold);}
+.wallet-chip.batida .val{color:var(--mint);}
+.wallet-chart{width:100%;max-width:1000px;}
+.wallet-svg{width:100%;height:clamp(220px,34vh,320px);display:block;}
+.wallet-source{margin-top:10px;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,0.9vw,12px);}
+
+/* ===== SLIDE: RANKING (divisões) ===== */
+.division-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+  gap:clamp(14px,1.8vw,20px);
+}
+.division-card{
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:16px;padding:clamp(14px,1.6vw,20px);
+}
+.division-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,1vw,13px);
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.division-title::before{content:'';width:14px;height:2px;background:var(--gold);display:inline-block;}
+.mini-row{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 0;
+  border-top:1px solid var(--panel-line);
+}
+.mini-row:first-of-type{border-top:none;}
+.mini-pos{
+  width:20px;flex-shrink:0;text-align:center;
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(14px,1.3vw,17px);color:var(--muted);
+}
+.mini-avatar{
+  width:clamp(28px,2.6vw,34px);height:clamp(28px,2.6vw,34px);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(11px,1vw,13px);color:#04121a;
+  overflow:hidden;
+}
+.mini-avatar img{width:100%;height:100%;object-fit:cover;}
+.mini-avatar-group{display:flex;flex-shrink:0;}
+.mini-avatar-group .mini-avatar.stacked{
+  border:2px solid var(--panel);
+}
+.mini-avatar-group .mini-avatar.stacked:not(:first-child){
+  margin-left:-10px;
+}
+.mini-info{flex:1;min-width:0;}
+.mini-info .name{font-weight:600;font-size:clamp(12px,1.05vw,14px);}
+.mini-info .meta{color:var(--muted);font-size:clamp(10px,0.85vw,11px);font-family:'IBM Plex Mono',monospace;}
+.mini-value{
+  flex-shrink:0;text-align:right;max-width:55%;
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(13px,1.2vw,16px);color:var(--gold);line-height:1.15;
+}
+.div-metrics{
+  margin-top:10px;padding-top:10px;
+  border-top:1px solid var(--panel-line);
+  display:flex;flex-direction:column;gap:7px;
+}
+.div-metric{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+.div-metric .v{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(15px,1.4vw,19px);color:var(--gold);
+}
+.div-metric .l{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(10px,0.85vw,11px);color:var(--muted);
+  text-align:right;
+}
+.division-empty{
+  color:var(--muted);font-style:italic;
+  font-size:clamp(12px,1.05vw,14px);
+  padding:10px 0;
+}
+.team-metric{
+  margin-top:10px; padding-top:10px;
+  border-top:1px solid var(--panel-line);
+  color:var(--muted); font-size:clamp(11px,0.95vw,13px);
+  font-family:'IBM Plex Mono',monospace;
+}
+.team-metric-value{
+  color:var(--gold); font-weight:700;
+  font-family:'Big Shoulders Display',sans-serif;
+  font-size:clamp(16px,1.6vw,20px);
+  margin-right:4px;
+}
+
+/* ===== SLIDE: CURRENCY ===== */
+.curr-row{display:flex;gap:clamp(14px,2vw,26px);flex-wrap:wrap;}
+.curr-card{
+  flex:1;min-width:200px;
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:18px;padding:clamp(18px,2vw,26px);
+}
+.curr-card .pair{
+  display:flex;align-items:center;gap:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(12px,1vw,14px);color:var(--muted);
+  text-transform:uppercase;letter-spacing:0.08em;
+}
+.curr-card .flag{font-size:1.3em;}
+.curr-card .val{
+  font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:clamp(32px,3.4vw,50px);line-height:1.05;margin-top:6px;
+}
+.curr-card .var{
+  margin-top:6px;font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(12px,1vw,14px);font-weight:600;
+  display:flex;align-items:center;gap:5px;
+}
+.curr-card .var.up{color:var(--mint);}
+.curr-card .var.down{color:var(--coral);}
+.curr-updated{
+  margin-top:clamp(18px,2.6vh,26px);
+  color:var(--muted);font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(11px,0.95vw,13px);
+}
+
+/* ===== BOTTOM: TICKER + DOTS ===== */
+.bottom{
+  flex-shrink:0;
+  border-top:1px solid var(--panel-line);
+}
+.progressbar{height:3px;background:var(--panel);position:relative;overflow:hidden;}
+.progressbar .fill{
+  position:absolute;left:0;top:0;bottom:0;width:0%;
+  background:linear-gradient(90deg,var(--gold),var(--coral));
+}
+.progressbar .fill.animate{animation-name:fillup;animation-timing-function:linear;}
+@keyframes fillup{from{width:0%;}to{width:100%;}}
+
+.ticker-wrap{
+  display:flex;align-items:center;gap:16px;
+  padding:10px clamp(20px,3vw,48px);
+  background:var(--ink-2);
+}
+.ticker-label{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--ink);background:var(--gold);
+  padding:3px 10px;border-radius:6px;font-weight:600;
+  letter-spacing:0.08em;flex-shrink:0;
+}
+.ticker-track{overflow:hidden;flex:1;position:relative;height:22px;}
+.ticker-move{
+  position:absolute;white-space:nowrap;
+  font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1vw,14px);
+  color:var(--paper);
+  animation:scroll-left 55s linear infinite;
+}
+.ticker-move span{margin-right:48px;color:var(--muted);}
+.ticker-move span b{color:var(--paper);font-weight:600;}
+@keyframes scroll-left{
+  from{transform:translateX(100%);}
+  to{transform:translateX(-100%);}
+}
+
+.dots{
+  display:flex;justify-content:center;gap:9px;
+  padding:8px 0 12px;
+}
+.dot-btn{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--panel-line);border:none;cursor:pointer;
+  transition:background .3s, transform .3s;
+}
+.dot-btn.on{background:var(--gold);transform:scale(1.3);}
+
+@media (max-width:720px){
+  .spotlight{flex-direction:column;text-align:center;}
+  .weather-wrap{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<div class="tv">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> TV Comercial · Ao vivo</div>
+    <div class="clockbox">
+      <div class="time" id="clockTime">--:--</div>
+      <div class="date" id="clockDate">—</div>
+    </div>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="bottom">
+    <div class="progressbar"><div class="fill" id="progFill"></div></div>
+    <div class="ticker-wrap">
+      <div class="ticker-label">AGORA</div>
+      <div class="ticker-track">
+        <div class="ticker-move" id="tickerMove"></div>
+      </div>
+    </div>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<script>
+// ---------- MÊS VIGENTE (calculado a partir da data real — nunca precisa editar na mão) ----------
+function mesAtual(){
+  const nome = new Date().toLocaleDateString('pt-BR', {month:'long', timeZone:'America/Sao_Paulo'});
+  return nome.charAt(0).toUpperCase() + nome.slice(1);
+}
+
+// ---------- DADOS PADRÃO (usados na primeira carga; depois disso, o storage manda) ----------
+const DEFAULT_SLIDES = [
+  {
+    type:'goal', duration:20000,
+    eyebrow:'Progresso da meta', showMonth:true,
+    metaValor: 20000000,
+    atual: 1993607.39,
+    clientesAtivados: 4,
+    clientesLista:['Texol Brasil','Daisan-Caracol','Minimal Club','Alic/Harvest']
+  },
+  {
+    type:'funnel', duration:20000,
+    eyebrow:'Pipeline de closing', showMonth:true,
+    subtitle:'Proposta em aprovação · Abertura de conta · Aguardando ativação',
+    quenteTotal: 21297391,
+    mornoTotal: 2252609,
+    top3:[
+      {name:'Integralmedica', value:5000000, temp:'quente', owner:'Carolina Andrade'},
+      {name:'Aço Cearense', value:5000000, temp:'quente', owner:'Jarbas Vinícius'},
+      {name:'Azul Pack', value:5000000, temp:'quente', owner:'Jarbas Vinícius'},
+    ]
+  },
+  {
+    type:'wallet', duration:20000,
+    eyebrow:'Evolução da carteira · Últimos 30 dias',
+    source:'Fonte: CR2',
+    current: 229273554.83,
+    pctChange: 1.41,
+    series:[
+      {t:'21/07', v:226076920.77},{t:'22/07', v:227352798.64},{t:'23/07', v:224850891.79},
+      {t:'24/07', v:223323359.54},{t:'25/07', v:223323359.54},{t:'26/07', v:223323359.54},
+      {t:'27/07', v:223154115.24},{t:'28/07', v:222835063.91},{t:'29/07', v:220911182.79},
+      {t:'30/07', v:224637017.36},{t:'31/07', v:225251786.43},{t:'01/08', v:225251786.43},
+      {t:'02/08', v:225251786.43},{t:'03/08', v:224378463.02},{t:'04/08', v:224817574.67},
+      {t:'05/08', v:226113709.18},{t:'06/08', v:229976893.21},{t:'07/08', v:228857090.18},
+      {t:'08/08', v:225871069.57},{t:'09/08', v:225871069.57},{t:'10/08', v:225093014.83},
+      {t:'11/08', v:225093014.83},{t:'12/08', v:225257802.79},{t:'13/08', v:225275966.26},
+      {t:'14/08', v:223826940.44},{t:'15/08', v:223826940.44},{t:'16/08', v:223826940.44},
+      {t:'17/08', v:226414451.79},{t:'18/08', v:227480323.29},{t:'19/08', v:229273554.83},
+      {t:'20/08', v:229273554.83},
+    ]
+  },
+  {
+    type:'ranking', duration:18000,
+    eyebrow:'Desempenho dos Vendedores', showMonth:true,
+    divisions:[
+      {name:'Closing', sellers:[
+        {name:'Guilherme Belotto', deals:1, value:500000, color:'var(--gold)', photo:'https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_original.jpg'},
+        {name:'Kaio Oliveira', deals:1, value:707704, color:'var(--sky)', photo:'https://avatars.slack-edge.com/2024-10-22/7905267593719_af4e22e63399aa29662c_original.jpg'},
+        {name:'Fernando Velloso', deals:2, value:785903.39, color:'var(--mint)', photo:'https://avatars.slack-edge.com/2026-01-07/10260861435825_5aa6805d8f0441b16542_original.jpg'},
+      ]},
+      {name:'Parcerias · Hunting', sellers:[
+        {name:'Matheus Ferreira', oportunidades:5, color:'var(--coral)', photo:'https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_original.jpg'},
+      ]},
+      {name:'Parcerias · Farming', sellers:[
+        {name:'Matheus Ferreira', oportunidades:6, color:'var(--coral)', photo:'https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_original.jpg'},
+        {name:'Julia Porto', oportunidades:4, color:'#9B8CFF', photo:'https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_original.png'},
+      ]},
+    ]
+  },
+  {
+    type:'ranking', duration:18000,
+    eyebrow:'Desempenho dos Vendedores', showMonth:true,
+    divisions:[
+      {name:'Onboarding e Retargeting', sellers:[
+        {name:'Gal Silva', oportunidades:2, color:'var(--mint)', photo:'https://avatars.slack-edge.com/2026-07-28/11697637910849_01bfbadc9b3b85d6a7ed_original.jpg'},
+      ]},
+      {name:'Frete', sellers:[
+        {name:'Luciana Turisco', oportunidades:6, metricLabel:'embarques confirmados', color:'var(--sky)', photo:'https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_original.png'},
+      ]},
+      {name:'Câmbio', sellers:[
+        {oportunidades:9, metricLabel:'solicitações', people:[
+          {name:'Julia Guimarães', color:'#9B8CFF', photo:'https://avatars.slack-edge.com/2026-05-05/11047051384311_1378438d2118923bfc6a_original.png'},
+          {name:'Gabriella Machado', color:'var(--coral)', photo:'https://avatars.slack-edge.com/2026-07-27/11687535000724_2923bf06d7522c503630_original.png'},
+        ]},
+      ]},
+    ]
+  },
+  {
+    type:'celebration', duration:16000,
+    eyebrow:'Novo cliente ativado',
+    who:'Fernando Velloso', client:'Daisan-Caracol',
+    amount:'R$ 419.147,26',
+    postedAt:'2026-08-11T14:23:32-03:00'
+  },
+  {
+    type:'birthdays', duration:16000,
+    eyebrow:'Aniversariantes do mês',
+    people:[
+      {name:'Amanda Mazaro', date:'05/08', color:'var(--sky)', photo:'https://avatars.slack-edge.com/2024-08-05/7530915763364_1f304a8a553e207112b7_original.png'},
+      {name:'Mari Costa', date:'09/08', color:'var(--mint)', photo:'https://avatars.slack-edge.com/2026-07-28/11692688417638_8f84941ae122828ef7f4_original.jpg'},
+      {name:'Geovane Santos', date:'25/08', color:'var(--coral)', photo:'https://avatars.slack-edge.com/2026-08-05/11782965622496_812fb1c4d6c98ac4321d_original.jpg'},
+    ]
+  },
+  {
+    type:'companyAnniv', duration:18000,
+    eyebrow:'Aniversários de casa', showMonth:true,
+    people:[
+      {name:'Guilherme Machado', years:5, date:'02/08', color:'var(--gold)', photo:'https://avatars.slack-edge.com/2024-03-12/6787932592484_7ee6f51be14cb5b801ac_original.png'},
+      {name:'Amanda Pczbiowski', years:1, date:'04/08', color:'var(--sky)', photo:'https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png'},
+      {name:'Amanda Mazaro', years:2, date:'05/08', color:'var(--mint)', photo:'https://avatars.slack-edge.com/2024-08-05/7530915763364_1f304a8a553e207112b7_original.png'},
+      {name:'Hellen Almeida', years:2, date:'12/08', color:'var(--coral)', photo:'https://avatars.slack-edge.com/2025-10-20/9730248410194_2c7cb544b4c8c767ee26_original.jpg'},
+      {name:'Henrique', years:1, date:'18/08', color:'var(--sky)', photo:'https://avatars.slack-edge.com/2025-09-09/9502062326209_c7771d5cdd8bad3b05d3_original.jpg'},
+      {name:'Isabela Matias', years:2, date:'18/08', color:'#9B8CFF', photo:'https://avatars.slack-edge.com/2026-04-19/10947235481174_1f89712eb20354c0ffd9_original.png'},
+      {name:'Daniela', years:2, date:'19/08', color:'var(--gold)', photo:'https://avatars.slack-edge.com/2024-08-19/7595966490994_de4cdf9ddfbfcc97603a_original.jpg'},
+      {name:'Julia Dioti', years:1, date:'25/08', color:'var(--mint)', photo:'https://avatars.slack-edge.com/2026-07-28/11693549950178_ed3bdb44a5405c5dd226_original.jpg'},
+    ]
+  },
+  {
+    type:'newhire', duration:16000,
+    eyebrow:'Novo talento no time',
+    name:'Luana Pereira',
+    role:'Senior Commercial Analyst | Retarget',
+    quote:'“Apaixonada por documentários de true crime e sempre pronta para um futevôlei. Bora dar as boas-vindas!”',
+    joined:'Chegou em 18/08',
+    joinedAt:'2026-08-18',
+    photo:'https://avatars.slack-edge.com/2026-08-19/11865286922692_3a6276ee1ea85a9ae9be_original.jpg'
+  },
+  {
+    type:'news', duration:16000,
+    eyebrow:'Novidades da empresa',
+    items:[
+      {tag:'credito', title:'Crédito aprovado bate R$ 10,50M no mês', text:'Reflete direto no ritmo de fechamento do mês.'},
+      {tag:'aviso', title:'Uso das salas Itajaí, Shanghai e Santos', text:'Priorizadas para reuniões com 2+ pessoas. Reserva somente pela plataforma Control Room.'},
+    ]
+  },
+  {
+    type:'weather', duration:18000,
+    eyebrow:'Clima e trânsito',
+    city:'São Paulo, SP',
+    lat:-23.5505, lon:-46.6333,
+    temp:'23°C', cond:'Parcialmente nublado', icon:'⛅',
+    updatedAt:'—',
+    rodizio:'Placas final 7 e 8',
+    trafficUpdatedAt:'20/08/2026 (fonte: CET-SP)',
+    traffic:[
+      {name:'Oeste', km:151, pct:32, level:'bad'},
+      {name:'Sul', km:122, pct:26, level:'bad'},
+      {name:'Leste', km:89, pct:19, level:'mid'},
+      {name:'Centro', km:58, pct:12, level:'ok'},
+      {name:'Norte', km:50, pct:11, level:'ok'},
+    ]
+  },
+  {
+    type:'currency', duration:16000,
+    eyebrow:'Cotação de moedas',
+    updatedAt:'—',
+    list:[
+      {code:'USD', name:'Dólar americano', flag:'🇺🇸', value:5.40, pct:0.32},
+      {code:'EUR', name:'Euro', flag:'🇪🇺', value:5.86, pct:-0.18},
+      {code:'GBP', name:'Libra esterlina', flag:'🇬🇧', value:6.81, pct:0.05},
+      {code:'USDT', name:'Tether', flag:'₮', value:5.42, pct:0.04},
+      {code:'USDC', name:'USD Coin', flag:'Ⓤ', value:5.41, pct:0.02},
+      {code:'BTC', name:'Bitcoin', flag:'₿', value:352000, pct:-1.24},
+    ]
+  },
+];
+
+/* ==========================================================================
+   COMO FUNCIONAM AS ATUALIZAÇÕES DESTE PAINEL — LEIA ANTES DE PUBLICAR
+   ==========================================================================
+   Os dados de conteúdo (meta, pipeline, vendedores, aniversários etc.) estão
+   hoje fixos no array DEFAULT_SLIDES logo abaixo. Isso é só o ponto de
+   partida — a ideia é que, ao publicar este painel de verdade, vocês
+   substituam a função loadSlidesFromSource() para buscar os dados de uma
+   fonte externa em vez do array fixo. Assim, atualizar o painel vira só
+   editar essa fonte de dados — sem tocar neste arquivo HTML nunca mais.
+
+   Opções de fonte de dados, da mais simples para a mais robusta:
+
+   1) Um arquivo data.json hospedado junto com este HTML, editado direto
+      pela interface web do GitHub (ou qualquer host estático). Exemplo:
+
+        const DATA_URL = 'data.json';
+        async function loadSlidesFromSource(){
+          try{
+            const res = await fetch(DATA_URL + '?t=' + Date.now()); // evita cache
+            if(!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            if(Array.isArray(data) && data.length) return data;
+          }catch(e){ console.warn('Falha ao buscar dados:', e); }
+          return null;
+        }
+
+   2) Uma planilha do Google Sheets publicada como JSON (via serviços como
+      Sheety, SheetDB ou um Apps Script simples) — bom se quem atualiza os
+      números prefere trabalhar em planilha em vez de editar JSON direto.
+
+   3) Um endpoint de API própria (backend do time de dados/engenharia),
+      integrando direto com HubSpot/CRM/CET-SP/CR2 e automatizando tudo.
+
+   Em qualquer um dos casos, a função loadSlidesFromSource() abaixo é o
+   ÚNICO lugar que precisa mudar. O resto do painel (rotação, layout,
+   cálculo de mês vigente, expiração automática de slides etc.) já funciona
+   sozinho a partir do array retornado, desde que ele siga o mesmo formato
+   do DEFAULT_SLIDES.
+   ========================================================================== */
+
+// ---------- REGRAS DE EXPIRAÇÃO AUTOMÁTICA ----------
+// Celebração de ativação: 24h após a postagem, e some. Para deixar mais tempo,
+// ponha "diasVisivel" no slide dentro do data.json (7 = uma semana).
+// Novo talento: fica visível por 30 dias após a chegada, depois some.
+// Dá para mudar caso a caso pondo "diasVisivel" no slide dentro do data.json.
+function isSlideActive(s){
+  const now = new Date();
+  // Qualquer slide pode trazer "visivelAte" (data ISO) e sair de cena sozinho.
+  if(s.visivelAte && now > new Date(s.visivelAte + 'T23:59:59-03:00')) return false;
+  if(s.type==='celebration' && s.postedAt){
+    const horasDesde = (now - new Date(s.postedAt)) / (1000*60*60);
+    return horasDesde <= (s.diasVisivel || 1) * 24;
+  }
+  if(s.type==='newhire' && s.joinedAt){
+    const daysSince = (now - new Date(s.joinedAt+'T00:00:00-03:00')) / (1000*60*60*24);
+    return daysSince <= (s.diasVisivel || 30);
+  }
+  return true;
+}
+
+// ---------- O PAINEL SE ATUALIZA SOZINHO ----------
+// A TV fica dias com a mesma aba aberta. O data.json ela rebusca de 2 em 2
+// minutos, mas o index.html fica no cache do navegador — então dava para a TV
+// rodar código velho em cima de dados novos. Foi exatamente o que aconteceu
+// quando o rodízio passou a ser calculado aqui dentro: quem estava com a
+// página em cache simplesmente parou de ver o rodízio, sem nenhum aviso.
+//
+// Daqui em diante o painel confere de 5 em 5 minutos se saiu versão nova do
+// próprio arquivo e se recarrega sozinho quando sai.
+//
+// IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
+// avisa às telas abertas que existe coisa nova.
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-19-01';
+
+async function conferirVersaoDoPainel(){
+  try{
+    const res = await fetch('index.html?t=' + Date.now(), { cache: 'no-store' });
+    if(!res.ok) return;
+    const texto = await res.text();
+    const m = texto.match(/versao-do-painel \*\/ '([^']+)'/);
+    if(m && m[1] !== VERSAO_PAINEL){
+      console.info('Versão nova do painel (' + m[1] + '). Recarregando.');
+      location.reload();
+    }
+  }catch(e){ /* sem rede agora; tenta de novo no próximo ciclo */ }
+}
+setInterval(conferirVersaoDoPainel, 5*60*1000);
+
+// ---------- FONTE DE DADOS (troque aqui para conectar a uma fonte real — ver bloco de comentários acima) ----------
+const DATA_URL = 'data.json';
+async function loadSlidesFromSource(){
+  try{
+    const res = await fetch(DATA_URL + '?t=' + Date.now());
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if(Array.isArray(data) && data.length) return data;
+  }catch(e){ console.warn('Falha ao buscar data.json:', e); }
+  return null;
+}
+
+let allSlides = DEFAULT_SLIDES;
+let slides = allSlides.filter(isSlideActive);
+if(slides.length===0) slides = allSlides; // salvaguarda: nunca deixar a rotação vazia
+
+function applyNewData(newAllSlides){
+  allSlides = newAllSlides;
+  slides = allSlides.filter(isSlideActive);
+  if(slides.length===0) slides = allSlides;
+  if(current >= slides.length) current = 0;
+}
+
+const fmtBRL = n => n.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0});
+
+function fmtCompactM(n){
+  return `R$ ${(n/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})}M`;
+}
+
+function buildWalletSVG(series){
+  const W=1000, H=280, padL=58, padR=58, padT=44, padB=34;
+  const plotW = W-padL-padR, plotH = H-padT-padB;
+  const values = series.map(p=>p.v);
+  const min = Math.min(...values), max = Math.max(...values);
+  const range = (max-min) || 1;
+  const stepX = plotW/(series.length-1);
+  const pts = series.map((p,i)=>({
+    x: padL + i*stepX,
+    y: padT + (max-p.v)/range*plotH,
+    ...p
+  }));
+  const linePath = pts.map((p,i)=>(i===0?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ');
+  const baseline = (padT+plotH).toFixed(1);
+  const areaPath = `${linePath} L ${pts[pts.length-1].x.toFixed(1)},${baseline} L ${pts[0].x.toFixed(1)},${baseline} Z`;
+  const last = pts[pts.length-1];
+  const labelEvery = 5;
+  const labeled = pts.filter((p,i)=> i%labelEvery===0 || i===pts.length-1);
+  return `
+    <svg viewBox="0 0 ${W} ${H}" class="wallet-svg" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="walletGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--mint)" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="var(--mint)" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="${areaPath}" fill="url(#walletGrad)" stroke="none"/>
+      <path d="${linePath}" fill="none" stroke="var(--mint)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      ${labeled.map(p=>`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p===last?6:4}" fill="${p===last?'var(--mint)':'var(--ink)'}" stroke="var(--mint)" stroke-width="2"/>`).join('')}
+      ${labeled.map(p=>`<text x="${p.x.toFixed(1)}" y="${Math.max(16,p.y-14).toFixed(1)}" font-size="15" font-weight="600" fill="var(--paper)" text-anchor="middle" font-family="'IBM Plex Mono', monospace">${fmtCompactM(p.v)}</text>`).join('')}
+      ${labeled.map(p=>`<text x="${p.x.toFixed(1)}" y="${H-8}" font-size="16" fill="var(--muted)" text-anchor="middle" font-family="'IBM Plex Mono', monospace">${p.t}</text>`).join('')}
+    </svg>`;
+}
+
+// O rodízio é regra fixa, não notícia: segunda 1 e 2, terça 3 e 4, quarta 5 e 6,
+// quinta 7 e 8, sexta 9 e 0, e não vale no fim de semana. Antes vinha raspado
+// do site da CET junto com a lentidão, e bastava a página vir de cache para a
+// TV anunciar o rodízio do dia anterior. Calculado aqui, sempre acompanha o dia
+// que a TV está mostrando.
+// Observação: feriados suspendem o rodízio, e isso esta conta não sabe.
+function rodizioDeHoje(){
+  const hoje = new Date(new Date().toLocaleString('en-US',{timeZone:'America/Sao_Paulo'}));
+  const finais = {1:'1 e 2', 2:'3 e 4', 3:'5 e 6', 4:'7 e 8', 5:'9 e 0'};
+  const f = finais[hoje.getDay()];
+  return f ? `Placas final ${f}` : 'Sem rodízio no fim de semana';
+}
+
+function eyebrowText(s){
+  return s.showMonth ? `${s.eyebrow} · ${mesAtual()}` : s.eyebrow;
+}
+
+function renderSlide(s){
+  if(s.type==='goal'){
+    // Meta do mes ainda nao definida: mostrar o que ja foi ativado sem
+    // inventar um percentual (0/0 virava "NaN%" na tela).
+    if(!s.metaValor){
+      return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="goal-num" style="font-size:clamp(28px,3.4vw,46px)">Meta do mês a definir</div>
+      <div class="goal-sub">assim que a meta for fechada, a barra de progresso volta</div>
+      <div class="tiles-row">
+        <div class="tile"><div class="n">${fmtBRL(s.atual||0)}</div><div class="l">Valor ativado</div></div>
+        <div class="tile"><div class="n">${s.clientesAtivados||0}</div><div class="l">Clientes ativados</div></div>
+      </div>
+      <div class="clientes-lista">
+        ${(s.clientesLista||[]).map(c=>`<span class="client-chip">${c}</span>`).join('')}
+      </div>`;
+    }
+    const pct = Math.round((s.atual/s.metaValor)*100);
+    const falta = s.metaValor - s.atual;
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="goal-num">${pct}<span class="accent">%</span></div>
+      <div class="goal-sub">da meta do time atingida — faltam <b style="color:var(--paper)">${fmtBRL(falta)}</b> para bater o mês</div>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="progress-labels"><span>${fmtBRL(s.atual)}</span><span>Meta: ${fmtBRL(s.metaValor)}</span></div>
+      </div>
+      <div class="tiles-row">
+        <div class="tile"><div class="n">${s.clientesAtivados}</div><div class="l">Clientes ativados</div></div>
+      </div>
+      <div class="clientes-lista">
+        ${s.clientesLista.map(c=>`<span class="client-chip">${c}</span>`).join('')}
+      </div>`;
+  }
+  if(s.type==='funnel'){
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="funnel-subtitle">${s.subtitle}</div>
+      <div class="funnel-single">
+        <div class="temp-tiles">
+          <div class="temp-tile quente">
+            <span class="temp-label">🔥 Quente</span>
+            <span class="temp-total">${fmtBRL(s.quenteTotal)}</span>
+          </div>
+          <div class="temp-tile morno">
+            <span class="temp-label">🌤 Morno</span>
+            <span class="temp-total">${fmtBRL(s.mornoTotal)}</span>
+          </div>
+        </div>
+        <div class="hot-title">Top 3 negócios em destaque</div>
+        <div class="deal-list">
+          ${s.top3.map(d=>`
+            <div class="deal-card">
+              <div><div class="name">${d.name}</div><div class="val">${fmtBRL(d.value)}</div>${d.owner ? `<div class="stage-tag">${d.owner}</div>` : ''}</div>
+              <span class="temp ${d.temp}">${d.temp}</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+  if(s.type==='wallet'){
+    const isUp = s.pctChange>=0;
+    // A meta de carteira e os chips abaixo: o "faltam" NAO fica gravado no
+    // data.json, e recalculado a cada render a partir do valor atual. Assim
+    // basta atualizar a carteira que o numero acompanha sozinho.
+    const meta = s.metaCarteira;
+    const falta = meta != null ? meta - s.current : null;
+    const metas = meta == null ? '' : `
+      <div class="wallet-metas">
+        <div class="wallet-chip alvo">
+          <span class="rot">${s.metaCarteiraRotulo || 'Meta da carteira'}</span>
+          <span class="val">${milhoesCurto(meta)}</span>
+        </div>
+        <div class="wallet-chip ${falta > 0 ? 'falta' : 'batida'}">
+          <span class="rot">${falta > 0 ? 'Faltam' : 'Meta batida'}</span>
+          <span class="val">${falta > 0 ? milhoesCurto(falta) : '+' + milhoesCurto(-falta)}</span>
+        </div>
+      </div>`;
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="wallet-top">
+        <div class="wallet-value">${fmtBRL(Math.round(s.current))}</div>
+        <div class="wallet-change ${isUp?'up':'down'}">${isUp?'▲':'▼'} ${Math.abs(s.pctChange).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}% em 30 dias</div>
+      </div>
+      ${metas}
+      <div class="wallet-chart">${buildWalletSVG(s.series)}</div>
+      <div class="wallet-source">${s.source}</div>`;
+  }
+  if(s.type==='celebration'){
+    // Layout novo, com os dois valores lado a lado. O `amount` antigo ainda
+    // funciona: se o slide vier só com ele, vira o valor da ativação.
+    const ativado = s.valorAtivado != null ? fmtBRL(s.valorAtivado) : s.amount;
+    const credito = s.limiteAprovado != null ? fmtBRL(s.limiteAprovado) : null;
+    return `
+      <div class="celebrate">
+        ${makeConfetti()}
+        <div class="sino">🔔</div>
+        <div class="eyebrow" style="justify-content:center;">${eyebrowText(s)}</div>
+        <div class="toca">Toca o sino!</div>
+        <div class="headline ${s.client.length > 45 ? 'compacto' : s.client.length > 26 ? 'medio' : ''}">${s.client}</div>
+        <div class="closer">
+          ${(() => {
+            // Uma ou mais pessoas na ativação: closer e, quando houver, o BDR.
+            // O formato antigo (um `who` só) continua funcionando.
+            const gente = s.pessoas && s.pessoas.length
+              ? s.pessoas
+              : [{ name: s.who, photo: s.photo }];
+            const fotos = gente.map(p => `<div class="foto" style="background:${avatarBg(p)}">${avatarInner(p)}</div>`).join('');
+            const nomes = gente.map(p => `<b>${p.name}</b>`).join(' & ');
+            return `<div class="fotos-ativacao">${fotos}</div><span>Ativado por ${nomes}</span>`;
+          })()}
+        </div>
+        <div class="cel-valores">
+          <div class="cel-chip destaque"><span class="rot">Valor da ativação</span><span class="val">${ativado}</span></div>
+          ${credito ? `<div class="cel-chip credito"><span class="rot">Limite aprovado</span><span class="val">${credito}</span></div>` : ''}
+        </div>
+      </div>`;
+  }
+  if(s.type==='evento'){
+    const medalhas = ['🥇','🥈','🥉'];
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="evento-topo">
+        <div class="evento-num">${s.numero}</div>
+        <div>
+          <div class="oque">${s.titulo}</div>
+          ${s.subtitulo ? `<div class="evento-sub">${s.subtitulo}</div>` : ''}
+        </div>
+      </div>
+      <div class="evento-corpo">
+        ${s.campeao ? `
+          <div class="evento-campeao">
+            <div class="avatar-big" style="${s.campeao.photo ? 'background:transparent' : ''}">${avatarInner(s.campeao)}</div>
+            <div>
+              <div class="rotulo">${s.campeao.rotulo || 'Campeão'}</div>
+              <div class="nome">${s.campeao.name}</div>
+              <div class="feito">${s.campeao.feito}</div>
+              ${s.campeao.premio ? `<div class="evento-premio">${s.campeao.premio}</div>` : ''}
+            </div>
+          </div>` : ''}
+        <div class="podio">
+          ${(s.podio || []).map((p,i)=>`
+            <div class="podio-linha">
+              <span class="medalha">${medalhas[i] || ''}</span>
+              <div class="mini-avatar" style="background:${avatarBg(p)}">${avatarInner(p)}</div>
+              <span class="nome">${p.name}</span>
+              <span class="quantos">${p.quantos}<span>${p.quantos === 1 ? 'convidado' : 'convidados'}</span></span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+  if(s.type==='birthdays'){
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="grid-people">
+        ${s.people.map(p=>`
+          <div class="person-card">
+            <div class="avatar" style="background:${avatarBg(p)}">${avatarInner(p)}</div>
+            <div class="name">${p.name}</div>
+            <div class="date">${p.date}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+  if(s.type==='companyAnniv'){
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="anniv-grid">
+        ${s.people.map(p=>`
+          <div class="anniv-row">
+            <div class="anniv-avatar" style="background:${avatarBg(p)}">${avatarInner(p)}</div>
+            <span class="anniv-name">${p.name}</span>
+            <span class="anniv-years">${p.years} ano${p.years>1?'s':''} de casa</span>
+            <span class="anniv-date">${p.date}</span>
+          </div>`).join('')}
+      </div>`;
+  }
+  if(s.type==='newhire'){
+    // "fatos" e uma lista de {rotulo, texto} — Curiosidade, Hobby, o que vier.
+    // Sem ela, cai no "quote" de antes. E a data de chegada so aparece se existir.
+    const corpo = (s.fatos && s.fatos.length)
+      ? s.fatos.map(f=>`<div class="fato"><b>${f.rotulo}</b> ${f.texto}</div>`).join('')
+      : (s.quote ? `<div class="quote">${s.quote}</div>` : '');
+    const cargo = [s.role, s.joined].filter(Boolean).join(' · ');
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="spotlight">
+        <div class="avatar-big" style="${s.photo ? 'background:transparent' : ''}">${avatarInner(s)}</div>
+        <div>
+          <div class="goal-num" style="font-size:clamp(30px,4vw,54px)">${s.name}</div>
+          <div class="role">${cargo}</div>
+          ${corpo}
+        </div>
+      </div>`;
+  }
+  if(s.type==='news'){
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="news-row">
+        ${s.items.map(n=>`
+          <div class="news-card">
+            <span class="news-tag ${n.tag}">${n.tag}</span>
+            <h3>${n.title}</h3>
+            ${n.linhas
+              ? `<div class="news-lista">${n.linhas.map(l=>`<div class="linha"><span class="quando">${l.quando}</span><span class="oque">${l.oque}</span></div>`).join('')}</div>`
+              : `<p>${n.text}</p>`}
+          </div>`).join('')}
+      </div>`;
+  }
+  if(s.type==='weather'){
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="weather-wrap">
+        <div class="weather-main">
+          <div class="city">${s.city}</div>
+          <div class="temp"><span class="ico">${s.icon}</span>${s.temp}</div>
+          <div class="cond">${s.cond}</div>
+        </div>
+        <div class="traffic-col">
+          <div class="rodizio-tag">🚗 Rodízio hoje: ${rodizioDeHoje()}</div>
+          <div class="traffic-title">Lentidão por região <span style="opacity:.6">(${s.trafficUpdatedAt} · CET-SP)</span></div>
+          ${s.traffic.map(r=>`
+            <div class="route">
+              <span class="led ${r.level}"></span>
+              <span class="rname">${r.name}</span>
+              <span class="rstatus">${r.km} km · ${r.pct}%</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+  if(s.type==='ranking'){
+    const score = (v) => v.value != null ? v.value : (v.oportunidades != null ? v.oportunidades : 0);
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="division-grid">
+        ${s.divisions.map(div=>{
+          const sorted = [...div.sellers].sort((a,b)=> score(b)-score(a));
+          return `
+          <div class="division-card">
+            <div class="division-title">${div.name}</div>
+            ${sorted.length ? sorted.map((v,i)=>`
+              <div class="mini-row">
+                <div class="mini-pos">${i+1}</div>
+                ${v.people ? `
+                  <div class="mini-avatar-group">
+                    ${v.people.map(p=>`<div class="mini-avatar stacked" style="background:${avatarBg(p)}">${avatarInner(p)}</div>`).join('')}
+                  </div>
+                  <div class="mini-info">
+                    <div class="name">${v.people.map(p=>p.name).join(' & ')}</div>
+                  </div>
+                ` : `
+                  <div class="mini-avatar" style="background:${avatarBg(v)}">${avatarInner(v)}</div>
+                  <div class="mini-info">
+                    <div class="name">${v.name}</div>
+                    ${v.deals ? `<div class="meta">${v.deals} negócio${v.deals>1?'s':''}</div>` : ''}
+                  </div>
+                `}
+                <div class="mini-value">${v.value ? fmtBRL(v.value) : (v.oportunidades!=null ? `${v.oportunidades.toLocaleString('pt-BR')} ${rotuloMetrica(v.oportunidades, v.metricLabel)}` : '')}</div>
+              </div>`).join('') : `<div class="division-empty">Em apuração</div>`}
+            ${div.metrics ? `<div class="div-metrics">${div.metrics.map(m=>`<div class="div-metric"><span class="v">${m.value}</span><span class="l">${m.label}</span></div>`).join('')}</div>` : ''}
+          </div>`;
+        }).join('')}
+      </div>`;
+  }
+  if(s.type==='currency'){
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="curr-row">
+        ${s.list.map(c=>{
+          const isUp = c.pct>=0;
+          const valStr = c.code==='BTC'
+            ? c.value.toLocaleString('pt-BR',{maximumFractionDigits:0})
+            : c.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+          return `
+            <div class="curr-card">
+              <div class="pair"><span class="flag">${c.flag}</span>${c.code} / BRL</div>
+              <div class="val">R$ ${valStr}</div>
+              <div class="var ${isUp?'up':'down'}">${isUp?'▲':'▼'} ${Math.abs(c.pct).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}% hoje</div>
+            </div>`;
+        }).join('')}
+      </div>
+      ${s.offline ? `<div class="curr-updated">Não foi possível atualizar as cotações agora</div>` : ''}`;
+  }
+  return '';
+}
+
+// Deixa o rótulo no singular quando a contagem é 1: '1 oportunidade',
+// '1 embarque confirmado', '1 solicitação'. Palavra a palavra, porque alguns
+// rótulos têm mais de uma ('embarques confirmados').
+function singular(rotulo){
+  return String(rotulo).split(' ').map(p=>{
+    if(/ões$/.test(p)) return p.replace(/ões$/,'ão');
+    if(/ães$/.test(p)) return p.replace(/ães$/,'ão');
+    if(/[rzns]es$/.test(p)) return p.replace(/es$/,'');
+    if(/s$/.test(p)) return p.replace(/s$/,'');
+    return p;
+  }).join(' ');
+}
+function rotuloMetrica(n, rotulo){
+  const base = rotulo || 'oportunidades';
+  return n === 1 ? singular(base) : base;
+}
+
+function initials(name){
+  return name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+// Retorna o conteúdo do avatar: foto real (Slack) se disponível, senão iniciais
+// "R$ 324M", "R$ 69,5M": compacto para caber ao lado do valor da carteira.
+// Sem casa decimal quando o numero e redondo, uma casa quando nao e.
+function milhoesCurto(v){
+  const m = v / 1e6;
+  const casas = Math.abs(m - Math.round(m)) < 0.05 ? 0 : 1;
+  return 'R$ ' + m.toLocaleString('pt-BR', {minimumFractionDigits:casas, maximumFractionDigits:casas}) + 'M';
+}
+
+function avatarInner(p){
+  // A imagem nao pode ser preguicosa: o slide so entra no DOM quando chega a
+  // vez dele, e o navegador concluia que a foto ainda nao era necessaria — ela
+  // ficava em branco para sempre. Sao poucas imagens; carregar e barato.
+  return p.photo ? `<img src="${p.photo}" alt="${p.name}" decoding="async">` : initials(p.name);
+}
+// Retorna a cor de fundo do avatar: só é usada quando não há foto (fica atrás das iniciais)
+function avatarBg(p){
+  return p.photo ? 'transparent' : (p.color || 'var(--panel-line)');
+}
+
+function makeConfetti(){
+  const colors=['var(--gold)','var(--mint)','var(--coral)','var(--sky)'];
+  let html='';
+  for(let i=0;i<24;i++){
+    const left = Math.random()*100;
+    const size = 6+Math.random()*8;
+    const dur = 3+Math.random()*3;
+    const delay = Math.random()*3;
+    const color = colors[i%colors.length];
+    html += `<div class="confetti" style="left:${left}%;width:${size}px;height:${size*1.6}px;background:${color};animation-duration:${dur}s;animation-delay:${delay}s;"></div>`;
+  }
+  return html;
+}
+
+// ---------- ROTAÇÃO ----------
+const stage = document.getElementById('stage');
+const dotsWrap = document.getElementById('dots');
+const progFill = document.getElementById('progFill');
+let current = 0;
+let timer = null;
+
+slides.forEach((_,i)=>{
+  const b = document.createElement('button');
+  b.className='dot-btn'+(i===0?' on':'');
+  b.addEventListener('click',()=>goTo(i));
+  dotsWrap.appendChild(b);
+});
+
+function rebuildDots(){
+  dotsWrap.innerHTML='';
+  slides.forEach((_,i)=>{
+    const b = document.createElement('button');
+    b.className='dot-btn'+(i===current?' on':'');
+    b.addEventListener('click',()=>goTo(i));
+    dotsWrap.appendChild(b);
+  });
+}
+
+function paintDots(){
+  [...dotsWrap.children].forEach((d,i)=>d.classList.toggle('on', i===current));
+}
+
+function renderCurrent(){
+  stage.innerHTML = `<div class="slide active">${renderSlide(slides[current])}</div>`;
+  paintDots();
+  buildTicker();
+  restartProgress(slides[current].duration);
+}
+
+function goTo(i){
+  current = i;
+  renderCurrent();
+  clearTimeout(timer);
+  scheduleNext();
+}
+
+function scheduleNext(){
+  timer = setTimeout(()=>{
+    current = (current+1)%slides.length;
+    renderCurrent();
+    scheduleNext();
+  }, slides[current].duration);
+}
+
+function restartProgress(duration){
+  progFill.classList.remove('animate');
+  progFill.style.width='0%';
+  void progFill.offsetWidth; // reflow
+  progFill.style.animationDuration = duration+'ms';
+  progFill.classList.add('animate');
+}
+
+// ---------- TICKER (elemento de assinatura, sempre visível) ----------
+function buildTicker(){
+  const goal = slides.find(s=>s.type==='goal');
+  const cel = slides.find(s=>s.type==='celebration'); // undefined se já passou de 24h
+  const bday = slides.find(s=>s.type==='birthdays');
+  const curr = slides.find(s=>s.type==='currency');
+  const novatos = slides.filter(s=>s.type==='newhire'); // vazio se já passou da janela de exibição
+  const wallet = slides.find(s=>s.type==='wallet');
+  const usd = curr ? curr.list.find(c=>c.code==='USD') : null;
+  const falta = goal.metaValor - goal.atual;
+  const bits = [
+    `🎯 Faltam <b>${fmtBRL(falta)}</b> para bater a meta do mês`,
+    `🔥 <b>${fmtBRL(slides.find(s=>s.type==='funnel').quenteTotal)}</b> em negócios quentes no pipeline de closing`,
+    ...(cel ? [`🎉 <b>${cel.who}</b> ativou <b>${cel.client}</b> — ${cel.valorAtivado != null ? fmtBRL(cel.valorAtivado) : cel.amount}`] : []),
+    `🎂 <b>${bday.people.length}</b> aniversários este mês`,
+    ...(novatos.length ? [`👋 Boas-vindas, ${novatos.map(n=>`<b>${n.name}</b>`).join(' e ')}!`] : []),
+    ...(usd ? [`💵 Dólar a <b>R$ ${usd.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</b>`] : []),
+    ...(wallet ? [`📈 Carteira em <b>${fmtBRL(Math.round(wallet.current))}</b>`] : []),
+  ];
+  const track = document.getElementById('tickerMove');
+  track.innerHTML = bits.map(b=>`<span>${b}</span>`).join('');
+}
+
+// ---------- RELÓGIO ----------
+function tickClock(){
+  const now = new Date();
+  document.getElementById('clockTime').textContent =
+    now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});
+  document.getElementById('clockDate').textContent =
+    now.toLocaleDateString('pt-BR',{weekday:'long', day:'2-digit', month:'long', timeZone:'America/Sao_Paulo'});
+}
+tickClock();
+setInterval(tickClock,1000);
+
+// ---------- COTAÇÃO AO VIVO (API pública, sem chave — AwesomeAPI) ----------
+async function refreshCurrency(){
+  const slide = slides.find(s=>s.type==='currency');
+  if(!slide) return;
+  let anySuccess = false;
+  try{
+    // USDC-BRL não existe nessa API — se incluído no mesmo lote, quebra a busca
+    // inteira (retorna 404 pra todo o pedido). Por isso vai separado, abaixo.
+    const res = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,GBP-BRL,USDT-BRL,BTC-BRL');
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    // Mapeamento confirmado testando a API: USDT-BRL retorna sob a chave "USDBRLT", não "USDTBRL"
+    const map = {USD:'USDBRL', EUR:'EURBRL', GBP:'GBPBRL', USDT:'USDBRLT', BTC:'BTCBRL'};
+    slide.list.forEach(c=>{
+      const d = data[map[c.code]];
+      if(d){
+        c.value = parseFloat(d.bid);
+        c.pct = parseFloat(d.pctChange);
+        anySuccess = true;
+      }
+    });
+  }catch(err){
+    console.warn('Falha ao buscar cotações (AwesomeAPI):', err);
+  }
+  try{
+    // USDC-BRL via CoinGecko (fonte pública separada, já que a AwesomeAPI não cobre essa moeda)
+    const res2 = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=brl&include_24hr_change=true');
+    if(!res2.ok) throw new Error('HTTP ' + res2.status);
+    const data2 = await res2.json();
+    const usdc = slide.list.find(c=>c.code==='USDC');
+    if(usdc && data2['usd-coin']){
+      usdc.value = data2['usd-coin'].brl;
+      usdc.pct = data2['usd-coin'].brl_24h_change;
+      anySuccess = true;
+    }
+  }catch(err){
+    console.warn('Falha ao buscar cotação do USDC (CoinGecko):', err);
+  }
+  // Sem horário no slide: o que importa para quem olha é saber se o número
+  // vale ou não. Se nenhuma das duas fontes respondeu, o painel avisa.
+  slide.offline = !anySuccess;
+  if(slides[current].type==='currency') renderCurrent();
+}
+
+// ---------- CLIMA AO VIVO (API pública, sem chave — Open-Meteo) ----------
+function mapWeatherCode(code){
+  const table = {
+    0:['Céu limpo','☀️'], 1:['Poucas nuvens','🌤️'], 2:['Parcialmente nublado','⛅'], 3:['Nublado','☁️'],
+    45:['Neblina','🌫️'], 48:['Neblina com geada','🌫️'],
+    51:['Garoa fraca','🌦️'], 53:['Garoa','🌦️'], 55:['Garoa forte','🌦️'],
+    61:['Chuva fraca','🌧️'], 63:['Chuva','🌧️'], 65:['Chuva forte','🌧️'],
+    71:['Neve fraca','🌨️'], 73:['Neve','🌨️'], 75:['Neve forte','🌨️'],
+    80:['Pancadas de chuva','🌧️'], 81:['Pancadas de chuva','🌧️'], 82:['Pancadas fortes','⛈️'],
+    95:['Tempestade','⛈️'], 96:['Tempestade com granizo','⛈️'], 99:['Tempestade com granizo','⛈️'],
+  };
+  return table[code] || ['—','⛅'];
+}
+
+async function refreshWeather(){
+  const slide = slides.find(s=>s.type==='weather');
+  if(!slide) return;
+  try{
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${slide.lat}&longitude=${slide.lon}&current_weather=true`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const cw = data.current_weather;
+    slide.temp = `${Math.round(cw.temperature)}°C`;
+    const [cond, icon] = mapWeatherCode(cw.weathercode);
+    slide.cond = cond;
+    slide.icon = icon;
+  }catch(err){
+    // API indisponível. Em vez de deixar no ar a última temperatura conhecida,
+    // que numa TV passa por atual e engana quem olha, o painel assume que não
+    // sabe. Trânsito e rodízio continuam, porque vêm de outra fonte.
+    slide.temp = '—';
+    slide.cond = 'Sem conexão com o serviço de clima';
+    slide.icon = '📡';
+  }
+  if(slides[current].type==='weather') renderCurrent();
+}
+
+// ---------- START ----------
+(async function init(){
+  const fromSource = await loadSlidesFromSource();
+  if(fromSource) applyNewData(fromSource);
+  rebuildDots();
+  renderCurrent();
+  scheduleNext();
+  refreshCurrency();
+  refreshWeather();
+})();
+
+setInterval(refreshCurrency, 5*60*1000);  // moedas a cada 5 minutos
+setInterval(refreshWeather, 15*60*1000);  // clima a cada 15 minutos
+
+// Verifica periodicamente se a fonte de dados externa tem conteúdo novo
+// (só terá efeito de verdade depois que loadSlidesFromSource() for conectada
+// a uma fonte real — ver bloco de comentários no topo do arquivo)
+setInterval(async ()=>{
+  const fresh = await loadSlidesFromSource();
+  if(fresh && JSON.stringify(fresh) !== JSON.stringify(allSlides)){
+    applyNewData(fresh);
+    rebuildDots();
+  }
+}, 2*60*1000);
+</script>
+</body>
+</html>

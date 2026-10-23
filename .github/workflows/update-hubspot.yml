@@ -1,0 +1,59 @@
+name: Atualizar dados do HubSpot
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'    # de 2 em 2 horas
+  workflow_dispatch: {}       # e tambem sob demanda, pela aba Actions
+
+# Sem isto o "git push" do último passo é recusado com 403.
+permissions:
+  contents: write
+
+# Duas rotinas não escrevem no data.json ao mesmo tempo.
+concurrency:
+  group: atualiza-painel
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Conferir se o token chegou
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+        run: |
+          if [ -z "$HUBSPOT_TOKEN" ]; then
+            echo "O segredo HUBSPOT_TOKEN nao chegou neste job."
+            echo "Confira em Settings > Secrets and variables > Actions:"
+            echo "  - tem de estar na aba Secrets, secao Repository secrets"
+            echo "    (secret de Environment ou de Dependabot nao vale aqui);"
+            echo "  - o nome tem de ser exatamente HUBSPOT_TOKEN, sem espaco."
+            echo "E cadastrar o segredo nao refaz execucoes antigas: rode este"
+            echo "workflow de novo em Actions > Run workflow."
+            exit 1
+          fi
+          echo "Token presente: ${#HUBSPOT_TOKEN} caracteres."
+
+      - name: Buscar dados do HubSpot
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+        run: node scripts/fetch-hubspot.js > /tmp/hubspot.json
+
+      - name: Atualizar data.json
+        run: node scripts/merge-and-save.js /tmp/hubspot.json "" "" data.json
+
+      - name: Commitar mudanças
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          git diff --cached --quiet && echo "Nada mudou." && exit 0
+          git commit -m "Atualiza dados do HubSpot (automático)"
+          git pull --rebase --autostash
+          git push

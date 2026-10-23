@@ -1,0 +1,657 @@
+[
+  {
+    "type": "celebration",
+    "duration": 16000,
+    "eyebrow": "Nova ativação",
+    "showMonth": false,
+    "who": "Guilherme Belotto",
+    "client": "Pedroni Logística",
+    "valorAtivado": 2291786.67,
+    "limiteAprovado": 3000000,
+    "pessoas": [
+      {
+        "name": "Guilherme Belotto",
+        "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+      },
+      {
+        "name": "Julia Porto",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png"
+      }
+    ],
+    "postedAt": "2026-10-16T20:03:21.911Z",
+    "diasVisivel": 7,
+    "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+  },
+  {
+    "type": "celebration",
+    "duration": 16000,
+    "eyebrow": "Nova ativação",
+    "showMonth": false,
+    "who": "Guilherme Belotto",
+    "client": "Siqueira Campos Importação e Distribuição",
+    "valorAtivado": 5000000,
+    "limiteAprovado": 5000000,
+    "pessoas": [
+      {
+        "name": "Guilherme Belotto",
+        "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+      },
+      {
+        "name": "Matheus Ferreira",
+        "photo": "https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_512.jpg"
+      }
+    ],
+    "postedAt": "2026-10-16T13:12:54.709Z",
+    "diasVisivel": 7,
+    "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+  },
+  {
+    "type": "celebration",
+    "duration": 16000,
+    "eyebrow": "Nova ativação",
+    "showMonth": false,
+    "who": "Jarbas Vinícius",
+    "client": "Total Comércio de Importação e Exportação",
+    "valorAtivado": 839319.43,
+    "limiteAprovado": 1000000,
+    "pessoas": [
+      {
+        "name": "Jarbas Vinícius",
+        "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
+      },
+      {
+        "name": "Matheus Ferreira",
+        "photo": "https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_512.jpg"
+      }
+    ],
+    "postedAt": "2026-10-15T13:40:42.736Z",
+    "diasVisivel": 7,
+    "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
+  },
+  {
+    "type": "newhire",
+    "duration": 16000,
+    "eyebrow": "Novo talento no time",
+    "name": "Bruna Marques",
+    "role": "People Manager | People",
+    "fatos": [
+      {
+        "rotulo": "Curiosidade:",
+        "texto": "já foi modelo da Dove e participou de três campanhas publicitárias na Tailândia."
+      },
+      {
+        "rotulo": "Hobbies:",
+        "texto": "desenhar e organizar coisas — tem uma Marie Kondo que vive nela e fica muito feliz colocando tudo em ordem."
+      }
+    ],
+    "photo": "fotos/bruna-marques.jpg",
+    "visivelAte": "2026-10-26"
+  },
+  {
+    "type": "goal",
+    "duration": 20000,
+    "eyebrow": "Progresso da meta",
+    "showMonth": true,
+    "metaValor": 13000000,
+    "atual": 9171106.1,
+    "clientesAtivados": 5,
+    "clientesLista": [
+      "Siqueira Campos Importacao e Distribuicao",
+      "Pedroni Logistica",
+      "Piloto Xp - Total Comercio de Importacao e Exportacao",
+      "Lion Packing",
+      "Cap Trade Brasil Comercio Exterior e Distribuicao"
+    ]
+  },
+  {
+    "type": "wallet",
+    "duration": 20000,
+    "eyebrow": "Evolução da carteira · Últimos 30 dias",
+    "source": "Fonte: CR2 · série diária de 19/09 a 19/10",
+    "current": 254500000,
+    "pctChange": 2.79,
+    "series": [
+      {
+        "t": "19/09",
+        "v": 247590000
+      },
+      {
+        "t": "20/09",
+        "v": 247590000
+      },
+      {
+        "t": "21/09",
+        "v": 246120000
+      },
+      {
+        "t": "22/09",
+        "v": 244820000
+      },
+      {
+        "t": "23/09",
+        "v": 246760000
+      },
+      {
+        "t": "24/09",
+        "v": 252010000
+      },
+      {
+        "t": "25/09",
+        "v": 253570000
+      },
+      {
+        "t": "26/09",
+        "v": 253580000
+      },
+      {
+        "t": "27/09",
+        "v": 253580000
+      },
+      {
+        "t": "28/09",
+        "v": 253510000
+      },
+      {
+        "t": "29/09",
+        "v": 251150000
+      },
+      {
+        "t": "30/09",
+        "v": 253450000
+      },
+      {
+        "t": "01/10",
+        "v": 253450000
+      },
+      {
+        "t": "02/10",
+        "v": 252400000
+      },
+      {
+        "t": "03/10",
+        "v": 252400000
+      },
+      {
+        "t": "04/10",
+        "v": 252400000
+      },
+      {
+        "t": "05/10",
+        "v": 252320000
+      },
+      {
+        "t": "06/10",
+        "v": 252860000
+      },
+      {
+        "t": "07/10",
+        "v": 252520000
+      },
+      {
+        "t": "08/10",
+        "v": 252510000
+      },
+      {
+        "t": "09/10",
+        "v": 246940000
+      },
+      {
+        "t": "10/10",
+        "v": 246940000
+      },
+      {
+        "t": "11/10",
+        "v": 246940000
+      },
+      {
+        "t": "12/10",
+        "v": 246940000
+      },
+      {
+        "t": "13/10",
+        "v": 245820000
+      },
+      {
+        "t": "14/10",
+        "v": 248220000
+      },
+      {
+        "t": "15/10",
+        "v": 248450000
+      },
+      {
+        "t": "16/10",
+        "v": 254500000
+      },
+      {
+        "t": "17/10",
+        "v": 254080000
+      },
+      {
+        "t": "18/10",
+        "v": 254080000
+      },
+      {
+        "t": "19/10",
+        "v": 254500000
+      }
+    ],
+    "metaCarteira": 324000000,
+    "metaCarteiraRotulo": "Carteira em dez/26"
+  },
+  {
+    "type": "funnel",
+    "duration": 20000,
+    "eyebrow": "Forecasting closing",
+    "showMonth": true,
+    "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
+    "quenteTotal": 2300000,
+    "mornoTotal": 30861000,
+    "top3": [
+      {
+        "name": "Kabel Industria e Comercio de Chicotes Eletricos",
+        "value": 1000000,
+        "temp": "quente",
+        "owner": "Guilherme Belotto"
+      },
+      {
+        "name": "Esfera Distribuidora de Geradores",
+        "value": 1000000,
+        "temp": "quente",
+        "owner": "Kaio Oliveira"
+      },
+      {
+        "name": "Oslo Home",
+        "value": 300000,
+        "temp": "quente",
+        "owner": "Jarbas Vinícius"
+      }
+    ]
+  },
+  {
+    "type": "ranking",
+    "duration": 18000,
+    "eyebrow": "Forecasting por farmer",
+    "showMonth": false,
+    "divisions": [
+      {
+        "name": "Aumento de volume tomado",
+        "sellers": [
+          {
+            "name": "André Vitoretti",
+            "value": 4470000,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg"
+          },
+          {
+            "name": "Tiago Viel",
+            "value": 1000000,
+            "color": "var(--mint)",
+            "photo": "https://avatars.slack-edge.com/2026-02-23/10565767228802_f4abc21f076826b0bcda_512.jpg"
+          },
+          {
+            "name": "Antonio Mourão",
+            "value": 1000000,
+            "color": "var(--sky)",
+            "photo": "https://avatars.slack-edge.com/2026-08-05/11743803696279_5a4e1f515c3cae4c40d8_512.png"
+          }
+        ]
+      },
+      {
+        "name": "Renovação",
+        "sellers": [
+          {
+            "name": "Carlos Ferrarezi",
+            "value": 2921884.42,
+            "color": "var(--mint)",
+            "photo": "https://avatars.slack-edge.com/2025-11-26/9998285655509_28c200815365935d41eb_512.jpg"
+          },
+          {
+            "name": "André Vitoretti",
+            "value": 1145808.75,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "ranking",
+    "duration": 18000,
+    "eyebrow": "Desempenho dos vendedores",
+    "showMonth": true,
+    "divisions": [
+      {
+        "name": "Closing",
+        "sellers": [
+          {
+            "name": "Guilherme Belotto",
+            "value": 7291786.67,
+            "deals": 2,
+            "color": "var(--sky)",
+            "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+          },
+          {
+            "name": "Jarbas Vinícius",
+            "value": 1379319.4300000002,
+            "deals": 2,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
+          },
+          {
+            "name": "Kaio Oliveira",
+            "value": 500000,
+            "deals": 1,
+            "color": "var(--coral)",
+            "photo": "https://avatars.slack-edge.com/2024-10-22/7905267593719_af4e22e63399aa29662c_512.jpg"
+          }
+        ]
+      },
+      {
+        "name": "Parcerias · Farming",
+        "sellers": [
+          {
+            "name": "Raquel Figueiredo",
+            "oportunidades": 6,
+            "color": "var(--sky)",
+            "metricLabel": "oportunidades"
+          },
+          {
+            "name": "Matheus Ferreira",
+            "oportunidades": 3,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2025-11-18/9940118933413_1a51fa015cf3f9e6ce54_512.jpg",
+            "metricLabel": "oportunidades"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "ranking",
+    "duration": 18000,
+    "eyebrow": "Desempenho dos vendedores",
+    "showMonth": true,
+    "divisions": [
+      {
+        "name": "Retargeting",
+        "sellers": []
+      },
+      {
+        "name": "Frete",
+        "sellers": [
+          {
+            "name": "Luciana Turisco",
+            "oportunidades": 43,
+            "metricLabel": "embarques confirmados",
+            "color": "var(--sky)",
+            "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
+          }
+        ]
+      },
+      {
+        "name": "Câmbio",
+        "sellers": [
+          {
+            "people": [
+              {
+                "name": "Gabriella Machado",
+                "color": "var(--coral)",
+                "photo": "https://avatars.slack-edge.com/2026-07-27/11687535000724_2923bf06d7522c503630_512.png"
+              },
+              {
+                "name": "Julia Guimarães",
+                "color": "#9B8CFF",
+                "photo": "https://avatars.slack-edge.com/2026-05-05/11047051384311_1378438d2118923bfc6a_512.png"
+              }
+            ]
+          }
+        ],
+        "metrics": [
+          {
+            "value": "R$ 3.549.176",
+            "label": "Volume total"
+          },
+          {
+            "value": "R$ 3.291",
+            "label": "Margem Vixtra"
+          },
+          {
+            "value": "8",
+            "label": "Clientes"
+          },
+          {
+            "value": "14",
+            "label": "Transações"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "birthdays",
+    "duration": 16000,
+    "eyebrow": "Aniversariantes do mês",
+    "people": [
+      {
+        "name": "Raquel Figueiredo",
+        "date": "03/10",
+        "color": "var(--sky)"
+      },
+      {
+        "name": "Alisson Felicio",
+        "date": "04/10",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-28/11699097787012_9bf0eba39fa97be230a5_original.png"
+      },
+      {
+        "name": "Luciana Turisco",
+        "date": "10/10",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
+      },
+      {
+        "name": "Yuri Pecelin",
+        "date": "14/10",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-02-05/10445971088246_151f3ce31518c146dcbf_original.png"
+      },
+      {
+        "name": "Karen Buccini",
+        "date": "20/10",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11710865151056_7b250b05b1698d116296_original.jpg"
+      },
+      {
+        "name": "José Macfarland",
+        "date": "22/10",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-06-14/7301894758352_5a83e1eddd5e7403ea1b_original.jpg"
+      },
+      {
+        "name": "Franklin Santos",
+        "date": "25/10",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-08-26/11918136261217_c2a6d290c69afacafab5_512.jpg"
+      },
+      {
+        "name": "Adriana Orlandin",
+        "date": "27/10",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2025-10-22/9733135825975_3d94b641f29dc207fc10_512.jpg"
+      }
+    ]
+  },
+  {
+    "type": "companyAnniv",
+    "duration": 18000,
+    "eyebrow": "Aniversários de casa",
+    "showMonth": true,
+    "people": [
+      {
+        "name": "Renan Zucheratto",
+        "years": 4,
+        "date": "01/10",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2025-10-20/9736443589668_0f9ef059008bfae3b93e_original.jpg"
+      },
+      {
+        "name": "Sophia Brait",
+        "years": 2,
+        "date": "08/10",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-10-17/7899526643540_5ae8260b9bccd5a933e6_original.jpg"
+      },
+      {
+        "name": "Clara Santiago",
+        "years": 2,
+        "date": "21/10",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2024-10-23/7949139135632_1f074b7872bb31ad5f63_original.jpg"
+      },
+      {
+        "name": "Kaio Oliveira",
+        "years": 2,
+        "date": "22/10",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2024-10-22/7905267593719_af4e22e63399aa29662c_512.jpg"
+      },
+      {
+        "name": "Artigas",
+        "years": 4,
+        "date": "26/10",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2024-05-09/7089697531045_bbe449c19f1a4f2f2667_original.jpg"
+      },
+      {
+        "name": "Guilherme Belotto",
+        "years": 1,
+        "date": "27/10",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+      }
+    ]
+  },
+  {
+    "type": "news",
+    "duration": 16000,
+    "eyebrow": "Radar Vixtra",
+    "items": [
+      {
+        "tag": "aviso",
+        "title": "Uso das salas Itajaí, Shanghai e Santos",
+        "text": "Priorizadas para reuniões com 2+ pessoas. Reserva pela plataforma Control Room ou adicionando a sala desejada no invite da reunião."
+      },
+      {
+        "tag": "credito",
+        "title": "Crédito aprovado chega a R$ 10,1M no mês",
+        "text": "Soma do limite de crédito aprovado nas ativações de setembro."
+      },
+      {
+        "tag": "evento",
+        "title": "Próximos eventos",
+        "linhas": [
+          {
+            "quando": "10/11",
+            "oque": "Café da manhã com o economista Pérsio Arida — Fasano Itaim, São Paulo"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "weather",
+    "duration": 18000,
+    "eyebrow": "Clima e trânsito",
+    "city": "São Paulo, SP",
+    "lat": -23.5505,
+    "lon": -46.6333,
+    "temp": "24°C",
+    "cond": "Pancadas de chuva",
+    "icon": "🌧️",
+    "trafficUpdatedAt": "23/10 · 10:37",
+    "traffic": [
+      {
+        "name": "Leste",
+        "km": 102,
+        "pct": 27,
+        "level": "bad"
+      },
+      {
+        "name": "Oeste",
+        "km": 91,
+        "pct": 24,
+        "level": "mid"
+      },
+      {
+        "name": "Sul",
+        "km": 77,
+        "pct": 21,
+        "level": "mid"
+      },
+      {
+        "name": "Norte",
+        "km": 71,
+        "pct": 19,
+        "level": "mid"
+      },
+      {
+        "name": "Centro",
+        "km": 33,
+        "pct": 9,
+        "level": "ok"
+      }
+    ],
+    "rodizio": "Placas final 9 e 0"
+  },
+  {
+    "type": "currency",
+    "duration": 16000,
+    "eyebrow": "Cotação de moedas",
+    "list": [
+      {
+        "code": "USD",
+        "name": "Dólar americano",
+        "flag": "🇺🇸",
+        "value": 5.18,
+        "pct": -0.01
+      },
+      {
+        "code": "EUR",
+        "name": "Euro",
+        "flag": "🇪🇺",
+        "value": 5.91,
+        "pct": 0.09
+      },
+      {
+        "code": "GBP",
+        "name": "Libra esterlina",
+        "flag": "🇬🇧",
+        "value": 6.87,
+        "pct": 0.01
+      },
+      {
+        "code": "USDT",
+        "name": "Tether",
+        "flag": "₮",
+        "value": 5.21,
+        "pct": 0.27
+      },
+      {
+        "code": "USDC",
+        "name": "USD Coin",
+        "flag": "Ⓤ",
+        "value": 5.18,
+        "pct": -0.02
+      },
+      {
+        "code": "BTC",
+        "name": "Bitcoin",
+        "flag": "₿",
+        "value": 412524,
+        "pct": -0.11
+      }
+    ]
+  }
+]

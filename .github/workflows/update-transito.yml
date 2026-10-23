@@ -1,0 +1,39 @@
+name: Atualizar dados de trânsito
+
+on:
+  schedule:
+    - cron: '30 */2 * * *'   # de 2 em 2 horas, meia hora depois do HubSpot
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atualiza-painel
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Buscar dados de trânsito
+        run: node scripts/fetch-transito.js > /tmp/transito.json
+
+      - name: Atualizar data.json
+        run: node scripts/merge-and-save.js "" /tmp/transito.json "" data.json
+
+      - name: Commitar mudanças
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          git diff --cached --quiet && echo "Nada mudou." && exit 0
+          git commit -m "Atualiza dados de trânsito (automático)"
+          git pull --rebase --autostash
+          git push
