@@ -332,8 +332,8 @@
             "name": "Raquel Figueiredo",
             "oportunidades": 6,
             "color": "var(--sky)",
-            "metricLabel": "oportunidades",
-            "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg"
+            "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
+            "metricLabel": "oportunidades"
           },
           {
             "name": "Matheus Ferreira",
