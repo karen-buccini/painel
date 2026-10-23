@@ -29,10 +29,43 @@ function rodizioDeHoje() {
   return f ? `Placas final ${f}` : 'Sem rodízio no fim de semana';
 }
 
+/**
+ * Busca a página da CET, repetindo com espera crescente quando ela não
+ * responde.
+ *
+ * Em 23/10 a rotina das 18h ficou 41 segundos esperando o site, desistiu e
+ * ficou vermelha — e na execução seguinte o site respondia em um segundo e
+ * meio. Soluço de site, não mudança de layout. Agora cada tentativa tem 20
+ * segundos de limite, e a falha só vale depois de quatro. Erro 4xx (fora o
+ * 429) não é soluço e não é repetido.
+ */
+async function buscarPaginaCet() {
+  const TENTATIVAS = 4;
+  for (let tentativa = 1; tentativa <= TENTATIVAS; tentativa++) {
+    let motivo;
+    try {
+      const res = await fetch('https://www.cetsp.com.br/', { signal: AbortSignal.timeout(20000) });
+      if (res.ok) return await res.text();
+      if (res.status !== 429 && res.status < 500) {
+        throw Object.assign(new Error(`CET-SP retornou HTTP ${res.status}`), { definitivo: true });
+      }
+      motivo = `HTTP ${res.status}`;
+    } catch (e) {
+      if (e.definitivo) throw e;
+      motivo = e.name === 'TimeoutError' ? 'sem resposta em 20s' : e.message;
+    }
+
+    if (tentativa === TENTATIVAS) {
+      throw new Error(`CET-SP não respondeu em ${TENTATIVAS} tentativas (última: ${motivo})`);
+    }
+    const espera = 2000 * 2 ** (tentativa - 1);
+    console.error(`CET-SP ${motivo}; repetindo em ${espera}ms (tentativa ${tentativa} de ${TENTATIVAS})`);
+    await new Promise((r) => setTimeout(r, espera));
+  }
+}
+
 async function fetchTransito() {
-  const res = await fetch('https://www.cetsp.com.br/');
-  if (!res.ok) throw new Error(`CET-SP retornou HTTP ${res.status}`);
-  const html = await res.text();
+  const html = await buscarPaginaCet();
 
   // O rodízio não é raspado daqui: é regra fixa por dia da semana, e o painel
   // calcula sozinho. Raspar servia só para herdar o cache da CET.
