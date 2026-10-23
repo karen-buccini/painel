@@ -91,7 +91,6 @@ const STAGES_ATIVADO = ['983479988', '1208919954'];
 
 const STAGE_FARMING_FORECAST = '1412586077';
 const STAGE_EMBARQUE = '1315985497';
-const TEAM_RETARGETING = '60328493';
 const DATE_RETARGETING = 'hs_v2_date_entered_983301662';
 
 /* --------------------------------------------------------------------- */
@@ -374,7 +373,11 @@ async function parceriasFarming() {
 }
 
 /**
- * Retargeting: recorte por time, data de entrada na etapa.
+ * Retargeting: pipeline de retargeting e data de entrada na etapa no mês.
+ *
+ * Vale qualquer dono, de qualquer time. Antes havia também um filtro pelo
+ * time de retargeting (60328493), e quem respondia por oportunidade de
+ * retargeting sem estar nesse time ficava de fora da coluna.
  *
  * Antes devolvia so a contagem do mes, e o painel tinha um nome fixo escrito
  * no data.json para pendurar esse numero. Agora devolve a lista de donos das
@@ -386,7 +389,6 @@ async function retargeting() {
   const negocios = await buscarNegocios(
     [
       { propertyName: 'pipeline', operator: 'IN', values: [PIPELINES.RETARGETING] },
-      { propertyName: 'hubspot_team_id', operator: 'IN', values: [TEAM_RETARGETING] },
       { propertyName: DATE_RETARGETING, operator: 'BETWEEN', value: p.inicioHora, highValue: p.fimHora },
     ],
     ['dealname', 'hubspot_owner_id']
