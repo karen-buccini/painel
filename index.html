@@ -1002,7 +1002,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-19-01';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-23-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1496,6 +1496,7 @@ function restartProgress(duration){
 }
 
 // ---------- TICKER (elemento de assinatura, sempre visível) ----------
+let tickerAtual = '';
 function buildTicker(){
   const goal = slides.find(s=>s.type==='goal');
   const cel = slides.find(s=>s.type==='celebration'); // undefined se já passou de 24h
@@ -1514,9 +1515,28 @@ function buildTicker(){
     ...(usd ? [`💵 Dólar a <b>R$ ${usd.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</b>`] : []),
     ...(wallet ? [`📈 Carteira em <b>${fmtBRL(Math.round(wallet.current))}</b>`] : []),
   ];
-  const track = document.getElementById('tickerMove');
-  track.innerHTML = bits.map(b=>`<span>${b}</span>`).join('');
+  const html = bits.map(b=>`<span>${b}</span>`).join('');
+  // Esta função roda a cada troca de slide; reescrever o letreiro com o mesmo
+  // texto só serviria para reiniciar a rolagem no meio da frase.
+  if(html === tickerAtual) return;
+  tickerAtual = html;
+  document.getElementById('tickerMove').innerHTML = html;
+  reiniciarTicker();
 }
+
+// O Safari calcula o translateX(100%) da animação com a largura que o letreiro
+// tinha quando ela começou, e não recalcula depois. Na abertura da página o
+// letreiro ainda está vazio (o texto só entra depois que o data.json chega),
+// então ia de 0 a 0 e ficava parado. Chrome e Firefox medem de novo a cada
+// quadro, por isso lá sempre funcionou. Reiniciar a animação toda vez que o
+// texto ou a fonte mudam obriga o Safari a medir de novo.
+function reiniciarTicker(){
+  const track = document.getElementById('tickerMove');
+  track.style.animation = 'none';
+  void track.offsetWidth; // reflow
+  track.style.animation = '';
+}
+if(document.fonts) document.fonts.ready.then(reiniciarTicker);
 
 // ---------- RELÓGIO ----------
 function tickClock(){
