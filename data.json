@@ -1,28 +1,5 @@
 [
   {
-    "type": "celebration",
-    "duration": 16000,
-    "eyebrow": "Nova ativação",
-    "showMonth": false,
-    "who": "Guilherme Belotto",
-    "client": "Pedroni Logística",
-    "valorAtivado": 2291786.67,
-    "limiteAprovado": 3000000,
-    "pessoas": [
-      {
-        "name": "Guilherme Belotto",
-        "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
-      },
-      {
-        "name": "Julia Porto",
-        "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png"
-      }
-    ],
-    "postedAt": "2026-10-16T20:03:21.911Z",
-    "diasVisivel": 7,
-    "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
-  },
-  {
     "type": "newhire",
     "duration": 16000,
     "eyebrow": "Novo talento no time",
