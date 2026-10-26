@@ -743,14 +743,55 @@ html,body{
 </div>
 
 <script>
+// Navegador de TV nem sempre informa o tamanho da tela direito: há os que
+// contam a barra do próprio navegador dentro de innerHeight e os que só
+// acertam o tamanho depois de a página abrir, sem avisar com 'resize'. Por isso
+// a conta usa a menor das medidas disponíveis e é refeita a cada 2 segundos.
+function tamanhoVisivel(){
+  const vv = window.visualViewport;
+  const ws = [innerWidth, document.documentElement.clientWidth, vv && vv.width].filter(n => n > 0);
+  const hs = [innerHeight, document.documentElement.clientHeight, vv && vv.height].filter(n => n > 0);
+  return { w: Math.min(...ws), h: Math.min(...hs) };
+}
 function encaixarNaTela(){
   const tv = document.querySelector('.tv');
-  const k = Math.min(innerWidth / 1920, innerHeight / 1080);
-  const x = (innerWidth - 1920 * k) / 2, y = (innerHeight - 1080 * k) / 2;
+  const { w, h } = tamanhoVisivel();
+  // Margem de respiro em volta, para TV que corta as bordas da imagem (overscan).
+  // Dá para ajustar pela URL: ?margem=0.05 deixa 5% de cada lado.
+  const margem = parseFloat(new URLSearchParams(location.search).get('margem')) || 0;
+  const k = Math.min(w * (1 - 2 * margem) / 1920, h * (1 - 2 * margem) / 1080);
+  const x = (w - 1920 * k) / 2, y = (h - 1080 * k) / 2;
   tv.style.transform = `translate(${x}px, ${y}px) scale(${k})`;
+  mostrarDiagnostico(w, h, k);
 }
+
+// Abrindo o painel com ?diag=1, aparece um quadro com as medidas que o
+// navegador da TV informou. Serve para entender corte ou sobra na tela.
+function mostrarDiagnostico(w, h, k){
+  if(!/[?&]diag=1/.test(location.search)) return;
+  let box = document.getElementById('diag');
+  if(!box){
+    box = document.createElement('pre');
+    box.id = 'diag';
+    box.style.cssText = 'position:fixed;left:8px;top:8px;z-index:99;margin:0;padding:10px 12px;' +
+      'background:rgba(0,0,0,.85);color:#8FDCFA;font:14px/1.4 monospace;border:1px solid #27AAE1;white-space:pre-wrap;max-width:90vw;';
+    document.body.appendChild(box);
+  }
+  const vv = window.visualViewport;
+  box.textContent =
+    `usado: ${Math.round(w)} x ${Math.round(h)}  escala: ${k.toFixed(3)}\n` +
+    `innerWidth x innerHeight: ${innerWidth} x ${innerHeight}\n` +
+    `clientWidth x clientHeight: ${document.documentElement.clientWidth} x ${document.documentElement.clientHeight}\n` +
+    `visualViewport: ${vv ? Math.round(vv.width) + ' x ' + Math.round(vv.height) + ' (zoom ' + vv.scale + ')' : 'não tem'}\n` +
+    `screen: ${screen.width} x ${screen.height}  devicePixelRatio: ${devicePixelRatio}\n` +
+    `navegador: ${navigator.userAgent}`;
+}
+
 encaixarNaTela();
 addEventListener('resize', encaixarNaTela);
+addEventListener('load', encaixarNaTela);
+if(window.visualViewport) visualViewport.addEventListener('resize', encaixarNaTela);
+setInterval(encaixarNaTela, 2000);
 // ---------- MÊS VIGENTE (calculado a partir da data real — nunca precisa editar na mão) ----------
 function mesAtual(){
   const nome = new Date().toLocaleDateString('pt-BR', {month:'long', timeZone:'America/Sao_Paulo'});
@@ -967,7 +1008,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-01';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-02';
 
 async function conferirVersaoDoPainel(){
   try{
