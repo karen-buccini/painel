@@ -479,7 +479,7 @@
       {
         "tag": "credito",
         "title": "Crédito aprovado chega a R$ 10,1M no mês",
-        "text": "Soma do limite de crédito aprovado nas ativações de setembro."
+        "text": "Soma do limite de crédito aprovado nas ativações do mês."
       },
       {
         "tag": "evento",
@@ -491,7 +491,7 @@
           },
           {
             "quando": "18/11",
-            "oque": "Comexland: jantar com lista de convidados — Maria Eugenia, Curitiba"
+            "oque": "Jantar co branded - Comexland em Curitiba"
           }
         ]
       }
