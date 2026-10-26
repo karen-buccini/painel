@@ -11,11 +11,11 @@
     "chamada": "Prepare sua fantasia e participe com o time!",
     "pergunta": "Qual será a sua fantasia?",
     "arte": [
-      "🎃",
-      "👻",
-      "🦇",
-      "🕸️",
-      "🍬"
+      "emojis/1f383.svg",
+      "emojis/1f47b.svg",
+      "emojis/1f987.svg",
+      "emojis/1f578.svg",
+      "emojis/1f36c.svg"
     ],
     "visivelAte": "2026-10-28"
   },

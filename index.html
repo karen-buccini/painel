@@ -540,6 +540,8 @@ html,body{
 }
 .campanha:not(.halloween) .campanha-arte::before{background:radial-gradient(circle, rgba(95,192,233,0.25), transparent 68%);}
 .campanha-arte span{position:absolute;line-height:1;}
+/* Desenho em imagem (ex.: emojis/1f383.svg) ocupa o mesmo espaço do emoji. */
+.campanha-arte img{width:1em;height:1em;display:block;}
 .campanha-arte .principal{font-size:210px;left:50%;top:50%;transform:translate(-50%,-50%);animation:flutua 3.2s ease-in-out infinite;}
 .campanha-arte .e1{font-size:72px;left:-6px;top:6px;animation:flutua 2.6s ease-in-out .4s infinite;}
 .campanha-arte .e2{font-size:58px;right:0;top:22px;animation:flutua 2.2s ease-in-out .9s infinite;}
@@ -1046,7 +1048,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-04';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-05';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1325,8 +1327,11 @@ function renderSlide(s){
   if(s.type==='campanha'){
     // Slide de ação interna (Halloween, festa, campanha). "titulo" e "texto"
     // aceitam <em> (cor do tema) e <b>. "arte" é uma lista de emojis: o
-    // primeiro fica grande, os outros flutuam em volta.
+    // primeiro fica grande, os outros flutuam em volta. Cada item pode ser um
+    // emoji ou o caminho de uma imagem (.svg/.png): emoji muda de desenho de
+    // aparelho para aparelho (Apple no Mac, Google na Mi Box), imagem não.
     const arte = s.arte || [];
+    const desenho = (e) => /\.(svg|png)$/i.test(e) ? `<img src="${e}" alt="">` : e;
     return `
       <div class="campanha ${s.tema || ''}">
         <div class="campanha-texto">
@@ -1337,7 +1342,7 @@ function renderSlide(s){
           ${s.chamada ? `<div class="campanha-chamada">${s.chamada}</div>` : ''}
           ${s.pergunta ? `<div class="campanha-pergunta">${s.pergunta}</div>` : ''}
         </div>
-        ${arte.length ? `<div class="campanha-arte"><span class="principal">${arte[0]}</span>${arte.slice(1, 5).map((e,i)=>`<span class="e${i+1}">${e}</span>`).join('')}</div>` : ''}
+        ${arte.length ? `<div class="campanha-arte"><span class="principal">${desenho(arte[0])}</span>${arte.slice(1, 5).map((e,i)=>`<span class="e${i+1}">${desenho(e)}</span>`).join('')}</div>` : ''}
       </div>`;
   }
   if(s.type==='news'){

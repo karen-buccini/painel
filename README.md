@@ -99,3 +99,9 @@ Para publicar uma versão nova pelo navegador: abra a pasta `apresentacao`,
 clique em **Add file** → **Upload files**, arraste o arquivo e confirme em
 **Commit changes**. Mantendo o mesmo nome, o GitHub substitui e guarda a versão
 anterior no histórico.
+
+## Créditos
+
+Os desenhos da pasta `emojis/` são do [Twemoji](https://github.com/jdecked/twemoji),
+© Twitter, Inc. e outros colaboradores, sob a licença
+[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
