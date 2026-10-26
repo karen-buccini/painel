@@ -142,7 +142,7 @@ const milhoes = (v) =>
  * editar na mao. A poda espera 24h depois do vencimento, e slide sem data de
  * saida nunca e removido.
  */
-const TIPOS_TEMPORARIOS = new Set(['celebration', 'newhire', 'evento']);
+const TIPOS_TEMPORARIOS = new Set(['celebration', 'newhire', 'evento', 'campanha']);
 
 function venceEm(s) {
   if (s.visivelAte) return new Date(s.visivelAte + 'T23:59:59-03:00').getTime();

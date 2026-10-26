@@ -1,5 +1,25 @@
 [
   {
+    "type": "campanha",
+    "tema": "halloween",
+    "duration": 18000,
+    "eyebrow": "Halloween da Vixtra · Quarta, 28/10",
+    "titulo": "Quarta-feira é dia de vir <em>fantasiado!</em>",
+    "texto": "O Halloween da Vixtra vai ter <b>bolo dos aniversariantes</b> e <b>votação da melhor fantasia</b>.",
+    "premioRotulo": "Quem ganhar leva",
+    "premio": "R$ 50 no Flash",
+    "chamada": "Prepare sua fantasia e participe com o time!",
+    "pergunta": "Qual será a sua fantasia?",
+    "arte": [
+      "🎃",
+      "👻",
+      "🦇",
+      "🕸️",
+      "🍬"
+    ],
+    "visivelAte": "2026-10-28"
+  },
+  {
     "type": "newhire",
     "duration": 16000,
     "eyebrow": "Novo talento no time",
@@ -38,14 +58,10 @@
     "type": "wallet",
     "duration": 20000,
     "eyebrow": "Evolução da carteira · Últimos 30 dias",
-    "source": "Fonte: CR2 · série diária de 25/09 a 25/10",
-    "current": 249340000,
-    "pctChange": -1.67,
+    "source": "Fonte: CR2 · série diária de 26/09 a 26/10",
+    "current": 244130000,
+    "pctChange": -3.73,
     "series": [
-      {
-        "t": "25/09",
-        "v": 253580000
-      },
       {
         "t": "26/09",
         "v": 253580000
@@ -165,6 +181,10 @@
       {
         "t": "25/10",
         "v": 249340000
+      },
+      {
+        "t": "26/10",
+        "v": 244130000
       }
     ],
     "metaCarteira": 324000000,

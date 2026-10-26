@@ -514,6 +514,39 @@ html,body{
 }
 .news-lista .oque{color:var(--muted);font-size:clamp(16px,16.1px,18px);line-height:1.4;}
 
+/* ===== SLIDE: CAMPANHA (ações internas, como o Halloween) ===== */
+/* --tema é a cor de destaque da ação; sem tema, fica o ciano da marca. */
+.campanha{--tema:var(--gold);display:flex;align-items:center;gap:40px;}
+.campanha.halloween{--tema:#FF8A2A;}
+.campanha-texto{flex:1;min-width:0;}
+.campanha-titulo{font-weight:300;font-size:58px;line-height:1.06;letter-spacing:-0.02em;}
+.campanha-titulo em{font-style:normal;color:var(--tema);}
+.campanha-desc{margin-top:18px;font-size:23px;line-height:1.4;color:var(--muted);max-width:660px;}
+.campanha-desc b{color:var(--paper);font-weight:500;}
+.campanha-premio{
+  margin-top:24px;display:inline-flex;align-items:baseline;gap:16px;
+  padding:14px 22px;border-radius:8px;
+  background:rgba(255,138,42,0.10);border:1px solid rgba(255,138,42,0.35);
+}
+.campanha:not(.halloween) .campanha-premio{background:rgba(95,192,233,0.10);border-color:rgba(95,192,233,0.35);}
+.campanha-premio .rot{font-size:16px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.campanha-premio .val{font-size:38px;font-weight:300;letter-spacing:-0.01em;color:var(--tema);}
+.campanha-chamada{margin-top:24px;font-size:22px;color:var(--paper);}
+.campanha-pergunta{margin-top:6px;font-size:26px;color:var(--overline);}
+.campanha-arte{position:relative;width:340px;height:340px;flex-shrink:0;}
+.campanha-arte::before{
+  content:'';position:absolute;inset:20px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,138,42,0.28), transparent 68%);
+}
+.campanha:not(.halloween) .campanha-arte::before{background:radial-gradient(circle, rgba(95,192,233,0.25), transparent 68%);}
+.campanha-arte span{position:absolute;line-height:1;}
+.campanha-arte .principal{font-size:210px;left:50%;top:50%;transform:translate(-50%,-50%);animation:flutua 3.2s ease-in-out infinite;}
+.campanha-arte .e1{font-size:72px;left:-6px;top:6px;animation:flutua 2.6s ease-in-out .4s infinite;}
+.campanha-arte .e2{font-size:58px;right:0;top:22px;animation:flutua 2.2s ease-in-out .9s infinite;}
+.campanha-arte .e3{font-size:64px;right:14px;bottom:4px;animation:flutua 2.8s ease-in-out .2s infinite;}
+.campanha-arte .e4{font-size:50px;left:16px;bottom:18px;animation:flutua 3s ease-in-out 1.2s infinite;}
+@keyframes flutua{0%,100%{translate:0 0;}50%{translate:0 -10px;}}
+
 /* ===== SLIDE: EVOLUÇÃO DA CARTEIRA ===== */
 .wallet-top{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:clamp(14px,14.4px,20px);}
 .wallet-value{
@@ -1013,7 +1046,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-03';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-04';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1287,6 +1320,24 @@ function renderSlide(s){
           <div class="role">${cargo}</div>
           ${corpo}
         </div>
+      </div>`;
+  }
+  if(s.type==='campanha'){
+    // Slide de ação interna (Halloween, festa, campanha). "titulo" e "texto"
+    // aceitam <em> (cor do tema) e <b>. "arte" é uma lista de emojis: o
+    // primeiro fica grande, os outros flutuam em volta.
+    const arte = s.arte || [];
+    return `
+      <div class="campanha ${s.tema || ''}">
+        <div class="campanha-texto">
+          <div class="eyebrow">${eyebrowText(s)}</div>
+          <div class="campanha-titulo">${s.titulo}</div>
+          ${s.texto ? `<div class="campanha-desc">${s.texto}</div>` : ''}
+          ${s.premio ? `<div class="campanha-premio"><span class="rot">${s.premioRotulo || 'Prêmio'}</span><span class="val">${s.premio}</span></div>` : ''}
+          ${s.chamada ? `<div class="campanha-chamada">${s.chamada}</div>` : ''}
+          ${s.pergunta ? `<div class="campanha-pergunta">${s.pergunta}</div>` : ''}
+        </div>
+        ${arte.length ? `<div class="campanha-arte"><span class="principal">${arte[0]}</span>${arte.slice(1, 5).map((e,i)=>`<span class="e${i+1}">${e}</span>`).join('')}</div>` : ''}
       </div>`;
   }
   if(s.type==='news'){
