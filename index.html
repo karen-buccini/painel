@@ -654,6 +654,8 @@ html,body{
   font-size:clamp(15px,16.3px,16px);color:var(--muted);
   text-align:right;
 }
+/* Divisão só com métricas (Câmbio): sem a linha que as separava das pessoas */
+.division-title + .div-metrics{margin-top:0;padding-top:0;border-top:none;}
 .division-empty{
   color:var(--muted);font-style:italic;
   font-size:clamp(16px,18.2px,19px);
@@ -908,12 +910,7 @@ const DEFAULT_SLIDES = [
       {name:'Frete', sellers:[
         {name:'Luciana Turisco', oportunidades:6, metricLabel:'embarques confirmados', color:'var(--sky)', photo:'https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_original.png'},
       ]},
-      {name:'Câmbio', sellers:[
-        {oportunidades:9, metricLabel:'solicitações', people:[
-          {name:'Julia Guimarães', color:'#9B8CFF', photo:'https://avatars.slack-edge.com/2026-05-05/11047051384311_1378438d2118923bfc6a_original.png'},
-          {name:'Gabriella Machado', color:'var(--coral)', photo:'https://avatars.slack-edge.com/2026-07-27/11687535000724_2923bf06d7522c503630_original.png'},
-        ]},
-      ]},
+      {name:'Câmbio', sellers:[]},
     ]
   },
   {
@@ -1048,7 +1045,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-05';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-06';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1387,7 +1384,7 @@ function renderSlide(s){
                   </div>
                 `}
                 <div class="mini-value">${v.value ? fmtBRL(v.value) : (v.oportunidades!=null ? `${v.oportunidades.toLocaleString('pt-BR')} ${rotuloMetrica(v.oportunidades, v.metricLabel)}` : '')}</div>
-              </div>`).join('') : `<div class="division-empty">Em apuração</div>`}
+              </div>`).join('') : (div.metrics ? '' : `<div class="division-empty">Em apuração</div>`)}
             ${div.metrics ? `<div class="div-metrics">${div.metrics.map(m=>`<div class="div-metric"><span class="v">${m.value}</span><span class="l">${m.label}</span></div>`).join('')}</div>` : ''}
           </div>`;
         }).join('')}
