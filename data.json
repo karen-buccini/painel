@@ -23,7 +23,19 @@
     "type": "newhire",
     "duration": 16000,
     "eyebrow": "Novo talento no time",
-    "name": "Luis Guilherme",
+    "name": "Luis Oliveira",
+    "role": "FX General Manager | Câmbio",
+    "fatos": [
+      {
+        "rotulo": "Curiosidade:",
+        "texto": "morou no Panamá e fez um trabalho voluntário dando aula de inglês e português."
+      },
+      {
+        "rotulo": "Hobbies:",
+        "texto": "jogar tênis e ir aos jogos do Santos."
+      }
+    ],
+    "photo": "fotos/luis-oliveira.jpg",
     "visivelAte": "2026-11-03"
   },
   {
