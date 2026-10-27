@@ -23,20 +23,8 @@
     "type": "newhire",
     "duration": 16000,
     "eyebrow": "Novo talento no time",
-    "name": "Bruna Marques",
-    "role": "People Manager | People",
-    "fatos": [
-      {
-        "rotulo": "Curiosidade:",
-        "texto": "já foi modelo da Dove e participou de três campanhas publicitárias na Tailândia."
-      },
-      {
-        "rotulo": "Hobbies:",
-        "texto": "desenhar e organizar coisas — tem uma Marie Kondo que vive nela e fica muito feliz colocando tudo em ordem."
-      }
-    ],
-    "photo": "https://avatars.slack-edge.com/2026-10-20/12366690926210_5fd71d2456bd902af7fc_512.png",
-    "visivelAte": "2026-10-26"
+    "name": "Luis Guilherme",
+    "visivelAte": "2026-11-03"
   },
   {
     "type": "goal",

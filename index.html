@@ -485,6 +485,39 @@ html,body{
 }
 .spotlight .fato b{color:var(--paper);font-weight:500;}
 
+/* ===== SLIDE: ANIVERSARIANTE DO DIA ===== */
+.niver{display:flex;align-items:center;gap:56px;padding-right:300px;}
+.niver-fotos{display:flex;gap:20px;flex-shrink:0;}
+.niver-avatar{
+  width:260px;height:260px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:300;font-size:58px;color:#090F20;
+  box-shadow:0 0 0 6px var(--ink),0 0 0 10px var(--amber),0 0 60px rgba(245,181,68,0.35);
+}
+.niver-fotos.varias .niver-avatar{width:190px;height:190px;font-size:44px;}
+.niver-avatar img{width:100%;height:100%;object-fit:cover;}
+.niver-titulo{margin-top:14px;font-weight:300;font-size:62px;line-height:1.05;letter-spacing:-0.02em;}
+.niver-titulo em{font-style:normal;color:var(--amber);}
+.niver-nome{margin-top:12px;font-size:24px;color:var(--mint);}
+.niver-texto{margin-top:22px;font-size:24px;line-height:1.45;color:var(--muted);max-width:620px;}
+/* Balões desenhados aqui mesmo (e não emoji), para sair igual em qualquer
+   aparelho. Sobem pela faixa da direita, cada um no seu ritmo; o atraso
+   negativo faz o slide já abrir com balões no meio do caminho. */
+.baloes{position:absolute;top:0;bottom:0;right:0;width:360px;overflow:hidden;pointer-events:none;}
+.balao{position:absolute;bottom:-150px;width:70px;height:140px;animation:balao-sobe linear infinite;}
+.balao:nth-child(1){left:10px; animation-duration:11s;animation-delay:-2s;}
+.balao:nth-child(2){left:120px;animation-duration:13s;animation-delay:-8s;width:84px;height:168px;}
+.balao:nth-child(3){left:230px;animation-duration:10s;animation-delay:-5s;}
+.balao:nth-child(4){left:60px; animation-duration:12s;animation-delay:-10s;width:58px;height:116px;}
+.balao:nth-child(5){left:180px;animation-duration:14s;animation-delay:-1s;width:76px;height:152px;}
+.balao:nth-child(6){left:280px;animation-duration:12s;animation-delay:-7s;width:60px;height:120px;}
+.balao:nth-child(7){left:20px; animation-duration:15s;animation-delay:-12s;width:80px;height:160px;}
+@keyframes balao-sobe{
+  0%{transform:translate(0,0) rotate(-5deg);}
+  50%{transform:translate(22px,-380px) rotate(5deg);}
+  100%{transform:translate(0,-760px) rotate(-5deg);}
+}
+
 /* ===== SLIDE: NEWS ===== */
 .news-row{display:flex;gap:clamp(16px,28.2px,26px);flex-wrap:wrap;}
 .news-card{
@@ -1045,7 +1078,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-26-06';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-27-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1073,14 +1106,39 @@ async function loadSlidesFromSource(){
   return null;
 }
 
+// Aniversariante do dia: sai da lista de aniversariantes do mês, sem ninguém
+// precisar mexer no data.json. Abre a rotação no próprio dia e some sozinho
+// às 20h (horário de São Paulo).
+const ANIVERSARIO_ATE_HORA = 20;
+function agoraEmSaoPaulo(){
+  const partes = new Intl.DateTimeFormat('pt-BR', {
+    timeZone:'America/Sao_Paulo', day:'2-digit', month:'2-digit', hour:'2-digit', hourCycle:'h23'
+  }).formatToParts(new Date());
+  const p = Object.fromEntries(partes.map(x => [x.type, x.value]));
+  return { dia: `${p.day}/${p.month}`, hora: Number(p.hour) };
+}
+function aniversarianteDoDia(todos){
+  const mes = todos.find(s => s.type==='birthdays');
+  if(!mes || !mes.people) return null;
+  const { dia, hora } = agoraEmSaoPaulo();
+  if(hora >= ANIVERSARIO_ATE_HORA) return null;
+  const people = mes.people.filter(p => p.date===dia);
+  if(!people.length) return null;
+  return { type:'aniversarioDia', duration:16000, eyebrow:`Aniversariante do dia · ${dia}`, people };
+}
+
+function montarRotacao(todos){
+  const doDia = aniversarianteDoDia(todos);
+  const ativos = (doDia ? [doDia, ...todos] : todos).filter(isSlideActive);
+  return ativos.length ? ativos : todos; // salvaguarda: nunca deixar a rotação vazia
+}
+
 let allSlides = DEFAULT_SLIDES;
-let slides = allSlides.filter(isSlideActive);
-if(slides.length===0) slides = allSlides; // salvaguarda: nunca deixar a rotação vazia
+let slides = montarRotacao(allSlides);
 
 function applyNewData(newAllSlides){
   allSlides = newAllSlides;
-  slides = allSlides.filter(isSlideActive);
-  if(slides.length===0) slides = allSlides;
+  slides = montarRotacao(allSlides);
   if(current >= slides.length) current = 0;
 }
 
@@ -1288,6 +1346,32 @@ function renderSlide(s){
             <div class="name">${p.name}</div>
             <div class="date">${p.date}</div>
           </div>`).join('')}
+      </div>`;
+  }
+  if(s.type==='aniversarioDia'){
+    const nomes = s.people.map(p => p.name.split(' ')[0]);
+    const chamada = nomes.length > 1 ? `${nomes.slice(0,-1).join(', ')} e ${nomes[nomes.length-1]}` : nomes[0];
+    const balao = (cor) => `
+      <svg class="balao" viewBox="0 0 60 120">
+        <path d="M30 75 C24 90, 36 102, 30 120" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+        <path d="M30 66 L25 76 L35 76 Z" fill="${cor}"/>
+        <ellipse cx="30" cy="36" rx="25" ry="31" fill="${cor}"/>
+        <ellipse cx="21" cy="24" rx="6" ry="11" fill="rgba(255,255,255,0.35)" transform="rotate(-22 21 24)"/>
+      </svg>`;
+    const cores = ['#5FC0E9','#F5B544','#F0616D','#28B665','#9B8CFF','#27AAE1','#F5B544'];
+    return `
+      ${makeConfetti()}
+      <div class="baloes" aria-hidden="true">${cores.map(balao).join('')}</div>
+      <div class="niver">
+        <div class="niver-fotos ${s.people.length > 1 ? 'varias' : ''}">
+          ${s.people.slice(0,3).map(p=>`<div class="niver-avatar" style="background:${p.photo ? 'transparent' : (p.color || 'var(--amber)')}">${avatarInner(p)}</div>`).join('')}
+        </div>
+        <div>
+          <div class="eyebrow">${eyebrowText(s)}</div>
+          <div class="niver-titulo">Feliz aniversário, <em>${chamada}!</em></div>
+          <div class="niver-nome">${s.people.map(p=>p.name).join(' · ')}</div>
+          <div class="niver-texto">Parabéns, ${chamada}!</div>
+        </div>
       </div>`;
   }
   if(s.type==='companyAnniv'){
@@ -1663,6 +1747,15 @@ setInterval(async ()=>{
   const fresh = await loadSlidesFromSource();
   if(fresh && JSON.stringify(fresh) !== JSON.stringify(allSlides)){
     applyNewData(fresh);
+    rebuildDots();
+    return;
+  }
+  // Mesmo sem dado novo a rotação muda com o relógio: é assim que o
+  // aniversariante do dia sai às 20h e um slide com "visivelAte" sai no fim do dia.
+  const agora = montarRotacao(allSlides);
+  if(JSON.stringify(agora) !== JSON.stringify(slides)){
+    slides = agora;
+    if(current >= slides.length) current = 0;
     rebuildDots();
   }
 }, 2*60*1000);
