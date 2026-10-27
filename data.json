@@ -328,7 +328,15 @@
     "divisions": [
       {
         "name": "Retargeting",
-        "sellers": []
+        "sellers": [
+          {
+            "name": "Juliane Gadi",
+            "oportunidades": 1,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
+            "metricLabel": "oportunidades"
+          }
+        ]
       },
       {
         "name": "Frete",
