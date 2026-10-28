@@ -196,15 +196,9 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 4300000,
+    "quenteTotal": 2300000,
     "mornoTotal": 15450000,
     "top3": [
-      {
-        "name": "Lifemed Industrial de Equipamentos e Artigos Médicos e Hospitalares",
-        "value": 2000000,
-        "temp": "quente",
-        "owner": "Cecília Moreira"
-      },
       {
         "name": "Kabel Industria e Comercio de Chicotes Eletricos",
         "value": 1000000,
@@ -216,6 +210,12 @@
         "value": 1000000,
         "temp": "quente",
         "owner": "Kaio Oliveira"
+      },
+      {
+        "name": "Grupo Big Lar",
+        "value": 200000,
+        "temp": "quente",
+        "owner": "Jarbas Vinícius"
       }
     ]
   },
