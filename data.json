@@ -304,7 +304,7 @@
         "sellers": [
           {
             "name": "Raquel Figueiredo",
-            "oportunidades": 6,
+            "oportunidades": 7,
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
             "metricLabel": "oportunidades"
