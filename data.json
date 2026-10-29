@@ -343,7 +343,7 @@
         "sellers": [
           {
             "name": "Luciana Turisco",
-            "oportunidades": 43,
+            "oportunidades": 44,
             "metricLabel": "embarques confirmados",
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
