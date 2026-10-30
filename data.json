@@ -24,14 +24,15 @@
     "eyebrow": "Progresso da meta",
     "showMonth": true,
     "metaValor": 13000000,
-    "atual": 9171106.1,
-    "clientesAtivados": 5,
+    "atual": 9433106.1,
+    "clientesAtivados": 6,
     "clientesLista": [
       "Siqueira Campos Importacao e Distribuicao",
       "Pedroni Logistica",
       "Piloto Xp - Total Comercio de Importacao e Exportacao",
       "Lion Packing",
-      "Cap Trade Brasil Comercio Exterior e Distribuicao"
+      "Cap Trade Brasil Comercio Exterior e Distribuicao",
+      "Oslo Home"
     ]
   },
   {
@@ -176,7 +177,7 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 2462000,
+    "quenteTotal": 2200000,
     "mornoTotal": 16450000,
     "top3": [
       {
@@ -192,8 +193,8 @@
         "owner": "Kaio Oliveira"
       },
       {
-        "name": "Oslo Home",
-        "value": 262000,
+        "name": "Grupo Big Lar",
+        "value": 200000,
         "temp": "quente",
         "owner": "Jarbas Vinícius"
       }
@@ -265,8 +266,8 @@
           },
           {
             "name": "Jarbas Vinícius",
-            "value": 1379319.4300000002,
-            "deals": 2,
+            "value": 1641319.4300000002,
+            "deals": 3,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
           },
@@ -291,14 +292,14 @@
           },
           {
             "name": "Matheus Ferreira",
-            "oportunidades": 3,
+            "oportunidades": 4,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
           },
           {
             "name": "Julia Porto",
-            "oportunidades": 1,
+            "oportunidades": 1.5,
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
@@ -478,7 +479,7 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 10,1M no mês",
+        "title": "Crédito aprovado chega a R$ 10,4M no mês",
         "text": "Soma do limite de crédito aprovado nas ativações do mês."
       },
       {
