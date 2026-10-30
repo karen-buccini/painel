@@ -1,25 +1,5 @@
 [
   {
-    "type": "campanha",
-    "tema": "halloween",
-    "duration": 18000,
-    "eyebrow": "Halloween da Vixtra · Quarta, 28/10",
-    "titulo": "Quarta-feira é dia de vir <em>fantasiado!</em>",
-    "texto": "O Halloween da Vixtra vai ter <b>bolo dos aniversariantes</b> e <b>votação da melhor fantasia</b>.",
-    "premioRotulo": "Quem ganhar leva",
-    "premio": "R$ 50 no Flash",
-    "chamada": "Prepare sua fantasia e participe com o time!",
-    "pergunta": "Qual será a sua fantasia?",
-    "arte": [
-      "emojis/1f383.svg",
-      "emojis/1f47b.svg",
-      "emojis/1f987.svg",
-      "emojis/1f578.svg",
-      "emojis/1f36c.svg"
-    ],
-    "visivelAte": "2026-10-28"
-  },
-  {
     "type": "newhire",
     "duration": 16000,
     "eyebrow": "Novo talento no time",
