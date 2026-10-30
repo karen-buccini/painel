@@ -177,7 +177,7 @@
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
     "quenteTotal": 2462000,
-    "mornoTotal": 20450000,
+    "mornoTotal": 16450000,
     "top3": [
       {
         "name": "Kabel Industria e Comercio de Chicotes Eletricos",
@@ -294,6 +294,13 @@
             "oportunidades": 3,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
+            "metricLabel": "oportunidades"
+          },
+          {
+            "name": "Julia Porto",
+            "oportunidades": 1,
+            "color": "var(--sky)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           }
         ]
