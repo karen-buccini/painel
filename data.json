@@ -177,26 +177,26 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 2200000,
-    "mornoTotal": 16450000,
+    "quenteTotal": 4411000,
+    "mornoTotal": 26600000,
     "top3": [
       {
-        "name": "Kabel Industria e Comercio de Chicotes Eletricos",
-        "value": 1000000,
-        "temp": "quente",
-        "owner": "Guilherme Belotto"
-      },
-      {
-        "name": "Esfera Distribuidora de Geradores",
-        "value": 1000000,
+        "name": "Vila Porto International Business",
+        "value": 2000000,
         "temp": "quente",
         "owner": "Kaio Oliveira"
       },
       {
-        "name": "Grupo Big Lar",
-        "value": 200000,
+        "name": "Veel Trade - Soc. Catarinense de Comércio (grupo Cecil)",
+        "value": 1411000,
         "temp": "quente",
-        "owner": "Jarbas Vinícius"
+        "owner": "Fernando Velloso"
+      },
+      {
+        "name": "Kgepel Papeis",
+        "value": 500000,
+        "temp": "quente",
+        "owner": "Guilherme Belotto"
       }
     ]
   },
@@ -316,22 +316,14 @@
     "divisions": [
       {
         "name": "Retargeting",
-        "sellers": [
-          {
-            "name": "Juliane Gadi",
-            "oportunidades": 1,
-            "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
-            "metricLabel": "oportunidades"
-          }
-        ]
+        "sellers": []
       },
       {
         "name": "Frete",
         "sellers": [
           {
             "name": "Luciana Turisco",
-            "oportunidades": 46,
+            "oportunidades": 0,
             "metricLabel": "embarques confirmados",
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
