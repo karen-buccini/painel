@@ -177,8 +177,8 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 4411000,
-    "mornoTotal": 26600000,
+    "quenteTotal": 5411000,
+    "mornoTotal": 31100000,
     "top3": [
       {
         "name": "Vila Porto International Business",
@@ -193,8 +193,8 @@
         "owner": "Fernando Velloso"
       },
       {
-        "name": "Kgepel Papeis",
-        "value": 500000,
+        "name": "Kabel Industria e Comercio de Chicotes Eletricos",
+        "value": 1000000,
         "temp": "quente",
         "owner": "Guilherme Belotto"
       }
