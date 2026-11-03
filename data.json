@@ -183,7 +183,7 @@
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
     "quenteTotal": 6011000,
-    "mornoTotal": 30900000,
+    "mornoTotal": 29600000,
     "top3": [
       {
         "name": "Vila Porto International Business",
@@ -245,7 +245,15 @@
     "divisions": [
       {
         "name": "Retargeting",
-        "sellers": []
+        "sellers": [
+          {
+            "name": "Juliane Gadi",
+            "oportunidades": 2,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
+            "metricLabel": "oportunidades"
+          }
+        ]
       },
       {
         "name": "Frete",
