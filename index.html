@@ -1045,8 +1045,9 @@ const DEFAULT_SLIDES = [
    ========================================================================== */
 
 // ---------- REGRAS DE EXPIRAÇÃO AUTOMÁTICA ----------
-// Celebração de ativação: 24h após a postagem, e some. Para deixar mais tempo,
-// ponha "diasVisivel" no slide dentro do data.json (7 = uma semana).
+// Celebração de ativação: uma semana após a postagem, e some — mesmo que o mês
+// vire no meio (a meta conta por mês, o destaque não). Para mudar caso a caso,
+// ponha "diasVisivel" ou "visivelAte" no slide dentro do data.json.
 // Novo talento: fica visível por 30 dias após a chegada, depois some.
 // Dá para mudar caso a caso pondo "diasVisivel" no slide dentro do data.json.
 function isSlideActive(s){
@@ -1055,7 +1056,7 @@ function isSlideActive(s){
   if(s.visivelAte && now > new Date(s.visivelAte + 'T23:59:59-03:00')) return false;
   if(s.type==='celebration' && s.postedAt){
     const horasDesde = (now - new Date(s.postedAt)) / (1000*60*60);
-    return horasDesde <= (s.diasVisivel || 1) * 24;
+    return horasDesde <= (s.diasVisivel || 7) * 24;
   }
   if(s.type==='newhire' && s.joinedAt){
     const daysSince = (now - new Date(s.joinedAt+'T00:00:00-03:00')) / (1000*60*60*24);
@@ -1076,7 +1077,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-02-01';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-03-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1618,7 +1619,7 @@ function restartProgress(duration){
 let tickerAtual = '';
 function buildTicker(){
   const goal = slides.find(s=>s.type==='goal');
-  const cel = slides.find(s=>s.type==='celebration'); // undefined se já passou de 24h
+  const cel = slides.find(s=>s.type==='celebration'); // undefined se já passou a semana do destaque
   const bday = slides.find(s=>s.type==='birthdays');
   const curr = slides.find(s=>s.type==='currency');
   const novatos = slides.filter(s=>s.type==='newhire'); // vazio se já passou da janela de exibição
@@ -1628,7 +1629,7 @@ function buildTicker(){
   const bits = [
     `🎯 Faltam <b>${fmtBRL(falta)}</b> para bater a meta do mês`,
     `🔥 <b>${fmtBRL(slides.find(s=>s.type==='funnel').quenteTotal)}</b> em negócios quentes no pipeline de closing`,
-    ...(cel ? [`🎉 <b>${cel.who}</b> ativou <b>${cel.client}</b> — ${cel.valorAtivado != null ? fmtBRL(cel.valorAtivado) : cel.amount}`] : []),
+    ...(cel ? [`🎉 <b>${cel.pessoas && cel.pessoas.length ? cel.pessoas.map(p=>p.name).join(' & ') : cel.who}</b> ativou <b>${cel.client}</b> — ${cel.valorAtivado != null ? fmtBRL(cel.valorAtivado) : cel.amount}`] : []),
     ...(bday ? [`🎂 <b>${bday.people.length}</b> aniversário${bday.people.length>1?'s':''} este mês`] : []),
     ...(novatos.length ? [`👋 Boas-vindas, ${novatos.map(n=>`<b>${n.name}</b>`).join(' e ')}!`] : []),
     ...(usd ? [`💵 Dólar a <b>R$ ${usd.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</b>`] : []),

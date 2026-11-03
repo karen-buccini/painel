@@ -1,5 +1,20 @@
 [
   {
+    "type": "celebration",
+    "duration": 16000,
+    "eyebrow": "Novo cliente ativado",
+    "client": "Oslo Home",
+    "pessoas": [
+      {
+        "name": "Jarbas Vinícius",
+        "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
+      }
+    ],
+    "valorAtivado": 262000,
+    "limiteAprovado": 300000,
+    "visivelAte": "2026-11-06"
+  },
+  {
     "type": "newhire",
     "duration": 16000,
     "eyebrow": "Novo talento no time",

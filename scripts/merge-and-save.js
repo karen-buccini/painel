@@ -152,7 +152,7 @@ const TIPOS_TEMPORARIOS = new Set(['celebration', 'newhire', 'evento', 'campanha
 function venceEm(s) {
   if (s.visivelAte) return new Date(s.visivelAte + 'T23:59:59-03:00').getTime();
   if (s.type === 'celebration' && s.postedAt) {
-    return new Date(s.postedAt).getTime() + (s.diasVisivel || 1) * 864e5;
+    return new Date(s.postedAt).getTime() + (s.diasVisivel || 7) * 864e5;
   }
   if (s.type === 'newhire' && s.joinedAt) {
     return new Date(s.joinedAt).getTime() + (s.diasVisivel || 30) * 864e5;
