@@ -24,16 +24,10 @@
     "eyebrow": "Progresso da meta",
     "showMonth": true,
     "metaValor": 13000000,
-    "atual": 9433106.1,
-    "clientesAtivados": 6,
-    "clientesLista": [
-      "Siqueira Campos Importacao e Distribuicao",
-      "Pedroni Logistica",
-      "Piloto Xp - Total Comercio de Importacao e Exportacao",
-      "Lion Packing",
-      "Cap Trade Brasil Comercio Exterior e Distribuicao",
-      "Oslo Home"
-    ]
+    "atual": 0,
+    "clientesAtivados": 0,
+    "clientesLista": [],
+    "periodo": "2026-11"
   },
   {
     "type": "wallet",
@@ -208,43 +202,11 @@
     "divisions": [
       {
         "name": "Aumento de volume tomado",
-        "sellers": [
-          {
-            "name": "André Vitoretti",
-            "value": 4470000,
-            "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg"
-          },
-          {
-            "name": "Tiago Viel",
-            "value": 1000000,
-            "color": "var(--mint)",
-            "photo": "https://avatars.slack-edge.com/2026-02-23/10565767228802_f4abc21f076826b0bcda_512.jpg"
-          },
-          {
-            "name": "Antonio Mourão",
-            "value": 1000000,
-            "color": "var(--sky)",
-            "photo": "https://avatars.slack-edge.com/2026-08-05/11743803696279_5a4e1f515c3cae4c40d8_512.png"
-          }
-        ]
+        "sellers": []
       },
       {
         "name": "Renovação",
-        "sellers": [
-          {
-            "name": "Carlos Ferrarezi",
-            "value": 2921884.42,
-            "color": "var(--mint)",
-            "photo": "https://avatars.slack-edge.com/2025-11-26/9998285655509_28c200815365935d41eb_512.jpg"
-          },
-          {
-            "name": "André Vitoretti",
-            "value": 1145808.75,
-            "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg"
-          }
-        ]
+        "sellers": []
       }
     ]
   },
@@ -256,55 +218,11 @@
     "divisions": [
       {
         "name": "Closing",
-        "sellers": [
-          {
-            "name": "Guilherme Belotto",
-            "value": 7291786.67,
-            "deals": 2,
-            "color": "var(--sky)",
-            "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
-          },
-          {
-            "name": "Jarbas Vinícius",
-            "value": 1641319.4300000002,
-            "deals": 3,
-            "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
-          },
-          {
-            "name": "Kaio Oliveira",
-            "value": 500000,
-            "deals": 1,
-            "color": "var(--coral)",
-            "photo": "https://avatars.slack-edge.com/2024-10-22/7905267593719_af4e22e63399aa29662c_512.jpg"
-          }
-        ]
+        "sellers": []
       },
       {
         "name": "Parcerias · Farming",
-        "sellers": [
-          {
-            "name": "Raquel Figueiredo",
-            "oportunidades": 7,
-            "color": "var(--sky)",
-            "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
-            "metricLabel": "oportunidades"
-          },
-          {
-            "name": "Matheus Ferreira",
-            "oportunidades": 4,
-            "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
-            "metricLabel": "oportunidades"
-          },
-          {
-            "name": "Julia Porto",
-            "oportunidades": 1.5,
-            "color": "var(--sky)",
-            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
-            "metricLabel": "oportunidades"
-          }
-        ]
+        "sellers": []
       }
     ]
   },
@@ -332,25 +250,7 @@
       },
       {
         "name": "Câmbio",
-        "sellers": [],
-        "metrics": [
-          {
-            "value": "R$ 37.023.666",
-            "label": "Volume total"
-          },
-          {
-            "value": "R$ 50.833",
-            "label": "Margem Vixtra"
-          },
-          {
-            "value": "39",
-            "label": "Clientes"
-          },
-          {
-            "value": "204",
-            "label": "Transações"
-          }
-        ]
+        "sellers": []
       }
     ]
   },
@@ -471,7 +371,7 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 10,4M no mês",
+        "title": "Crédito aprovado no mês: em apuração",
         "text": "Soma do limite de crédito aprovado nas ativações do mês."
       },
       {

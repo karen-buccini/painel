@@ -112,9 +112,14 @@ function vestir(pessoas, elenco) {
  * quando for verdade, é melhor mostrar o número de ontem do que um branco.
  * Quando isso acontecer, o log da rotina registra.
  */
-function aplicarLista(divisao, novos, rotulo, vestirFn) {
+function aplicarLista(divisao, novos, rotulo, vestirFn, virouMes = false) {
   if (!divisao) return false;
   if (!Array.isArray(novos) || novos.length === 0) {
+    // Na virada do mês, vazio é a verdade: ninguém ativou ainda.
+    if (virouMes && Array.isArray(novos)) {
+      divisao.sellers = [];
+      return true;
+    }
     if ((divisao.sellers || []).length > 0) {
       console.error(`Aviso: o HubSpot não devolveu ninguém para "${rotulo}". Mantido o que já estava no painel.`);
     }
@@ -193,16 +198,25 @@ function main() {
     // some a lista de clientes e a barra de progresso volta ao inicio. Se for
     // zero de verdade (dia 1o do mes, por exemplo), o proprio mes vira e a
     // primeira ativacao corrige. Quando isso acontecer, fica registrado no log.
+    //
+    // A exceção é a virada do mês. Em 02/11 o painel ainda mostrava a meta,
+    // o closing, as parcerias e o crédito de outubro, porque novembro ainda
+    // não tinha nenhuma ativação e as travas acima seguravam o mês anterior.
+    // O slide da meta guarda o mês a que os números se referem ("periodo");
+    // quando o HubSpot responde por outro mês, vazio passa a valer.
     const goal = findSlide(slides, 'goal');
+    const virouMes = Boolean(hubspot.periodo && goal && goal.periodo !== hubspot.periodo);
+    if (virouMes) console.error(`Virada de mês: ${goal.periodo || '(sem mês)'} -> ${hubspot.periodo}. Listas vazias valem.`);
     if (goal && hubspot.ativados) {
       const veioVazio = !hubspot.ativados.clientesAtivados;
       const tinhaDado = goal.clientesAtivados > 0 || goal.atual > 0;
-      if (veioVazio && tinhaDado) {
+      if (veioVazio && tinhaDado && !virouMes) {
         console.error('Aviso: o HubSpot não devolveu nenhuma ativação do mês. Meta mantida como estava.');
       } else {
         goal.atual = hubspot.ativados.volumeAtivado;
         goal.clientesAtivados = hubspot.ativados.clientesAtivados;
         goal.clientesLista = hubspot.ativados.clientesLista;
+        goal.periodo = hubspot.periodo;
         mudancas.push('meta do mês');
       }
     }
@@ -226,7 +240,7 @@ function main() {
       for (const [operacao, pessoas] of Object.entries(hubspot.forecastingFarmer)) {
         const div = findDivision(slides, operacao);
         if (!div) continue;
-        if (aplicarLista(div, pessoas.slice(0, 3), operacao, (l) => vestir(l, elenco))) {
+        if (aplicarLista(div, pessoas.slice(0, 3), operacao, (l) => vestir(l, elenco), virouMes)) {
           aplicadas.push(operacao);
         }
       }
@@ -239,7 +253,7 @@ function main() {
       // Ate cinco: cortar em tres escondia quem ativou no mes, que e
       // exatamente o contrario do que este card existe para fazer.
       if (aplicarLista(closing, hubspot.ativados.closers.slice(0, 5), 'Closing',
-            (l) => vestir(l, elenco))) {
+            (l) => vestir(l, elenco), virouMes)) {
         mudancas.push('ranking de closing');
       }
     }
@@ -251,7 +265,7 @@ function main() {
       const farming = findDivision(slides, 'Parcerias · Farming');
       if (farming) {
         if (aplicarLista(farming, hubspot.parcerias.farming.slice(0, 4), 'Parcerias · Farming',
-              (l) => vestir(l, elenco).map((v) => ({ ...v, metricLabel: 'oportunidades' })))) {
+              (l) => vestir(l, elenco).map((v) => ({ ...v, metricLabel: 'oportunidades' })), virouMes)) {
           mudancas.push('ranking de parcerias');
         }
       }
@@ -281,8 +295,11 @@ function main() {
     // --- Novidades: o card de crédito aprovado ------------------------
     const news = findSlide(slides, 'news');
     const cardCredito = news && (news.items || []).find((i) => i.tag === 'credito');
-    if (cardCredito && hubspot.ativados && hubspot.ativados.creditoAprovado) {
-      cardCredito.title = `Crédito aprovado chega a ${milhoes(hubspot.ativados.creditoAprovado)} no mês`;
+    const credito = hubspot.ativados && hubspot.ativados.creditoAprovado;
+    if (cardCredito && (credito || virouMes)) {
+      cardCredito.title = credito
+        ? `Crédito aprovado chega a ${milhoes(credito)} no mês`
+        : 'Crédito aprovado no mês: em apuração';
       mudancas.push('card de crédito aprovado');
     }
   }

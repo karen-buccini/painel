@@ -1076,7 +1076,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-10-27-03';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-02-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1125,9 +1125,20 @@ function aniversarianteDoDia(todos){
   return { type:'aniversarioDia', duration:16000, eyebrow:`Aniversariante do dia · ${dia}`, people };
 }
 
+// Aniversariantes e tempo de casa são listas escritas à mão, uma por mês. Na
+// virada, a lista velha ficava na TV dizendo "Aniversariantes do mês" com as
+// datas do mês anterior. Agora só entra quem é do mês corrente, e o slide sai
+// da rotação enquanto a lista do mês novo não chega.
+function soDoMes(s){
+  if(s.type!=='birthdays' && s.type!=='companyAnniv') return s;
+  const mes = agoraEmSaoPaulo().dia.slice(3);
+  const people = (s.people || []).filter(p => String(p.date || '').slice(3)===mes);
+  return people.length ? { ...s, people } : null;
+}
+
 function montarRotacao(todos){
   const doDia = aniversarianteDoDia(todos);
-  const ativos = (doDia ? [doDia, ...todos] : todos).filter(isSlideActive);
+  const ativos = (doDia ? [doDia, ...todos] : todos).map(soDoMes).filter(Boolean).filter(isSlideActive);
   return ativos.length ? ativos : todos; // salvaguarda: nunca deixar a rotação vazia
 }
 
@@ -1618,7 +1629,7 @@ function buildTicker(){
     `🎯 Faltam <b>${fmtBRL(falta)}</b> para bater a meta do mês`,
     `🔥 <b>${fmtBRL(slides.find(s=>s.type==='funnel').quenteTotal)}</b> em negócios quentes no pipeline de closing`,
     ...(cel ? [`🎉 <b>${cel.who}</b> ativou <b>${cel.client}</b> — ${cel.valorAtivado != null ? fmtBRL(cel.valorAtivado) : cel.amount}`] : []),
-    `🎂 <b>${bday.people.length}</b> aniversários este mês`,
+    ...(bday ? [`🎂 <b>${bday.people.length}</b> aniversário${bday.people.length>1?'s':''} este mês`] : []),
     ...(novatos.length ? [`👋 Boas-vindas, ${novatos.map(n=>`<b>${n.name}</b>`).join(' e ')}!`] : []),
     ...(usd ? [`💵 Dólar a <b>R$ ${usd.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</b>`] : []),
     ...(wallet ? [`📈 Carteira em <b>${fmtBRL(Math.round(wallet.current))}</b>`] : []),
