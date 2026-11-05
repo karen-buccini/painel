@@ -730,6 +730,22 @@ html,body{
 }
 .curr-card .var.up{color:var(--mint);}
 .curr-card .var.down{color:var(--coral);}
+/* Selic: faixa abaixo das moedas. Não é par de moeda, e um quarto cartão
+   apertava os valores a ponto de quebrar "R$ 5,43" em duas linhas. */
+.selic-strip{
+  margin-top:clamp(14px,25.6px,26px);
+  display:flex;align-items:baseline;gap:clamp(14px,20px,26px);flex-wrap:wrap;
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:16px;padding:clamp(16px,20px,28px) clamp(24px,38.4px,44px);
+  font-family:var(--font);font-variant-numeric:tabular-nums;
+}
+.selic-strip .pair{
+  display:flex;align-items:center;gap:10px;
+  font-size:clamp(18px,20.5px,26px);color:var(--muted);
+  text-transform:uppercase;letter-spacing:0.08em;
+}
+.selic-strip .val{font-weight:300;letter-spacing:-0.02em;font-size:clamp(32px,40px,56px);line-height:1;}
+.selic-strip .info{color:var(--muted);font-size:clamp(18px,20.5px,26px);}
 .curr-updated{
   margin-top:clamp(18px,18.7px,26px);
   color:var(--muted);font-family:var(--font);font-variant-numeric:tabular-nums;
@@ -1000,7 +1016,8 @@ const DEFAULT_SLIDES = [
       {code:'USD', name:'Dólar americano', flag:'🇺🇸', value:5.40, pct:0.32},
       {code:'EUR', name:'Euro', flag:'🇪🇺', value:5.86, pct:-0.18},
       {code:'USDT', name:'Tether', flag:'₮', value:5.42, pct:0.04},
-    ]
+    ],
+    selic:{valor:13.75, desde:'17/09/2026'},
   },
 ];
 
@@ -1077,7 +1094,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-05-01';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-05-02';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1503,6 +1520,17 @@ function renderSlide(s){
             </div>`;
         }).join('')}
       </div>
+      ${(()=>{
+        const selic = selicAtual(s);
+        if(!selic) return '';
+        const pct = selic.valor.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+        return `
+          <div class="selic-strip">
+            <div class="pair"><span class="flag">🇧🇷</span>Taxa Selic</div>
+            <div class="val">${pct}%</div>
+            <div class="info">ao ano${selic.desde ? ` · desde ${selic.desde.slice(0,5)}` : ''}</div>
+          </div>`;
+      })()}
       ${s.offline ? `<div class="curr-updated">Não foi possível atualizar as cotações agora</div>` : ''}`;
   }
   return '';
@@ -1638,6 +1666,7 @@ function buildTicker(){
     ...(cel ? [`🎉 <b>${cel.pessoas && cel.pessoas.length ? cel.pessoas.map(p=>p.name).join(' & ') : cel.who}</b> ativou <b>${cel.client}</b> — ${cel.valorAtivado != null ? fmtBRL(cel.valorAtivado) : cel.amount}`] : []),
     ...(bday ? [`🎂 <b>${bday.people.length}</b> aniversário${bday.people.length>1?'s':''} este mês`] : []),
     ...(novatos.length ? [`👋 Boas-vindas, ${novatos.map(n=>`<b>${n.name}</b>`).join(' e ')}!`] : []),
+    ...(curr && selicAtual(curr) ? [`🏦 Selic em <b>${selicAtual(curr).valor.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}%</b> ao ano`] : []),
     ...(usd ? [`💵 Dólar a <b>R$ ${usd.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</b>`] : []),
     ...(wallet ? [`📈 Carteira em <b>${fmtBRL(Math.round(wallet.current))}</b>`] : []),
   ];
@@ -1705,6 +1734,38 @@ async function refreshCurrency(){
   if(slides[current].type==='currency') renderCurrent();
 }
 
+// ---------- SELIC AO VIVO (API pública do Banco Central, sem chave) ----------
+// Série 432 do SGS: meta da Selic definida pelo Copom, um valor por dia. A taxa
+// só muda depois das reuniões do Copom (8 por ano), então basta buscar de hora
+// em hora. Fica guardada fora do slide porque o data.json, rebuscado de 2 em 2
+// minutos, recria os slides; o "selic" do data.json é só a reserva para quando
+// o Banco Central não responder.
+let selicAoVivo = null;
+function selicAtual(slide){
+  return selicAoVivo || (slide && slide.selic) || null;
+}
+async function refreshSelic(){
+  try{
+    const data = d => d.toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo'});
+    const hoje = new Date();
+    const inicio = new Date(hoje.getTime() - 400*24*60*60*1000);
+    // A série já traz os dias até a próxima reunião; cortar em hoje garante a taxa vigente.
+    const res = await fetch(`https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=${data(inicio)}&dataFinal=${data(hoje)}`);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const serie = await res.json();
+    if(!Array.isArray(serie) || !serie.length) throw new Error('série vazia');
+    let i = serie.length - 1;
+    const valor = serie[i].valor;
+    while(i > 0 && serie[i-1].valor === valor) i--;
+    // Sem mudança na janela inteira, não dá para saber desde quando vale.
+    selicAoVivo = { valor: parseFloat(valor), desde: i > 0 ? serie[i].data : null };
+  }catch(err){
+    console.warn('Falha ao buscar a Selic (Banco Central):', err);
+  }
+  if(slides[current] && slides[current].type==='currency') renderCurrent();
+  buildTicker();
+}
+
 // ---------- CLIMA AO VIVO (API pública, sem chave — Open-Meteo) ----------
 function mapWeatherCode(code){
   const table = {
@@ -1748,11 +1809,13 @@ async function refreshWeather(){
   renderCurrent();
   scheduleNext();
   refreshCurrency();
+  refreshSelic();
   refreshWeather();
 })();
 
 setInterval(refreshCurrency, 5*60*1000);  // moedas a cada 5 minutos
 setInterval(refreshWeather, 15*60*1000);  // clima a cada 15 minutos
+setInterval(refreshSelic, 60*60*1000);    // Selic a cada hora
 
 // Verifica periodicamente se a fonte de dados externa tem conteúdo novo
 // (só terá efeito de verdade depois que loadSlidesFromSource() for conectada
