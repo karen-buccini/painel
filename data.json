@@ -678,6 +678,7 @@
     "people": [
       {
         "name": "José Macfarland",
+        "years": 2,
         "date": "01/01",
         "inicio": "01/01/2024",
         "color": "var(--sky)",
@@ -685,6 +686,7 @@
       },
       {
         "name": "Jessica Pereira",
+        "years": 2,
         "date": "08/01",
         "inicio": "08/01/2024",
         "color": "var(--mint)",
@@ -692,6 +694,7 @@
       },
       {
         "name": "Karol Medeiros",
+        "years": 2,
         "date": "08/01",
         "inicio": "08/01/2024",
         "color": "var(--gold)",
@@ -699,6 +702,7 @@
       },
       {
         "name": "Carmen Gozza",
+        "years": 3,
         "date": "09/01",
         "inicio": "09/01/2023",
         "color": "var(--coral)",
@@ -706,6 +710,7 @@
       },
       {
         "name": "Julia Guimarães",
+        "years": 0,
         "date": "12/01",
         "inicio": "12/01/2026",
         "color": "#9B8CFF",
@@ -713,6 +718,7 @@
       },
       {
         "name": "Luciana Turisco",
+        "years": 0,
         "date": "14/01",
         "inicio": "14/01/2026",
         "color": "var(--sky)",
@@ -720,6 +726,7 @@
       },
       {
         "name": "Jorge Mortara",
+        "years": 4,
         "date": "17/01",
         "inicio": "17/01/2022",
         "color": "var(--mint)",
@@ -727,6 +734,7 @@
       },
       {
         "name": "Paulo Reis",
+        "years": 4,
         "date": "27/01",
         "inicio": "27/01/2022",
         "color": "var(--gold)",
@@ -734,6 +742,7 @@
       },
       {
         "name": "Fernando Velloso",
+        "years": 4,
         "date": "27/01",
         "inicio": "27/01/2022",
         "color": "var(--coral)",
@@ -741,6 +750,7 @@
       },
       {
         "name": "Julia Porto",
+        "years": 2,
         "date": "01/02",
         "inicio": "01/02/2024",
         "color": "var(--sky)",
@@ -748,6 +758,7 @@
       },
       {
         "name": "Yuri Pecelin",
+        "years": 0,
         "date": "04/02",
         "inicio": "04/02/2026",
         "color": "var(--mint)",
@@ -755,6 +766,7 @@
       },
       {
         "name": "Larissa Carvalho",
+        "years": 1,
         "date": "11/02",
         "inicio": "11/02/2025",
         "color": "var(--gold)",
@@ -762,6 +774,7 @@
       },
       {
         "name": "Tiago Viel",
+        "years": 0,
         "date": "23/02",
         "inicio": "23/02/2026",
         "color": "var(--coral)",
@@ -769,6 +782,7 @@
       },
       {
         "name": "Filipe Laham",
+        "years": 2,
         "date": "26/02",
         "inicio": "26/02/2024",
         "color": "#9B8CFF",
@@ -776,6 +790,7 @@
       },
       {
         "name": "Jarbas Vinícius",
+        "years": 0,
         "date": "02/03",
         "inicio": "02/03/2026",
         "color": "var(--sky)",
@@ -783,6 +798,7 @@
       },
       {
         "name": "Adamo Morone",
+        "years": 4,
         "date": "03/03",
         "inicio": "03/03/2022",
         "color": "var(--mint)",
@@ -790,6 +806,7 @@
       },
       {
         "name": "Cecília Moreira",
+        "years": 2,
         "date": "04/03",
         "inicio": "04/03/2024",
         "color": "var(--gold)",
@@ -797,6 +814,7 @@
       },
       {
         "name": "Pyetra Falcão",
+        "years": 4,
         "date": "17/03",
         "inicio": "17/03/2022",
         "color": "var(--coral)",
@@ -804,6 +822,7 @@
       },
       {
         "name": "Mari Costa",
+        "years": 2,
         "date": "18/03",
         "inicio": "18/03/2024",
         "color": "#9B8CFF",
@@ -811,6 +830,7 @@
       },
       {
         "name": "Beto Procopio",
+        "years": 2,
         "date": "26/03",
         "inicio": "26/03/2024",
         "color": "var(--sky)",
@@ -818,6 +838,7 @@
       },
       {
         "name": "Gabriel Soares",
+        "years": 1,
         "date": "01/04",
         "inicio": "01/04/2025",
         "color": "var(--sky)",
@@ -825,6 +846,7 @@
       },
       {
         "name": "Jennifer Kauffman",
+        "years": 1,
         "date": "01/04",
         "inicio": "01/04/2025",
         "color": "var(--mint)",
@@ -832,6 +854,7 @@
       },
       {
         "name": "Nicolas Magalhães",
+        "years": 1,
         "date": "01/04",
         "inicio": "01/04/2025",
         "color": "var(--gold)",
@@ -839,6 +862,7 @@
       },
       {
         "name": "André Vitoretti",
+        "years": 2,
         "date": "02/05",
         "inicio": "02/05/2024",
         "color": "var(--sky)",
@@ -846,6 +870,7 @@
       },
       {
         "name": "Antonio Mourão",
+        "years": 3,
         "date": "06/05",
         "inicio": "06/05/2023",
         "color": "var(--mint)",
@@ -853,6 +878,7 @@
       },
       {
         "name": "Victor Linhares",
+        "years": 2,
         "date": "08/05",
         "inicio": "08/05/2024",
         "color": "var(--gold)",
@@ -860,6 +886,7 @@
       },
       {
         "name": "Jennifer Prado",
+        "years": 4,
         "date": "30/05",
         "inicio": "30/05/2022",
         "color": "var(--coral)",
@@ -867,6 +894,7 @@
       },
       {
         "name": "Murilo Almeida",
+        "years": 0,
         "date": "15/06",
         "inicio": "15/06/2026",
         "color": "var(--sky)",
@@ -874,6 +902,7 @@
       },
       {
         "name": "José Arthur",
+        "years": 4,
         "date": "24/06",
         "inicio": "24/06/2022",
         "color": "var(--mint)",
@@ -881,6 +910,7 @@
       },
       {
         "name": "Karen Buccini",
+        "years": 0,
         "date": "06/07",
         "inicio": "06/07/2026",
         "color": "var(--sky)",
@@ -888,6 +918,7 @@
       },
       {
         "name": "Gabriel Godoy",
+        "years": 0,
         "date": "20/07",
         "inicio": "20/07/2026",
         "color": "var(--mint)",
@@ -895,6 +926,7 @@
       },
       {
         "name": "Guilherme Machado",
+        "years": 5,
         "date": "02/08",
         "inicio": "02/08/2021",
         "color": "var(--sky)",
@@ -902,6 +934,7 @@
       },
       {
         "name": "Amanda Pczbiowski",
+        "years": 1,
         "date": "04/08",
         "inicio": "04/08/2025",
         "color": "var(--mint)",
@@ -909,6 +942,7 @@
       },
       {
         "name": "Amanda Mazaro",
+        "years": 2,
         "date": "05/08",
         "inicio": "05/08/2024",
         "color": "var(--gold)",
@@ -916,6 +950,7 @@
       },
       {
         "name": "Isabela Matias",
+        "years": 2,
         "date": "12/08",
         "inicio": "12/08/2024",
         "color": "var(--coral)",
@@ -923,6 +958,7 @@
       },
       {
         "name": "Hellen Almeida",
+        "years": 2,
         "date": "12/08",
         "inicio": "12/08/2024",
         "color": "#9B8CFF",
@@ -930,6 +966,7 @@
       },
       {
         "name": "Henrique Pagnani",
+        "years": 1,
         "date": "18/08",
         "inicio": "18/08/2025",
         "color": "var(--sky)",
@@ -937,6 +974,7 @@
       },
       {
         "name": "Daniela Chaves",
+        "years": 2,
         "date": "19/08",
         "inicio": "19/08/2024",
         "color": "var(--mint)",
@@ -944,6 +982,7 @@
       },
       {
         "name": "Julia Dioti",
+        "years": 1,
         "date": "25/08",
         "inicio": "25/08/2025",
         "color": "var(--gold)",
@@ -951,6 +990,7 @@
       },
       {
         "name": "Thayna Mendes",
+        "years": 0,
         "date": "01/09",
         "inicio": "01/09/2026",
         "color": "var(--sky)",
@@ -958,6 +998,7 @@
       },
       {
         "name": "Raquel Figueiredo",
+        "years": 0,
         "date": "01/09",
         "inicio": "01/09/2026",
         "color": "var(--mint)",
@@ -965,6 +1006,7 @@
       },
       {
         "name": "Franklin Santos",
+        "years": 1,
         "date": "01/09",
         "inicio": "01/09/2025",
         "color": "var(--gold)",
@@ -972,6 +1014,7 @@
       },
       {
         "name": "Caio Gelfi",
+        "years": 5,
         "date": "08/09",
         "inicio": "08/09/2021",
         "color": "var(--coral)",
@@ -979,6 +1022,7 @@
       },
       {
         "name": "Guilherme Rosenthal",
+        "years": 5,
         "date": "08/09",
         "inicio": "08/09/2021",
         "color": "#9B8CFF",
@@ -986,6 +1030,7 @@
       },
       {
         "name": "Adriana Orlandin",
+        "years": 5,
         "date": "08/09",
         "inicio": "08/09/2021",
         "color": "var(--sky)",
@@ -993,6 +1038,7 @@
       },
       {
         "name": "Leonardo Baltieri",
+        "years": 5,
         "date": "08/09",
         "inicio": "08/09/2021",
         "color": "var(--mint)",
@@ -1000,6 +1046,7 @@
       },
       {
         "name": "Josemir Sousa",
+        "years": 0,
         "date": "14/09",
         "inicio": "14/09/2026",
         "color": "var(--gold)",
@@ -1007,6 +1054,7 @@
       },
       {
         "name": "Murilo Stiaque",
+        "years": 2,
         "date": "30/09",
         "inicio": "30/09/2024",
         "color": "var(--coral)",
@@ -1014,6 +1062,7 @@
       },
       {
         "name": "Renan Zucheratto",
+        "years": 4,
         "date": "01/10",
         "inicio": "01/10/2022",
         "color": "var(--sky)",
@@ -1021,6 +1070,7 @@
       },
       {
         "name": "Joana Lopes",
+        "years": 0,
         "date": "05/10",
         "inicio": "05/10/2026",
         "color": "var(--mint)",
@@ -1028,6 +1078,7 @@
       },
       {
         "name": "Juliane Gadi",
+        "years": 0,
         "date": "05/10",
         "inicio": "05/10/2026",
         "color": "var(--gold)",
@@ -1035,6 +1086,7 @@
       },
       {
         "name": "Sophia Brait",
+        "years": 2,
         "date": "08/10",
         "inicio": "08/10/2024",
         "color": "var(--coral)",
@@ -1042,6 +1094,7 @@
       },
       {
         "name": "Bruna Marques",
+        "years": 0,
         "date": "19/10",
         "inicio": "19/10/2026",
         "color": "#9B8CFF",
@@ -1049,6 +1102,7 @@
       },
       {
         "name": "Clara Santiago",
+        "years": 2,
         "date": "21/10",
         "inicio": "21/10/2024",
         "color": "var(--sky)",
@@ -1056,6 +1110,7 @@
       },
       {
         "name": "Kaio Oliveira",
+        "years": 2,
         "date": "22/10",
         "inicio": "22/10/2024",
         "color": "var(--mint)",
@@ -1063,6 +1118,7 @@
       },
       {
         "name": "Artigas",
+        "years": 4,
         "date": "26/10",
         "inicio": "26/10/2022",
         "color": "var(--gold)",
@@ -1070,6 +1126,7 @@
       },
       {
         "name": "Guilherme Belotto",
+        "years": 1,
         "date": "27/10",
         "inicio": "27/10/2025",
         "color": "var(--coral)",
@@ -1077,6 +1134,7 @@
       },
       {
         "name": "Luis Oliveira",
+        "years": 0,
         "date": "27/10",
         "inicio": "27/10/2026",
         "color": "#9B8CFF",
@@ -1084,6 +1142,7 @@
       },
       {
         "name": "Alisson Felicio",
+        "years": 2,
         "date": "04/11",
         "inicio": "04/11/2024",
         "color": "var(--sky)",
@@ -1091,6 +1150,7 @@
       },
       {
         "name": "Ana Nogueira",
+        "years": 2,
         "date": "05/11",
         "inicio": "05/11/2024",
         "color": "var(--mint)",
@@ -1098,6 +1158,7 @@
       },
       {
         "name": "Mayara Nobre",
+        "years": 2,
         "date": "06/11",
         "inicio": "06/11/2024",
         "color": "var(--gold)",
@@ -1105,6 +1166,7 @@
       },
       {
         "name": "Guilherme Ferreira",
+        "years": 5,
         "date": "08/11",
         "inicio": "08/11/2021",
         "color": "var(--coral)",
@@ -1112,6 +1174,7 @@
       },
       {
         "name": "Matheus Ferreira",
+        "years": 1,
         "date": "17/11",
         "inicio": "17/11/2025",
         "color": "#9B8CFF",
@@ -1119,6 +1182,7 @@
       },
       {
         "name": "Carlos Ferrarezi",
+        "years": 2,
         "date": "18/11",
         "inicio": "18/11/2024",
         "color": "var(--sky)",
@@ -1126,6 +1190,7 @@
       },
       {
         "name": "Geovane Santos",
+        "years": 3,
         "date": "18/12",
         "inicio": "18/12/2023",
         "color": "var(--sky)",
