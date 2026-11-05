@@ -168,7 +168,7 @@
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
     "quenteTotal": 6011000,
-    "mornoTotal": 28600000,
+    "mornoTotal": 28100000,
     "top3": [
       {
         "name": "Vila Porto International Business",
@@ -247,10 +247,10 @@
             "metricLabel": "oportunidades"
           },
           {
-            "name": "Cecília Moreira",
+            "name": "Josemir Sousa",
             "oportunidades": 1,
-            "color": "var(--mint)",
-            "photo": "https://avatars.slack-edge.com/2026-07-29/11703020069281_8682c109240963407884_512.jpg",
+            "color": "#9B8CFF",
+            "photo": "https://avatars.slack-edge.com/2026-09-14/12061519280530_9c39dcc45d46e52e9656_512.jpg",
             "metricLabel": "oportunidades"
           }
         ]
@@ -260,7 +260,7 @@
         "sellers": [
           {
             "name": "Luciana Turisco",
-            "oportunidades": 1,
+            "oportunidades": 3,
             "metricLabel": "embarques confirmados",
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
