@@ -279,6 +279,312 @@
     "eyebrow": "Aniversariantes do mês",
     "people": [
       {
+        "name": "Isabela Matias",
+        "date": "01/02",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-04-19/10947235481174_1f89712eb20354c0ffd9_original.png"
+      },
+      {
+        "name": "Julia Dioti",
+        "date": "03/02",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-28/11693549950178_ed3bdb44a5405c5dd226_original.jpg"
+      },
+      {
+        "name": "Kaio Oliveira",
+        "date": "07/02",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2024-10-22/7905267593719_af4e22e63399aa29662c_512.jpg"
+      },
+      {
+        "name": "Julia Porto",
+        "date": "08/02",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png"
+      },
+      {
+        "name": "Gabriel Godoy",
+        "date": "09/02",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-08-03/11729792618595_9ad4275ed80270f681b6_original.png"
+      },
+      {
+        "name": "Julia Guimarães",
+        "date": "11/02",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-05-05/11047051384311_1378438d2118923bfc6a_512.png"
+      },
+      {
+        "name": "Joana Lopes",
+        "date": "16/02",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-10-05/12228536116099_d2e04b5d768706e2b716_512.png"
+      },
+      {
+        "name": "Sophia Brait",
+        "date": "19/02",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2024-10-17/7899526643540_5ae8260b9bccd5a933e6_original.jpg"
+      },
+      {
+        "name": "Larissa Carvalho",
+        "date": "20/02",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2025-02-11/8436142238036_10f315c06229cda801f4_original.jpg"
+      },
+      {
+        "name": "Carmen Gozza",
+        "date": "27/02",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-07-31/11720785975046_60310c7295b624f349b2_original.jpg"
+      },
+      {
+        "name": "Jarbas Vinícius",
+        "date": "01/03",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
+      },
+      {
+        "name": "Ana Nogueira",
+        "date": "04/03",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-31/11717405668851_193c0cf4249ebc39b263_original.jpg"
+      },
+      {
+        "name": "Adamo Morone",
+        "date": "20/03",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2024-03-11/6780874837506_a553cc4164e2e558f0a0_original.png"
+      },
+      {
+        "name": "Victor Linhares",
+        "date": "25/03",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-06-03/11304910351776_461857f918278290ac4d_original.png"
+      },
+      {
+        "name": "Josemir Sousa",
+        "date": "26/03",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-09-14/12061519280530_9c39dcc45d46e52e9656_512.jpg"
+      },
+      {
+        "name": "Bruna Marques",
+        "date": "27/03",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-10-20/12366690926210_5fd71d2456bd902af7fc_512.png"
+      },
+      {
+        "name": "Clara Santiago",
+        "date": "04/04",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-10-23/7949139135632_1f074b7872bb31ad5f63_original.jpg"
+      },
+      {
+        "name": "Renan Zucheratto",
+        "date": "17/04",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2025-10-20/9736443589668_0f9ef059008bfae3b93e_original.jpg"
+      },
+      {
+        "name": "Artigas",
+        "date": "24/04",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2024-05-09/7089697531045_bbe449c19f1a4f2f2667_original.jpg"
+      },
+      {
+        "name": "André Vitoretti",
+        "date": "25/04",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg"
+      },
+      {
+        "name": "Gabriel Soares",
+        "date": "27/04",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-02-11/10494910518916_be8058d921860a529994_original.png"
+      },
+      {
+        "name": "Guilherme Belotto",
+        "date": "03/05",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+      },
+      {
+        "name": "José Arthur",
+        "date": "05/05",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-31/11717420914867_588bf3041fedb208d26b_original.png"
+      },
+      {
+        "name": "Carlos Ferrarezi",
+        "date": "09/05",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2025-11-26/9998285655509_28c200815365935d41eb_512.jpg"
+      },
+      {
+        "name": "Antonio Mourão",
+        "date": "13/05",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-08-05/11743803696279_5a4e1f515c3cae4c40d8_512.png"
+      },
+      {
+        "name": "Filipe Laham",
+        "date": "13/05",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-07-29/11705226452340_a005f1ddbba87e5e2f1b_original.png"
+      },
+      {
+        "name": "Caio Gelfi",
+        "date": "10/07",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-03-15/6807855125090_ada0fc6e0c989953f4a2_512.jpg"
+      },
+      {
+        "name": "Thayna Mendes",
+        "date": "14/07",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-09-03/11975322381125_cbdbc0b79a25b1a28f31_original.jpg"
+      },
+      {
+        "name": "Matheus Ferreira",
+        "date": "18/07",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg"
+      },
+      {
+        "name": "Paulo Reis",
+        "date": "28/07",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-03-05/10667180069200_502dbdf7511212a5ecad_original.jpg"
+      },
+      {
+        "name": "Fernando Velloso",
+        "date": "29/07",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-08-28/11929341580899_ad448f83f67214a68488_512.jpg"
+      },
+      {
+        "name": "Amanda Mazaro",
+        "date": "05/08",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-08-05/7530915763364_1f304a8a553e207112b7_original.png"
+      },
+      {
+        "name": "Mari Costa",
+        "date": "09/08",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-10-29/12451706604306_86ec045232505b67d188_original.jpg"
+      },
+      {
+        "name": "Geovane Santos",
+        "date": "25/08",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-08-05/11782965622496_812fb1c4d6c98ac4321d_original.jpg"
+      },
+      {
+        "name": "Cecília Moreira",
+        "date": "02/09",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-07-29/11703020069281_8682c109240963407884_512.jpg"
+      },
+      {
+        "name": "Jorge Mortara",
+        "date": "05/09",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-08-16/7610702252256_442bea9c162945333e49_512.jpg"
+      },
+      {
+        "name": "Juliane Gadi",
+        "date": "07/09",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png"
+      },
+      {
+        "name": "Guilherme Rosenthal",
+        "date": "09/09",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2025-10-16/9725111939537_5888a0c4c5ed2eae45c6_512.png"
+      },
+      {
+        "name": "Henrique Pagnani",
+        "date": "12/09",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2025-09-09/9502062326209_c7771d5cdd8bad3b05d3_512.jpg"
+      },
+      {
+        "name": "Pyetra Falcão",
+        "date": "13/09",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-08-06/11796393663968_3cb6b3ad7c5795eef472_512.png"
+      },
+      {
+        "name": "Guilherme Machado",
+        "date": "15/09",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-03-12/6787932592484_7ee6f51be14cb5b801ac_512.png"
+      },
+      {
+        "name": "Tiago Viel",
+        "date": "24/09",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-02-23/10565767228802_f4abc21f076826b0bcda_512.jpg"
+      },
+      {
+        "name": "Hellen Almeida",
+        "date": "28/09",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2025-10-20/9730248410194_2c7cb544b4c8c767ee26_512.jpg"
+      },
+      {
+        "name": "Raquel Figueiredo",
+        "date": "03/10",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg"
+      },
+      {
+        "name": "Alisson Felicio",
+        "date": "04/10",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-28/11699097787012_9bf0eba39fa97be230a5_original.png"
+      },
+      {
+        "name": "Luciana Turisco",
+        "date": "10/10",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
+      },
+      {
+        "name": "Yuri Pecelin",
+        "date": "14/10",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-02-05/10445971088246_151f3ce31518c146dcbf_original.png"
+      },
+      {
+        "name": "Karen Buccini",
+        "date": "20/10",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11710865151056_7b250b05b1698d116296_original.jpg"
+      },
+      {
+        "name": "José Macfarland",
+        "date": "22/10",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-06-14/7301894758352_5a83e1eddd5e7403ea1b_original.jpg"
+      },
+      {
+        "name": "Franklin Santos",
+        "date": "25/10",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-08-26/11918136261217_c2a6d290c69afacafab5_512.jpg"
+      },
+      {
+        "name": "Adriana Orlandin",
+        "date": "27/10",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2025-10-22/9733135825975_3d94b641f29dc207fc10_512.jpg"
+      },
+      {
         "name": "Jennifer Prado",
         "date": "05/11",
         "color": "var(--sky)",
@@ -319,6 +625,48 @@
         "date": "27/11",
         "color": "var(--mint)",
         "photo": "https://avatars.slack-edge.com/2026-08-03/11768367877520_f847761676c295644be7_original.png"
+      },
+      {
+        "name": "Jennifer Kauffman",
+        "date": "09/12",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11685769826914_db248d6760f88ec0791f_original.jpg"
+      },
+      {
+        "name": "Murilo Stiaque",
+        "date": "09/12",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-11-25/8081091985026_59a4963248013158ad8a_512.png"
+      },
+      {
+        "name": "Mayara Nobre",
+        "date": "14/12",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-07-31/11721825883222_c9fd0b77c9cd5d33093b_original.png"
+      },
+      {
+        "name": "Nicolas Magalhães",
+        "date": "18/12",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-09-24/12145762659105_94aacecced458d6d4be4_original.jpg"
+      },
+      {
+        "name": "Karol Medeiros",
+        "date": "20/12",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-08-10/11782469681491_dd1d3e803461d35deed2_original.jpg"
+      },
+      {
+        "name": "Luis Oliveira",
+        "date": "21/12",
+        "color": "var(--sky)",
+        "photo": "fotos/luis-oliveira.jpg"
+      },
+      {
+        "name": "Guilherme Ferreira",
+        "date": "29/12",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-03-11/6775354809718_522ba71f02df54a2f113_original.jpg"
       }
     ]
   },
@@ -329,46 +677,459 @@
     "showMonth": true,
     "people": [
       {
+        "name": "José Macfarland",
+        "date": "01/01",
+        "inicio": "01/01/2024",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-06-14/7301894758352_5a83e1eddd5e7403ea1b_original.jpg"
+      },
+      {
+        "name": "Jessica Pereira",
+        "date": "08/01",
+        "inicio": "08/01/2024",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-05-14/7102496787831_dd29e45aedf5560a210c_original.png"
+      },
+      {
+        "name": "Karol Medeiros",
+        "date": "08/01",
+        "inicio": "08/01/2024",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-08-10/11782469681491_dd1d3e803461d35deed2_original.jpg"
+      },
+      {
+        "name": "Carmen Gozza",
+        "date": "09/01",
+        "inicio": "09/01/2023",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-07-31/11720785975046_60310c7295b624f349b2_original.jpg"
+      },
+      {
+        "name": "Julia Guimarães",
+        "date": "12/01",
+        "inicio": "12/01/2026",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-05-05/11047051384311_1378438d2118923bfc6a_512.png"
+      },
+      {
+        "name": "Luciana Turisco",
+        "date": "14/01",
+        "inicio": "14/01/2026",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
+      },
+      {
+        "name": "Jorge Mortara",
+        "date": "17/01",
+        "inicio": "17/01/2022",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-08-16/7610702252256_442bea9c162945333e49_512.jpg"
+      },
+      {
+        "name": "Paulo Reis",
+        "date": "27/01",
+        "inicio": "27/01/2022",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-03-05/10667180069200_502dbdf7511212a5ecad_original.jpg"
+      },
+      {
+        "name": "Fernando Velloso",
+        "date": "27/01",
+        "inicio": "27/01/2022",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-08-28/11929341580899_ad448f83f67214a68488_512.jpg"
+      },
+      {
+        "name": "Julia Porto",
+        "date": "01/02",
+        "inicio": "01/02/2024",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png"
+      },
+      {
+        "name": "Yuri Pecelin",
+        "date": "04/02",
+        "inicio": "04/02/2026",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-02-05/10445971088246_151f3ce31518c146dcbf_original.png"
+      },
+      {
+        "name": "Larissa Carvalho",
+        "date": "11/02",
+        "inicio": "11/02/2025",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2025-02-11/8436142238036_10f315c06229cda801f4_original.jpg"
+      },
+      {
+        "name": "Tiago Viel",
+        "date": "23/02",
+        "inicio": "23/02/2026",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-02-23/10565767228802_f4abc21f076826b0bcda_512.jpg"
+      },
+      {
+        "name": "Filipe Laham",
+        "date": "26/02",
+        "inicio": "26/02/2024",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-07-29/11705226452340_a005f1ddbba87e5e2f1b_original.png"
+      },
+      {
+        "name": "Jarbas Vinícius",
+        "date": "02/03",
+        "inicio": "02/03/2026",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-03-30/10807564491522_be0bce2ea9cdd5372e0d_512.png"
+      },
+      {
+        "name": "Adamo Morone",
+        "date": "03/03",
+        "inicio": "03/03/2022",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-03-11/6780874837506_a553cc4164e2e558f0a0_original.png"
+      },
+      {
+        "name": "Cecília Moreira",
+        "date": "04/03",
+        "inicio": "04/03/2024",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-07-29/11703020069281_8682c109240963407884_512.jpg"
+      },
+      {
+        "name": "Pyetra Falcão",
+        "date": "17/03",
+        "inicio": "17/03/2022",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-08-06/11796393663968_3cb6b3ad7c5795eef472_512.png"
+      },
+      {
+        "name": "Mari Costa",
+        "date": "18/03",
+        "inicio": "18/03/2024",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-10-29/12451706604306_86ec045232505b67d188_original.jpg"
+      },
+      {
+        "name": "Beto Procopio",
+        "date": "26/03",
+        "inicio": "26/03/2024",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-04-12/6978899250592_540abd89c76018222631_original.jpg"
+      },
+      {
+        "name": "Gabriel Soares",
+        "date": "01/04",
+        "inicio": "01/04/2025",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-02-11/10494910518916_be8058d921860a529994_original.png"
+      },
+      {
+        "name": "Jennifer Kauffman",
+        "date": "01/04",
+        "inicio": "01/04/2025",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11685769826914_db248d6760f88ec0791f_original.jpg"
+      },
+      {
+        "name": "Nicolas Magalhães",
+        "date": "01/04",
+        "inicio": "01/04/2025",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-09-24/12145762659105_94aacecced458d6d4be4_original.jpg"
+      },
+      {
+        "name": "André Vitoretti",
+        "date": "02/05",
+        "inicio": "02/05/2024",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg"
+      },
+      {
+        "name": "Antonio Mourão",
+        "date": "06/05",
+        "inicio": "06/05/2023",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-08-05/11743803696279_5a4e1f515c3cae4c40d8_512.png"
+      },
+      {
+        "name": "Victor Linhares",
+        "date": "08/05",
+        "inicio": "08/05/2024",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-06-03/11304910351776_461857f918278290ac4d_original.png"
+      },
+      {
+        "name": "Jennifer Prado",
+        "date": "30/05",
+        "inicio": "30/05/2022",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-08-07/11777652183826_1095831f1959d40f0eb5_original.jpg"
+      },
+      {
+        "name": "Murilo Almeida",
+        "date": "15/06",
+        "inicio": "15/06/2026",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-08-03/11768367877520_f847761676c295644be7_original.png"
+      },
+      {
+        "name": "José Arthur",
+        "date": "24/06",
+        "inicio": "24/06/2022",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-31/11717420914867_588bf3041fedb208d26b_original.png"
+      },
+      {
+        "name": "Karen Buccini",
+        "date": "06/07",
+        "inicio": "06/07/2026",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11710865151056_7b250b05b1698d116296_original.jpg"
+      },
+      {
+        "name": "Gabriel Godoy",
+        "date": "20/07",
+        "inicio": "20/07/2026",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-08-03/11729792618595_9ad4275ed80270f681b6_original.png"
+      },
+      {
+        "name": "Guilherme Machado",
+        "date": "02/08",
+        "inicio": "02/08/2021",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-03-12/6787932592484_7ee6f51be14cb5b801ac_512.png"
+      },
+      {
+        "name": "Amanda Pczbiowski",
+        "date": "04/08",
+        "inicio": "04/08/2025",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png"
+      },
+      {
+        "name": "Amanda Mazaro",
+        "date": "05/08",
+        "inicio": "05/08/2024",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2024-08-05/7530915763364_1f304a8a553e207112b7_original.png"
+      },
+      {
+        "name": "Isabela Matias",
+        "date": "12/08",
+        "inicio": "12/08/2024",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2026-04-19/10947235481174_1f89712eb20354c0ffd9_original.png"
+      },
+      {
+        "name": "Hellen Almeida",
+        "date": "12/08",
+        "inicio": "12/08/2024",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2025-10-20/9730248410194_2c7cb544b4c8c767ee26_512.jpg"
+      },
+      {
+        "name": "Henrique Pagnani",
+        "date": "18/08",
+        "inicio": "18/08/2025",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2025-09-09/9502062326209_c7771d5cdd8bad3b05d3_512.jpg"
+      },
+      {
+        "name": "Daniela Chaves",
+        "date": "19/08",
+        "inicio": "19/08/2024",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-08-19/7595966490994_de4cdf9ddfbfcc97603a_original.jpg"
+      },
+      {
+        "name": "Julia Dioti",
+        "date": "25/08",
+        "inicio": "25/08/2025",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-07-28/11693549950178_ed3bdb44a5405c5dd226_original.jpg"
+      },
+      {
+        "name": "Thayna Mendes",
+        "date": "01/09",
+        "inicio": "01/09/2026",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-09-03/11975322381125_cbdbc0b79a25b1a28f31_original.jpg"
+      },
+      {
+        "name": "Raquel Figueiredo",
+        "date": "01/09",
+        "inicio": "01/09/2026",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg"
+      },
+      {
+        "name": "Franklin Santos",
+        "date": "01/09",
+        "inicio": "01/09/2025",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-08-26/11918136261217_c2a6d290c69afacafab5_512.jpg"
+      },
+      {
+        "name": "Caio Gelfi",
+        "date": "08/09",
+        "inicio": "08/09/2021",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2024-03-15/6807855125090_ada0fc6e0c989953f4a2_512.jpg"
+      },
+      {
+        "name": "Guilherme Rosenthal",
+        "date": "08/09",
+        "inicio": "08/09/2021",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2025-10-16/9725111939537_5888a0c4c5ed2eae45c6_512.png"
+      },
+      {
+        "name": "Adriana Orlandin",
+        "date": "08/09",
+        "inicio": "08/09/2021",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2025-10-22/9733135825975_3d94b641f29dc207fc10_512.jpg"
+      },
+      {
+        "name": "Leonardo Baltieri",
+        "date": "08/09",
+        "inicio": "08/09/2021",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-03-19/6829154042916_2636317fe6d688db4b51_512.jpg"
+      },
+      {
+        "name": "Josemir Sousa",
+        "date": "14/09",
+        "inicio": "14/09/2026",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-09-14/12061519280530_9c39dcc45d46e52e9656_512.jpg"
+      },
+      {
+        "name": "Murilo Stiaque",
+        "date": "30/09",
+        "inicio": "30/09/2024",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2024-11-25/8081091985026_59a4963248013158ad8a_512.png"
+      },
+      {
+        "name": "Renan Zucheratto",
+        "date": "01/10",
+        "inicio": "01/10/2022",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2025-10-20/9736443589668_0f9ef059008bfae3b93e_original.jpg"
+      },
+      {
+        "name": "Joana Lopes",
+        "date": "05/10",
+        "inicio": "05/10/2026",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2026-10-05/12228536116099_d2e04b5d768706e2b716_512.png"
+      },
+      {
+        "name": "Juliane Gadi",
+        "date": "05/10",
+        "inicio": "05/10/2026",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png"
+      },
+      {
+        "name": "Sophia Brait",
+        "date": "08/10",
+        "inicio": "08/10/2024",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2024-10-17/7899526643540_5ae8260b9bccd5a933e6_original.jpg"
+      },
+      {
+        "name": "Bruna Marques",
+        "date": "19/10",
+        "inicio": "19/10/2026",
+        "color": "#9B8CFF",
+        "photo": "https://avatars.slack-edge.com/2026-10-20/12366690926210_5fd71d2456bd902af7fc_512.png"
+      },
+      {
+        "name": "Clara Santiago",
+        "date": "21/10",
+        "inicio": "21/10/2024",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2024-10-23/7949139135632_1f074b7872bb31ad5f63_original.jpg"
+      },
+      {
+        "name": "Kaio Oliveira",
+        "date": "22/10",
+        "inicio": "22/10/2024",
+        "color": "var(--mint)",
+        "photo": "https://avatars.slack-edge.com/2024-10-22/7905267593719_af4e22e63399aa29662c_512.jpg"
+      },
+      {
+        "name": "Artigas",
+        "date": "26/10",
+        "inicio": "26/10/2022",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2024-05-09/7089697531045_bbe449c19f1a4f2f2667_original.jpg"
+      },
+      {
+        "name": "Guilherme Belotto",
+        "date": "27/10",
+        "inicio": "27/10/2025",
+        "color": "var(--coral)",
+        "photo": "https://avatars.slack-edge.com/2025-10-28/9780544893907_7bf5d63f04a9c28f15db_512.jpg"
+      },
+      {
+        "name": "Luis Oliveira",
+        "date": "27/10",
+        "inicio": "27/10/2026",
+        "color": "#9B8CFF",
+        "photo": "fotos/luis-oliveira.jpg"
+      },
+      {
         "name": "Alisson Felicio",
-        "years": 2,
         "date": "04/11",
+        "inicio": "04/11/2024",
         "color": "var(--sky)",
         "photo": "https://avatars.slack-edge.com/2026-07-28/11699097787012_9bf0eba39fa97be230a5_original.png"
       },
       {
         "name": "Ana Nogueira",
-        "years": 2,
         "date": "05/11",
+        "inicio": "05/11/2024",
         "color": "var(--mint)",
         "photo": "https://avatars.slack-edge.com/2026-07-31/11717405668851_193c0cf4249ebc39b263_original.jpg"
       },
       {
         "name": "Mayara Nobre",
-        "years": 2,
         "date": "06/11",
+        "inicio": "06/11/2024",
         "color": "var(--gold)",
         "photo": "https://avatars.slack-edge.com/2026-07-31/11721825883222_c9fd0b77c9cd5d33093b_original.png"
       },
       {
         "name": "Guilherme Ferreira",
-        "years": 5,
         "date": "08/11",
+        "inicio": "08/11/2021",
         "color": "var(--coral)",
         "photo": "https://avatars.slack-edge.com/2024-03-11/6775354809718_522ba71f02df54a2f113_original.jpg"
       },
       {
         "name": "Matheus Ferreira",
-        "years": 1,
         "date": "17/11",
+        "inicio": "17/11/2025",
         "color": "#9B8CFF",
         "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg"
       },
       {
         "name": "Carlos Ferrarezi",
-        "years": 2,
         "date": "18/11",
+        "inicio": "18/11/2024",
         "color": "var(--sky)",
         "photo": "https://avatars.slack-edge.com/2025-11-26/9998285655509_28c200815365935d41eb_512.jpg"
+      },
+      {
+        "name": "Geovane Santos",
+        "date": "18/12",
+        "inicio": "18/12/2023",
+        "color": "var(--sky)",
+        "photo": "https://avatars.slack-edge.com/2026-08-05/11782965622496_812fb1c4d6c98ac4321d_original.jpg"
       }
     ]
   },

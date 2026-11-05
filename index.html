@@ -1077,7 +1077,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-03-01';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-05-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1111,10 +1111,10 @@ async function loadSlidesFromSource(){
 const ANIVERSARIO_ATE_HORA = 20;
 function agoraEmSaoPaulo(){
   const partes = new Intl.DateTimeFormat('pt-BR', {
-    timeZone:'America/Sao_Paulo', day:'2-digit', month:'2-digit', hour:'2-digit', hourCycle:'h23'
+    timeZone:'America/Sao_Paulo', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', hourCycle:'h23'
   }).formatToParts(new Date());
   const p = Object.fromEntries(partes.map(x => [x.type, x.value]));
-  return { dia: `${p.day}/${p.month}`, hora: Number(p.hour) };
+  return { dia: `${p.day}/${p.month}`, ano: Number(p.year), hora: Number(p.hour) };
 }
 function aniversarianteDoDia(todos){
   const mes = todos.find(s => s.type==='birthdays');
@@ -1126,14 +1126,20 @@ function aniversarianteDoDia(todos){
   return { type:'aniversarioDia', duration:16000, eyebrow:`Aniversariante do dia · ${dia}`, people };
 }
 
-// Aniversariantes e tempo de casa são listas escritas à mão, uma por mês. Na
-// virada, a lista velha ficava na TV dizendo "Aniversariantes do mês" com as
-// datas do mês anterior. Agora só entra quem é do mês corrente, e o slide sai
-// da rotação enquanto a lista do mês novo não chega.
+// Aniversariantes e tempo de casa guardam a empresa inteira, o ano todo; a TV
+// mostra só quem é do mês corrente e vira de mês sozinha. O tempo de casa sai
+// da data de início (`inicio`, dd/mm/aaaa): quem entrou este ano ainda não
+// completa ano de casa e fica de fora.
 function soDoMes(s){
   if(s.type!=='birthdays' && s.type!=='companyAnniv') return s;
-  const mes = agoraEmSaoPaulo().dia.slice(3);
-  const people = (s.people || []).filter(p => String(p.date || '').slice(3)===mes);
+  const { dia, ano } = agoraEmSaoPaulo();
+  const mes = dia.slice(3);
+  let people = (s.people || []).filter(p => String(p.date || '').slice(3)===mes);
+  if(s.type==='companyAnniv'){
+    people = people
+      .map(p => p.inicio ? { ...p, years: ano - Number(p.inicio.slice(6)) } : p)
+      .filter(p => p.years >= 1);
+  }
   return people.length ? { ...s, people } : null;
 }
 
