@@ -279,52 +279,46 @@
     "eyebrow": "Aniversariantes do mês",
     "people": [
       {
-        "name": "Raquel Figueiredo",
-        "date": "03/10",
+        "name": "Jennifer Prado",
+        "date": "05/11",
         "color": "var(--sky)",
-        "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg"
+        "photo": "https://avatars.slack-edge.com/2026-08-07/11777652183826_1095831f1959d40f0eb5_original.jpg"
       },
       {
-        "name": "Alisson Felicio",
-        "date": "04/10",
+        "name": "Beto Procopio",
+        "date": "06/11",
         "color": "var(--mint)",
-        "photo": "https://avatars.slack-edge.com/2026-07-28/11699097787012_9bf0eba39fa97be230a5_original.png"
+        "photo": "https://avatars.slack-edge.com/2024-04-12/6978899250592_540abd89c76018222631_original.jpg"
       },
       {
-        "name": "Luciana Turisco",
-        "date": "10/10",
+        "name": "Jessica Pereira",
+        "date": "17/11",
         "color": "var(--gold)",
-        "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
+        "photo": "https://avatars.slack-edge.com/2024-05-14/7102496787831_dd29e45aedf5560a210c_original.png"
       },
       {
-        "name": "Yuri Pecelin",
-        "date": "14/10",
+        "name": "Amanda Pczbiowski",
+        "date": "18/11",
         "color": "var(--coral)",
-        "photo": "https://avatars.slack-edge.com/2026-02-05/10445971088246_151f3ce31518c146dcbf_original.png"
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png"
       },
       {
-        "name": "Karen Buccini",
-        "date": "20/10",
+        "name": "Leonardo Baltieri",
+        "date": "18/11",
         "color": "#9B8CFF",
-        "photo": "https://avatars.slack-edge.com/2026-07-27/11710865151056_7b250b05b1698d116296_original.jpg"
+        "photo": "https://avatars.slack-edge.com/2024-03-19/6829154042916_2636317fe6d688db4b51_512.jpg"
       },
       {
-        "name": "José Macfarland",
-        "date": "22/10",
+        "name": "Daniela Chaves",
+        "date": "27/11",
         "color": "var(--sky)",
-        "photo": "https://avatars.slack-edge.com/2024-06-14/7301894758352_5a83e1eddd5e7403ea1b_original.jpg"
+        "photo": "https://avatars.slack-edge.com/2024-08-19/7595966490994_de4cdf9ddfbfcc97603a_original.jpg"
       },
       {
-        "name": "Franklin Santos",
-        "date": "25/10",
+        "name": "Murilo Almeida",
+        "date": "27/11",
         "color": "var(--mint)",
-        "photo": "https://avatars.slack-edge.com/2026-08-26/11918136261217_c2a6d290c69afacafab5_512.jpg"
-      },
-      {
-        "name": "Adriana Orlandin",
-        "date": "27/10",
-        "color": "var(--gold)",
-        "photo": "https://avatars.slack-edge.com/2025-10-22/9733135825975_3d94b641f29dc207fc10_512.jpg"
+        "photo": "https://avatars.slack-edge.com/2026-08-03/11768367877520_f847761676c295644be7_original.png"
       }
     ]
   },
