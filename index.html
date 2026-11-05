@@ -1094,7 +1094,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-05-02';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-05-03';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1509,7 +1509,7 @@ function renderSlide(s){
     return `
       <div class="eyebrow">${eyebrowText(s)}</div>
       <div class="curr-row">
-        ${s.list.map(c=>{
+        ${moedasAtuais(s).map(c=>{
           const isUp = c.pct>=0;
           const valStr = c.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
           return `
@@ -1531,7 +1531,7 @@ function renderSlide(s){
             <div class="info">ao ano${selic.desde ? ` · desde ${selic.desde.slice(0,5)}` : ''}</div>
           </div>`;
       })()}
-      ${s.offline ? `<div class="curr-updated">Não foi possível atualizar as cotações agora</div>` : ''}`;
+      ${cotacoesOffline ? `<div class="curr-updated">Não foi possível atualizar as cotações agora</div>` : ''}`;
   }
   return '';
 }
@@ -1658,7 +1658,7 @@ function buildTicker(){
   const curr = slides.find(s=>s.type==='currency');
   const novatos = slides.filter(s=>s.type==='newhire'); // vazio se já passou da janela de exibição
   const wallet = slides.find(s=>s.type==='wallet');
-  const usd = curr ? curr.list.find(c=>c.code==='USD') : null;
+  const usd = curr ? moedasAtuais(curr).find(c=>c.code==='USD') : null;
   const falta = goal.metaValor - goal.atual;
   const bits = [
     `🎯 Faltam <b>${fmtBRL(falta)}</b> para bater a meta do mês`,
@@ -1705,6 +1705,16 @@ tickClock();
 setInterval(tickClock,1000);
 
 // ---------- COTAÇÃO AO VIVO (API pública, sem chave — AwesomeAPI) ----------
+// As cotações ao vivo ficam fora do slide. O data.json é rebuscado de 2 em 2
+// minutos e recria os slides com os valores gravados nele (que são só a
+// reserva para quando a API não responde); antes, quando elas eram gravadas
+// dentro do slide, essa rebusca trocava a cotação do dia pelo valor velho do
+// arquivo, e a TV passava a maior parte do tempo com o dólar de outubro.
+let cotacoesAoVivo = {};
+let cotacoesOffline = false;
+function moedasAtuais(slide){
+  return (slide.list || []).map(c => cotacoesAoVivo[c.code] ? { ...c, ...cotacoesAoVivo[c.code] } : c);
+}
 async function refreshCurrency(){
   const slide = slides.find(s=>s.type==='currency');
   if(!slide) return;
@@ -1720,8 +1730,7 @@ async function refreshCurrency(){
     slide.list.forEach(c=>{
       const d = data[map[c.code]];
       if(d){
-        c.value = parseFloat(d.bid);
-        c.pct = parseFloat(d.pctChange);
+        cotacoesAoVivo[c.code] = { value: parseFloat(d.bid), pct: parseFloat(d.pctChange) };
         anySuccess = true;
       }
     });
@@ -1730,8 +1739,9 @@ async function refreshCurrency(){
   }
   // Sem horário no slide: o que importa para quem olha é saber se o número
   // vale ou não. Se a fonte não respondeu, o painel avisa.
-  slide.offline = !anySuccess;
-  if(slides[current].type==='currency') renderCurrent();
+  cotacoesOffline = !anySuccess;
+  if(slides[current] && slides[current].type==='currency') renderCurrent();
+  buildTicker();
 }
 
 // ---------- SELIC AO VIVO (API pública do Banco Central, sem chave) ----------
