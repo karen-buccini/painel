@@ -192,10 +192,14 @@
   },
   {
     "type": "ranking",
-    "duration": 18000,
-    "eyebrow": "Forecasting por farmer",
-    "showMonth": false,
+    "duration": 20000,
+    "eyebrow": "Desempenho dos vendedores",
+    "showMonth": true,
     "divisions": [
+      {
+        "name": "Closing",
+        "sellers": []
+      },
       {
         "name": "Aumento de volume tomado",
         "sellers": []
@@ -207,9 +211,7 @@
             "name": "Tiago Viel",
             "value": 400000,
             "color": "var(--mint)",
-            "photo": "https://avatars.slack-edge.com/2026-02-23/10565767228802_f4abc21f076826b0bcda_512.jpg",
-            "fechado": 400000,
-            "forecast": 0
+            "photo": "https://avatars.slack-edge.com/2026-02-23/10565767228802_f4abc21f076826b0bcda_512.jpg"
           }
         ]
       },
@@ -220,9 +222,7 @@
             "name": "André Vitoretti",
             "value": 5000000,
             "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg",
-            "fechado": 5000000,
-            "forecast": 0
+            "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg"
           }
         ]
       }
@@ -230,14 +230,10 @@
   },
   {
     "type": "ranking",
-    "duration": 18000,
+    "duration": 20000,
     "eyebrow": "Desempenho dos vendedores",
     "showMonth": true,
     "divisions": [
-      {
-        "name": "Closing",
-        "sellers": []
-      },
       {
         "name": "Parcerias · Farming",
         "sellers": [
@@ -249,15 +245,7 @@
             "metricLabel": "oportunidades"
           }
         ]
-      }
-    ]
-  },
-  {
-    "type": "ranking",
-    "duration": 18000,
-    "eyebrow": "Desempenho dos vendedores",
-    "showMonth": true,
-    "divisions": [
+      },
       {
         "name": "Retargeting",
         "sellers": [
@@ -1225,8 +1213,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado no mês: em apuração",
-        "text": "Soma do limite de crédito aprovado nas ativações do mês."
+        "title": "Crédito aprovado chega a R$ 13,2M no mês",
+        "text": "Soma do limite de crédito aprovado em 6 créditos no mês."
       },
       {
         "tag": "evento",

@@ -230,7 +230,7 @@ function main() {
       mudancas.push('forecasting closing');
     }
 
-    // --- Forecasting por farmer --------------------------------------
+    // --- Fechado por farmer (colunas na página do Closing) ------------
     // Vem chaveado pelo nome da operação no HubSpot ("Aumento de volume
     // tomado", "Renovação", "Reativação"), que é o mesmo nome da coluna no
     // painel. Operação que não tenha coluna correspondente simplesmente não
@@ -295,11 +295,18 @@ function main() {
     // --- Novidades: o card de crédito aprovado ------------------------
     const news = findSlide(slides, 'news');
     const cardCredito = news && (news.items || []).find((i) => i.tag === 'credito');
-    const credito = hubspot.ativados && hubspot.ativados.creditoAprovado;
-    if (cardCredito && (credito || virouMes)) {
-      cardCredito.title = credito
-        ? `Crédito aprovado chega a ${milhoes(credito)} no mês`
+    // Vem do objeto Crédito (relatório "[CRÉDITO] Créditos Aprovados -
+    // consolidado"). Se a leitura falhou, o card fica como estava.
+    const credito = hubspot.creditoAprovado;
+    if (cardCredito && credito && (credito.valor || virouMes)) {
+      const n = credito.quantidade;
+      cardCredito.title = credito.valor
+        // Espaço sem quebra: na TV o título quebrava entre "R$" e "13,2M".
+        ? `Crédito aprovado chega a ${milhoes(credito.valor).replace(' ', '\u00a0')} no mês`
         : 'Crédito aprovado no mês: em apuração';
+      cardCredito.text = n
+        ? `Soma do limite de crédito aprovado em ${n} crédito${n > 1 ? 's' : ''} no mês.`
+        : 'Soma do limite de crédito aprovado no mês.';
       mudancas.push('card de crédito aprovado');
     }
   }

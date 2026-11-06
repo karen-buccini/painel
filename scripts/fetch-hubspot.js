@@ -89,11 +89,8 @@ const PIPELINES = {
 // Etapas que caracterizam cliente ativado.
 const STAGES_ATIVADO = ['983479988', '1208919954'];
 
-// Pipeline Farming: "Em negociação" é o forecast; "Negócio ganho" é o que de
-// fato fechou. A tela mostra os dois separados para cada farmer.
-const STAGE_FARMING_NEGOCIACAO = '1412586077';
+// Pipeline Farming, etapa "Negócio ganho": o que de fato fechou no mês.
 const STAGE_FARMING_GANHO = '1412586080';
-const STAGES_FARMING_FORECAST = [STAGE_FARMING_NEGOCIACAO, STAGE_FARMING_GANHO];
 const STAGE_EMBARQUE = '1315985497';
 const DATE_RETARGETING = 'hs_v2_date_entered_983301662';
 
@@ -117,6 +114,11 @@ const DATE_RETARGETING = 'hs_v2_date_entered_983301662';
  * a funcao levanta erro — a rotina falha alto, em vez de gravar vazio.
  */
 async function buscarNegocios(filters, properties) {
+  return buscarObjetos('deals', filters, properties);
+}
+
+/** Mesma busca paginada e com repetição, para qualquer objeto do CRM. */
+async function buscarObjetos(tipo, filters, properties) {
   const resultados = [];
   let after;
 
@@ -126,7 +128,7 @@ async function buscarNegocios(filters, properties) {
 
     let pagina = null;
     for (let tentativa = 1; tentativa <= 6; tentativa++) {
-      const res = await fetch(`${BASE}/crm/v3/objects/deals/search`, {
+      const res = await fetch(`${BASE}/crm/v3/objects/${tipo}/search`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(corpo),
@@ -300,14 +302,14 @@ async function forecastingClosing() {
 }
 
 /**
- * Forecasting por farmer — relatório 347059207
- * ("[FARMING] Forecasting mês atual - por Farmer").
+ * Fechado por farmer: negócios do pipeline Farming em "Negócio ganho", mês
+ * vigente por closedate, quebrados pela propriedade `operacao` — não
+ * `tipo_de_operacao`, que foi o palpite errado da primeira versão e trazia o
+ * pipeline de farming inteiro, sem recorte de data.
  *
- * Etapas "Em negociação" e "Negócio ganho", mês vigente por closedate, e a
- * quebra é pela propriedade `operacao` — não `tipo_de_operacao`, que foi o
- * palpite errado da primeira versão e trazia o pipeline de farming inteiro,
- * sem recorte de data. Até 06/11/2026 só contava "Em negociação", e o que
- * já tinha sido ganho no mês sumia da tela (regra da Karen).
+ * Até 06/11/2026 a tela era "Forecasting por farmer" e contava a etapa "Em
+ * negociação" (relatório 347059207). A Karen pediu só o fechado, igual às
+ * colunas dos outros vendedores, e as colunas foram para a página do Closing.
  *
  * `operacao` é de múltipla escolha: vem como "Reativação;Renovação" quando o
  * negócio tem as duas. Antes o texto inteiro virava uma chave que não batia
@@ -325,33 +327,29 @@ async function forecastingFarmer() {
   const p = mesVigente();
   const negocios = await buscarNegocios(
     [
-      { propertyName: 'dealstage', operator: 'IN', values: STAGES_FARMING_FORECAST },
+      { propertyName: 'dealstage', operator: 'IN', values: [STAGE_FARMING_GANHO] },
       { propertyName: 'operacao', operator: 'IN', values: OPERACOES_FARMER },
       { propertyName: 'closedate', operator: 'BETWEEN', value: p.inicioHora, highValue: p.fimHora },
     ],
-    ['dealname', 'amount', 'operacao', 'closedate', 'hubspot_owner_id', 'dealstage']
+    ['dealname', 'amount', 'operacao', 'closedate', 'hubspot_owner_id']
   );
 
   const nomes = await owners();
-  const porOperacao = {}; // operação → dono → { fechado, forecast }
+  const porOperacao = {}; // operação → dono → valor fechado
   for (const d of negocios) {
     const dono = d.properties.hubspot_owner_id;
     if (!dono) continue;
     const ops = OPERACAO_FIXA[d.id]
       ? [OPERACAO_FIXA[d.id]]
       : String(d.properties.operacao || '').split(';').map((o) => o.trim()).filter(Boolean);
-    const campo = d.properties.dealstage === STAGE_FARMING_GANHO ? 'fechado' : 'forecast';
     for (const op of ops) {
       porOperacao[op] = porOperacao[op] || {};
-      const soma = (porOperacao[op][dono] = porOperacao[op][dono] || { fechado: 0, forecast: 0 });
-      soma[campo] += num(d.properties.amount);
+      porOperacao[op][dono] = (porOperacao[op][dono] || 0) + num(d.properties.amount);
     }
   }
 
-  // "value" é a soma dos dois: ordena a coluna e é o que TVs ainda na versão
-  // antiga do painel (sem fechado/forecast) mostram.
   const lista = (op) => Object.entries(porOperacao[op] || {})
-    .map(([id, v]) => ({ name: nomes[id] || `Owner ${id}`, value: v.fechado + v.forecast, fechado: v.fechado, forecast: v.forecast }))
+    .map(([id, v]) => ({ name: nomes[id] || `Owner ${id}`, value: v }))
     .filter((f) => f.value > 0)
     .sort((a, b) => b.value - a.value);
 
@@ -438,6 +436,29 @@ async function retargeting() {
 }
 
 /**
+ * Crédito aprovado no mês — relatório 349583778 ("[CRÉDITO] Créditos
+ * Aprovados - consolidado").
+ *
+ * Sai do objeto personalizado "Crédito" (p44743501_cr_dito), não dos negócios:
+ * soma de "Limite de crédito aprovado" e contagem de créditos pela data de
+ * entrada em "Crédito aprovado", no mês vigente. Antes o card somava o limite
+ * só dos negócios ativados no mês e ficava em "em apuração" (06/11/2026: o
+ * relatório dava R$ 13,2M em 6 créditos).
+ */
+async function creditoAprovado() {
+  const p = mesVigente();
+  const creditos = await buscarObjetos(
+    'p44743501_cr_dito',
+    [{ propertyName: 'data_entrada_credito_aprovado', operator: 'BETWEEN', value: p.inicioHora, highValue: p.fimHora }],
+    ['limite_de_credito_aprovado', 'data_entrada_credito_aprovado']
+  );
+  return {
+    valor: creditos.reduce((s, c) => s + num(c.properties.limite_de_credito_aprovado), 0),
+    quantidade: creditos.length,
+  };
+}
+
+/**
  * Frete — relatório 168980717 ("Negócios com Embarques Confirmados - mês").
  *
  * O recorte é por closedate, não por createdate. Com createdate o painel
@@ -470,12 +491,21 @@ async function main() {
   const farmingParcerias = await parceriasFarming();
   const retg = await retargeting();
   const frt = await frete();
+  // Se o token não puder ler o objeto Crédito, o resto do painel segue
+  // atualizando; só o card de crédito fica como estava.
+  let credito = null;
+  try {
+    credito = await creditoAprovado();
+  } catch (e) {
+    console.error('Aviso: não consegui ler os créditos aprovados:', e.message);
+  }
 
   // Resumo no log da rotina. Sem isto, uma consulta que volta vazia so
   // aparece quando alguem nota a coluna sumida na TV.
   console.error(`[${p.ano}-${String(p.mes).padStart(2,"0")}] ativacoes=${ativados.clientesAtivados} ` +
     `closing=${closing.top3.length} farmer=${Object.entries(farmer).map(([k,v])=>k+":"+v.length).join(",")} ` +
-    `parcerias=${farmingParcerias.length} retargeting=${retg.length} frete=${frt}`);
+    `parcerias=${farmingParcerias.length} retargeting=${retg.length} frete=${frt} ` +
+    `credito=${credito ? credito.quantidade + ':' + credito.valor : 'falhou'}`);
 
   console.log(JSON.stringify({
     geradoEm: new Date().toISOString(),
@@ -486,6 +516,7 @@ async function main() {
     parcerias: { farming: farmingParcerias },
     retargeting: retg,
     frete: frt,
+    creditoAprovado: credito,
     // Câmbio não entra: a Stella manda esses números uma vez por semana.
   }, null, 2));
 }
