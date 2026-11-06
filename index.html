@@ -732,6 +732,10 @@ html,body{
 .parc-kpi .v{font-weight:300;letter-spacing:-0.02em;font-size:clamp(40px,52px,72px);line-height:1.05;margin-top:6px;}
 .parc-kpi .n{font-size:clamp(15px,16.6px,19px);color:var(--muted);margin-top:4px;}
 .parc-kpi .n b{color:var(--gold);font-weight:500;}
+/* Logos dos parceiros (ícones dos sites, guardados em logos/): fundo branco,
+   inteiros dentro do círculo. */
+.mini-avatar.parc-logo{background:#fff;}
+.mini-avatar.parc-logo img{object-fit:contain;}
 
 /* ===== SLIDE: CURRENCY ===== */
 .curr-row{display:flex;gap:clamp(14px,25.6px,26px);flex-wrap:wrap;}
@@ -1122,7 +1126,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-06-03';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-06-04';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1497,7 +1501,9 @@ function renderSlide(s){
         ${(itens || []).length ? itens.slice(0,3).map((p,i)=>`
           <div class="mini-row">
             <div class="mini-pos">${i+1}</div>
-            <div class="mini-avatar" style="background:${avatarBg({...p, color: p.color || ['var(--gold)','var(--mint)','var(--sky)'][i]})}">${avatarInner(p)}</div>
+            ${p.logo
+              ? `<div class="mini-avatar parc-logo"><img src="${p.logo}" alt="${p.name}" decoding="async"></div>`
+              : `<div class="mini-avatar" style="background:${avatarBg({...p, color: p.color || ['var(--gold)','var(--mint)','var(--sky)'][i]})}">${avatarInner(p)}</div>`}
             <div class="mini-info"><div class="name">${p.name}</div></div>
             <div class="mini-value">${valor(p)}</div>
           </div>`).join('') : `<div class="division-empty">Em apuração</div>`}

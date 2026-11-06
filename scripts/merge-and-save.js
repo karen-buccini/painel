@@ -316,14 +316,26 @@ function main() {
     const hp = hubspot.parceiros;
     if (parc && hp) {
       const ano = String(hubspot.periodo || '').slice(0, 4);
+      // Logos em logos/parceiros.json (nome do parceiro em minúsculas → arquivo).
+      // Parceiro sem logo cadastrado aparece com as iniciais.
+      let logos = {};
+      try {
+        logos = JSON.parse(fs.readFileSync('logos/parceiros.json', 'utf-8'));
+      } catch (e) {
+        console.error('Aviso: nao consegui ler logos/parceiros.json; parceiros sem logo.');
+      }
+      const comLogo = (lista) => (lista || []).map((p) => {
+        const logo = logos[String(p.name).trim().toLowerCase().replace(/\s+/g, ' ')];
+        return logo ? { ...p, logo } : p;
+      });
       parc.reservas = hp.reservas;
       parc.parceirosReservaram = hp.parceirosReservaram;
       parc.oportunidades = hp.oportunidades;
       parc.rankings = [
-        { titulo: 'Reservas no mês', tipo: 'reservas', lista: hp.reservasMes },
-        { titulo: `Reservas em ${ano}`, tipo: 'reservas', lista: hp.reservasAno },
-        { titulo: 'Ativações no mês', tipo: 'ativacoes', lista: hp.ativacoesMes },
-        { titulo: `Ativações em ${ano}`, tipo: 'ativacoes', lista: hp.ativacoesAno },
+        { titulo: 'Reservas no mês', tipo: 'reservas', lista: comLogo(hp.reservasMes) },
+        { titulo: `Reservas em ${ano}`, tipo: 'reservas', lista: comLogo(hp.reservasAno) },
+        { titulo: 'Ativações no mês', tipo: 'ativacoes', lista: comLogo(hp.ativacoesMes) },
+        { titulo: `Ativações em ${ano}`, tipo: 'ativacoes', lista: comLogo(hp.ativacoesAno) },
       ];
       mudancas.push('parceiros');
     }

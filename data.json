@@ -291,15 +291,18 @@
         "lista": [
           {
             "name": "Tricapital",
-            "reservas": 30
+            "reservas": 30,
+            "logo": "logos/tricapital.png"
           },
           {
             "name": "XP Investimentos",
-            "reservas": 26
+            "reservas": 26,
+            "logo": "logos/xp.png"
           },
           {
             "name": "First",
-            "reservas": 10
+            "reservas": 10,
+            "logo": "logos/first.png"
           }
         ]
       },
@@ -309,15 +312,18 @@
         "lista": [
           {
             "name": "XP Investimentos",
-            "reservas": 127
+            "reservas": 127,
+            "logo": "logos/xp.png"
           },
           {
             "name": "Cordier Investimentos",
-            "reservas": 102
+            "reservas": 102,
+            "logo": "logos/cordier.png"
           },
           {
             "name": "Manchester Investimentos",
-            "reservas": 79
+            "reservas": 79,
+            "logo": "logos/manchester.png"
           }
         ]
       },
@@ -333,17 +339,20 @@
           {
             "name": "Cordier Investimentos",
             "ativacoes": 5,
-            "volume": 9763652.63
+            "volume": 9763652.63,
+            "logo": "logos/cordier.png"
           },
           {
             "name": "First",
             "ativacoes": 5,
-            "volume": 3053573.93
+            "volume": 3053573.93,
+            "logo": "logos/first.png"
           },
           {
             "name": "Faz Capital",
             "ativacoes": 4,
-            "volume": 2553502.56
+            "volume": 2553502.56,
+            "logo": "logos/faz-capital.png"
           }
         ]
       }
