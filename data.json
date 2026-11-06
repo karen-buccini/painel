@@ -241,16 +241,9 @@
         "sellers": [
           {
             "name": "Juliane Gadi",
-            "oportunidades": 2,
+            "oportunidades": 3,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
-            "metricLabel": "oportunidades"
-          },
-          {
-            "name": "Josemir Sousa",
-            "oportunidades": 1,
-            "color": "#9B8CFF",
-            "photo": "https://avatars.slack-edge.com/2026-09-14/12061519280530_9c39dcc45d46e52e9656_512.jpg",
             "metricLabel": "oportunidades"
           }
         ]

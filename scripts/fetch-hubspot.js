@@ -373,7 +373,12 @@ async function parceriasFarming() {
 }
 
 /**
- * Retargeting: pipeline de retargeting e data de entrada na etapa no mês.
+ * Retargeting: cards do pipeline Retarget que entraram na etapa
+ * "Oportunidade Qualificada" no mês, contados pelo campo "Nome BDR/ Hunter/
+ * Farmer" do card (regra da Karen, 06/11/2026). Antes contava pelo dono do
+ * negócio, que nem sempre é o BDR: em novembro o painel mostrava Juliane 2 e
+ * Josemir 1, e os três cards eram da Juliane no campo BDR. Card sem BDR
+ * preenchido não entra na contagem.
  *
  * Vale qualquer dono, de qualquer time. Antes havia também um filtro pelo
  * time de retargeting (60328493), e quem respondia por oportunidade de
@@ -391,15 +396,16 @@ async function retargeting() {
       { propertyName: 'pipeline', operator: 'IN', values: [PIPELINES.RETARGETING] },
       { propertyName: DATE_RETARGETING, operator: 'BETWEEN', value: p.inicioHora, highValue: p.fimHora },
     ],
-    ['dealname', 'hubspot_owner_id']
+    ['dealname', 'nome_bdr__hunter__farmer_']
   );
 
+  // Os valores do campo BDR são os mesmos IDs de usuário do HubSpot.
   const nomes = await owners();
   const porPessoa = {};
   for (const d of negocios) {
-    const dono = d.properties.hubspot_owner_id;
-    if (!dono) continue;
-    porPessoa[dono] = (porPessoa[dono] || 0) + 1;
+    const bdr = d.properties.nome_bdr__hunter__farmer_;
+    if (!bdr) continue;
+    porPessoa[bdr] = (porPessoa[bdr] || 0) + 1;
   }
 
   return Object.entries(porPessoa)
