@@ -167,11 +167,17 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 6011000,
-    "mornoTotal": 33100000,
+    "quenteTotal": 8011000,
+    "mornoTotal": 30100000,
     "top3": [
       {
         "name": "Vila Porto International Business",
+        "value": 2000000,
+        "temp": "quente",
+        "owner": "Kaio Oliveira"
+      },
+      {
+        "name": "Customs Importacao Exportacao Consultoria e Assessoria",
         "value": 2000000,
         "temp": "quente",
         "owner": "Kaio Oliveira"
@@ -181,12 +187,6 @@
         "value": 1411000,
         "temp": "quente",
         "owner": "Fernando Velloso"
-      },
-      {
-        "name": "Kabel Industria e Comercio de Chicotes Eletricos",
-        "value": 1000000,
-        "temp": "quente",
-        "owner": "Guilherme Belotto"
       }
     ]
   },
@@ -281,8 +281,8 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 80,
-    "parceirosReservaram": 11,
+    "reservas": 81,
+    "parceirosReservaram": 12,
     "oportunidades": 1,
     "rankings": [
       {
@@ -317,7 +317,7 @@
           },
           {
             "name": "Cordier Investimentos",
-            "reservas": 102,
+            "reservas": 103,
             "logo": "logos/cordier.png"
           },
           {
@@ -1295,8 +1295,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 13,2M no mês",
-        "text": "Soma do limite de crédito aprovado em 6 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 13,7M no mês",
+        "text": "Soma do limite de crédito aprovado em 7 créditos no mês."
       },
       {
         "tag": "evento",
