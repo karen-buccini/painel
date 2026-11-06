@@ -202,7 +202,29 @@
       },
       {
         "name": "Renovação",
-        "sellers": []
+        "sellers": [
+          {
+            "name": "Tiago Viel",
+            "value": 400000,
+            "color": "var(--mint)",
+            "photo": "https://avatars.slack-edge.com/2026-02-23/10565767228802_f4abc21f076826b0bcda_512.jpg",
+            "fechado": 400000,
+            "forecast": 0
+          }
+        ]
+      },
+      {
+        "name": "Reativação",
+        "sellers": [
+          {
+            "name": "André Vitoretti",
+            "value": 5000000,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2024-05-13/7103451712710_5de33c00bd6f9eb06bd1_512.jpg",
+            "fechado": 5000000,
+            "forecast": 0
+          }
+        ]
       }
     ]
   },

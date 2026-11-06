@@ -670,6 +670,8 @@ html,body{
   font-family:var(--font);font-weight:300;letter-spacing:-0.02em;
   font-size:clamp(14px,16.6px,18px);color:var(--gold);line-height:1.15;
 }
+.mini-value .mini-sub{font-size:0.72em;color:var(--muted);letter-spacing:0.02em;}
+.mini-value .fechado{color:var(--mint);}
 .div-metrics{
   margin-top:10px;padding-top:10px;
   border-top:1px solid var(--panel-line);
@@ -1094,7 +1096,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-05-03';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-06-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1176,6 +1178,21 @@ function applyNewData(newAllSlides){
 }
 
 const fmtBRL = n => n.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0});
+
+// Valor curto para caber duas linhas na coluna: R$ 5M, R$ 1,25M, R$ 400 mil.
+function fmtCurto(n){
+  if(n >= 1e6) return `R$ ${(n/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})}M`;
+  if(n >= 1e3) return `R$ ${Math.round(n/1e3).toLocaleString('pt-BR')} mil`;
+  return fmtBRL(n);
+}
+// Forecast por farmer: "Negócio ganho" (fechado) e "Em negociação" (forecast)
+// separados. Só aparece a linha que tiver valor.
+function valorFarming(v){
+  const linhas = [];
+  if(v.fechado) linhas.push(`<div class="fechado">${fmtCurto(v.fechado)} <span class="mini-sub">fechado</span></div>`);
+  if(v.forecast) linhas.push(`<div>${fmtCurto(v.forecast)} <span class="mini-sub">em negociação</span></div>`);
+  return linhas.join('');
+}
 
 function fmtCompactM(n){
   return `R$ ${(n/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})}M`;
@@ -1498,7 +1515,7 @@ function renderSlide(s){
                     ${v.deals ? `<div class="meta">${v.deals} negócio${v.deals>1?'s':''}</div>` : ''}
                   </div>
                 `}
-                <div class="mini-value">${v.value ? fmtBRL(v.value) : (v.oportunidades!=null ? `${v.oportunidades.toLocaleString('pt-BR')} ${rotuloMetrica(v.oportunidades, v.metricLabel)}` : '')}</div>
+                <div class="mini-value">${(v.fechado != null || v.forecast != null) ? valorFarming(v) : v.value ? fmtBRL(v.value) : (v.oportunidades!=null ? `${v.oportunidades.toLocaleString('pt-BR')} ${rotuloMetrica(v.oportunidades, v.metricLabel)}` : '')}</div>
               </div>`).join('') : (div.metrics ? '' : `<div class="division-empty">Em apuração</div>`)}
             ${div.metrics ? `<div class="div-metrics">${div.metrics.map(m=>`<div class="div-metric"><span class="v">${m.value}</span><span class="l">${m.label}</span></div>`).join('')}</div>` : ''}
           </div>`;

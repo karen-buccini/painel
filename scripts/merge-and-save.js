@@ -234,7 +234,7 @@ function main() {
     // Vem chaveado pelo nome da operação no HubSpot ("Aumento de volume
     // tomado", "Renovação", "Reativação"), que é o mesmo nome da coluna no
     // painel. Operação que não tenha coluna correspondente simplesmente não
-    // aparece — se um dia surgir Reativação, é criar a coluna no data.json.
+    // aparece. A coluna Reativação entrou em 06/11/2026, a pedido da Karen.
     if (hubspot.forecastingFarmer) {
       const aplicadas = [];
       for (const [operacao, pessoas] of Object.entries(hubspot.forecastingFarmer)) {
