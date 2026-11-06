@@ -309,6 +309,24 @@ function main() {
         : 'Soma do limite de crédito aprovado no mês.';
       mudancas.push('card de crédito aprovado');
     }
+
+    // --- Parceiros: reservas, oportunidades e rankings ----------------
+    // Se a consulta falhou, a tela fica como estava.
+    const parc = findSlide(slides, 'parceiros');
+    const hp = hubspot.parceiros;
+    if (parc && hp) {
+      const ano = String(hubspot.periodo || '').slice(0, 4);
+      parc.reservas = hp.reservas;
+      parc.parceirosReservaram = hp.parceirosReservaram;
+      parc.oportunidades = hp.oportunidades;
+      parc.rankings = [
+        { titulo: 'Reservas no mês', tipo: 'reservas', lista: hp.reservasMes },
+        { titulo: `Reservas em ${ano}`, tipo: 'reservas', lista: hp.reservasAno },
+        { titulo: 'Ativações no mês', tipo: 'ativacoes', lista: hp.ativacoesMes },
+        { titulo: `Ativações em ${ano}`, tipo: 'ativacoes', lista: hp.ativacoesAno },
+      ];
+      mudancas.push('parceiros');
+    }
   }
 
   if (cr2) {

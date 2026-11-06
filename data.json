@@ -277,6 +277,79 @@
     ]
   },
   {
+    "type": "parceiros",
+    "duration": 18000,
+    "eyebrow": "Parceiros",
+    "showMonth": true,
+    "reservas": 80,
+    "parceirosReservaram": 11,
+    "oportunidades": 1,
+    "rankings": [
+      {
+        "titulo": "Reservas no mês",
+        "tipo": "reservas",
+        "lista": [
+          {
+            "name": "Tricapital",
+            "reservas": 30
+          },
+          {
+            "name": "XP Investimentos",
+            "reservas": 26
+          },
+          {
+            "name": "First",
+            "reservas": 10
+          }
+        ]
+      },
+      {
+        "titulo": "Reservas em 2026",
+        "tipo": "reservas",
+        "lista": [
+          {
+            "name": "XP Investimentos",
+            "reservas": 127
+          },
+          {
+            "name": "Cordier Investimentos",
+            "reservas": 102
+          },
+          {
+            "name": "Manchester Investimentos",
+            "reservas": 79
+          }
+        ]
+      },
+      {
+        "titulo": "Ativações no mês",
+        "tipo": "ativacoes",
+        "lista": []
+      },
+      {
+        "titulo": "Ativações em 2026",
+        "tipo": "ativacoes",
+        "lista": [
+          {
+            "name": "Cordier Investimentos",
+            "ativacoes": 5,
+            "volume": 9763652.63
+          },
+          {
+            "name": "First",
+            "ativacoes": 5,
+            "volume": 3053573.93
+          },
+          {
+            "name": "Faz Capital",
+            "ativacoes": 4,
+            "volume": 2553502.56
+          }
+        ]
+      }
+    ]
+  },
+  {
     "type": "birthdays",
     "duration": 16000,
     "eyebrow": "Aniversariantes do mês",

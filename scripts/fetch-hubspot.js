@@ -459,6 +459,99 @@ async function creditoAprovado() {
 }
 
 /**
+ * Parceiros — mesma regra do artefato "Painel Parceiros" da Karen.
+ *
+ * Reserva de lead = negócio do Closing com parceiro (Nome do Finder, ou só o
+ * ID do Parceiro), contado pela data de criação. Oportunidade = negócio com
+ * parceiro cuja Data da oportunidade (ou Data Oportunidade; sem nenhuma das
+ * duas, a data de ativação) cai no mês. Ativação = entrada em "Cliente
+ * Ativado" no período. Devolve os números do mês e os três primeiros de cada
+ * ranking, no mês e no ano.
+ */
+const SIGLAS_PARCEIRO = new Set(['xp', 'eqi', 'gf', 'svn', 'gwm', 'm7', 'fcg']);
+const chaveParceiro = (s) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+function nomeParceiro(s) {
+  return String(s || '').trim().replace(/\s+/g, ' ').split(' ')
+    .map((w) => (SIGLAS_PARCEIRO.has(w.toLowerCase().replace(/[()]/g, '')) ? w.toUpperCase() : w))
+    .join(' ');
+}
+
+async function parceiros() {
+  const p = mesVigente();
+  const inicioAno = String(emSaoPaulo(p.ano, 0, 1));
+  const mesTexto = `${p.ano}-${String(p.mes).padStart(2, '0')}`;
+  const noMes = (iso) => {
+    const t = Date.parse(iso || '');
+    return t >= Number(p.inicioHora) && t <= Number(p.fimHora);
+  };
+  const dataNoMes = (d) => !!d && String(d).slice(0, 7) === mesTexto; // propriedade `date`
+  const temParceiro = (d) => !!(d.properties.nome_do_finder || d.properties.id_do_parceiro);
+  const closing = { propertyName: 'pipeline', operator: 'EQ', value: PIPELINES.COMERCIAL };
+
+  // Reservas do ano: com nome do parceiro, e só com o ID (sem nome).
+  const camposReserva = ['nome_do_finder', 'id_do_parceiro', 'createdate'];
+  const reservasAno = [
+    ...(await buscarNegocios([closing,
+      { propertyName: 'nome_do_finder', operator: 'HAS_PROPERTY' },
+      { propertyName: 'createdate', operator: 'GTE', value: inicioAno }], camposReserva)),
+    ...(await buscarNegocios([closing,
+      { propertyName: 'nome_do_finder', operator: 'NOT_HAS_PROPERTY' },
+      { propertyName: 'id_do_parceiro', operator: 'HAS_PROPERTY' },
+      { propertyName: 'createdate', operator: 'GTE', value: inicioAno }], camposReserva)),
+  ];
+  const reservasMes = reservasAno.filter((d) => noMes(d.properties.createdate));
+
+  // Ativações do ano (o mês sai delas).
+  const camposOp = ['nome_do_finder', 'id_do_parceiro', 'data_da_oportunidade', 'data_oportunidade',
+    'hs_v2_date_entered_983479988', 'volume_ativado'];
+  const ativacoesAno = (await buscarNegocios([closing,
+    { propertyName: 'hs_v2_date_entered_983479988', operator: 'GTE', value: inicioAno }], camposOp))
+    .filter(temParceiro);
+  const ativacoesMes = ativacoesAno.filter((d) => noMes(d.properties.hs_v2_date_entered_983479988));
+
+  // Oportunidades do mês: pelas duas datas de oportunidade e, sem elas, pela ativação.
+  const candidatos = {};
+  for (const campo of ['data_da_oportunidade', 'data_oportunidade']) {
+    const achados = await buscarNegocios([closing,
+      { propertyName: campo, operator: 'BETWEEN', value: p.inicioData, highValue: p.fimData }], camposOp);
+    for (const d of achados) candidatos[d.id] = d;
+  }
+  for (const d of ativacoesMes) candidatos[d.id] = d;
+  const oportunidades = Object.values(candidatos).filter(temParceiro).filter((d) => {
+    const dOp = d.properties.data_da_oportunidade || d.properties.data_oportunidade;
+    return dOp ? dataNoMes(dOp) : noMes(d.properties.hs_v2_date_entered_983479988);
+  }).length;
+
+  const chaveDe = (d) => chaveParceiro(d.properties.nome_do_finder) || `id:${d.properties.id_do_parceiro}`;
+  const top3 = (negocios, comVolume) => {
+    const g = {};
+    for (const d of negocios) {
+      const k = chaveParceiro(d.properties.nome_do_finder);
+      if (!k) continue; // sem nome não dá para mostrar no ranking
+      g[k] = g[k] || { name: nomeParceiro(d.properties.nome_do_finder), n: 0, volume: 0 };
+      g[k].n += 1;
+      g[k].volume += num(d.properties.volume_ativado);
+    }
+    return Object.values(g)
+      .sort((a, b) => b.n - a.n || b.volume - a.volume)
+      .slice(0, 3)
+      .map((x) => (comVolume
+        ? { name: x.name, ativacoes: x.n, volume: Math.round(x.volume * 100) / 100 }
+        : { name: x.name, reservas: x.n }));
+  };
+
+  return {
+    reservas: reservasMes.length,
+    parceirosReservaram: new Set(reservasMes.map(chaveDe)).size,
+    oportunidades,
+    reservasMes: top3(reservasMes, false),
+    reservasAno: top3(reservasAno, false),
+    ativacoesMes: top3(ativacoesMes, true),
+    ativacoesAno: top3(ativacoesAno, true),
+  };
+}
+
+/**
  * Frete — relatório 168980717 ("Negócios com Embarques Confirmados - mês").
  *
  * O recorte é por closedate, não por createdate. Com createdate o painel
@@ -493,6 +586,12 @@ async function main() {
   const frt = await frete();
   // Se o token não puder ler o objeto Crédito, o resto do painel segue
   // atualizando; só o card de crédito fica como estava.
+  let parc = null;
+  try {
+    parc = await parceiros();
+  } catch (e) {
+    console.error('Aviso: não consegui ler os números de parceiros:', e.message);
+  }
   let credito = null;
   try {
     credito = await creditoAprovado();
@@ -505,7 +604,8 @@ async function main() {
   console.error(`[${p.ano}-${String(p.mes).padStart(2,"0")}] ativacoes=${ativados.clientesAtivados} ` +
     `closing=${closing.top3.length} farmer=${Object.entries(farmer).map(([k,v])=>k+":"+v.length).join(",")} ` +
     `parcerias=${farmingParcerias.length} retargeting=${retg.length} frete=${frt} ` +
-    `credito=${credito ? credito.quantidade + ':' + credito.valor : 'falhou'}`);
+    `credito=${credito ? credito.quantidade + ':' + credito.valor : 'falhou'} ` +
+    `parceiros=${parc ? parc.reservas + '/' + parc.oportunidades : 'falhou'}`);
 
   console.log(JSON.stringify({
     geradoEm: new Date().toISOString(),
@@ -517,6 +617,7 @@ async function main() {
     retargeting: retg,
     frete: frt,
     creditoAprovado: credito,
+    parceiros: parc,
     // Câmbio não entra: a Stella manda esses números uma vez por semana.
   }, null, 2));
 }

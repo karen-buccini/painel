@@ -721,6 +721,18 @@ html,body{
   margin-right:4px;
 }
 
+/* ===== SLIDE: PARCEIROS ===== */
+.parc-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,23px,20px);margin-bottom:clamp(14px,23px,20px);}
+.parc-kpi{
+  background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:16px;padding:clamp(16px,20px,28px) clamp(20px,26px,36px);
+  font-family:var(--font);font-variant-numeric:tabular-nums;
+}
+.parc-kpi .l{font-size:clamp(14px,15.4px,17px);letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.parc-kpi .v{font-weight:300;letter-spacing:-0.02em;font-size:clamp(40px,52px,72px);line-height:1.05;margin-top:6px;}
+.parc-kpi .n{font-size:clamp(15px,16.6px,19px);color:var(--muted);margin-top:4px;}
+.parc-kpi .n b{color:var(--gold);font-weight:500;}
+
 /* ===== SLIDE: CURRENCY ===== */
 .curr-row{display:flex;gap:clamp(14px,25.6px,26px);flex-wrap:wrap;}
 .curr-card{
@@ -1110,7 +1122,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-06-02';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-06-03';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1471,6 +1483,43 @@ function renderSlide(s){
           ${s.pergunta ? `<div class="campanha-pergunta">${s.pergunta}</div>` : ''}
         </div>
         ${arte.length ? `<div class="campanha-arte"><span class="principal">${desenho(arte[0])}</span>${arte.slice(1, 5).map((e,i)=>`<span class="e${i+1}">${desenho(e)}</span>`).join('')}</div>` : ''}
+      </div>`;
+  }
+  // Parceiros: reservas de leads e oportunidades do mês (mesma regra do
+  // "Painel Parceiros": negócios do Closing com Nome do Finder) e os três
+  // parceiros que mais reservaram e mais ativaram.
+  if(s.type==='parceiros'){
+    const num = n => Number(n || 0).toLocaleString('pt-BR');
+    const pct = s.reservas ? (s.oportunidades / s.reservas * 100).toLocaleString('pt-BR',{maximumFractionDigits:1}) + '%' : '—';
+    const top = (titulo, itens, valor) => `
+      <div class="division-card">
+        <div class="division-title">${titulo}</div>
+        ${(itens || []).length ? itens.slice(0,3).map((p,i)=>`
+          <div class="mini-row">
+            <div class="mini-pos">${i+1}</div>
+            <div class="mini-avatar" style="background:${avatarBg({...p, color: p.color || ['var(--gold)','var(--mint)','var(--sky)'][i]})}">${avatarInner(p)}</div>
+            <div class="mini-info"><div class="name">${p.name}</div></div>
+            <div class="mini-value">${valor(p)}</div>
+          </div>`).join('') : `<div class="division-empty">Em apuração</div>`}
+      </div>`;
+    const resv = p => `${num(p.reservas)} reserva${p.reservas===1?'':'s'}`;
+    const ativ = p => `${num(p.ativacoes)} ativaç${p.ativacoes===1?'ão':'ões'}${p.volume ? ` · ${fmtCompactM(p.volume)}` : ''}`;
+    return `
+      <div class="eyebrow">${eyebrowText(s)}</div>
+      <div class="parc-kpis">
+        <div class="parc-kpi">
+          <div class="l">Reservas de leads</div>
+          <div class="v">${num(s.reservas)}</div>
+          <div class="n"><b>${num(s.parceirosReservaram)}</b> parceiro${s.parceirosReservaram===1?'':'s'} reservaram</div>
+        </div>
+        <div class="parc-kpi">
+          <div class="l">Oportunidades</div>
+          <div class="v">${num(s.oportunidades)}</div>
+          <div class="n"><b>${pct}</b> das reservas</div>
+        </div>
+      </div>
+      <div class="division-grid cols-4 parc-tops">
+        ${(s.rankings || []).map(r => top(r.titulo, r.lista, r.tipo === 'ativacoes' ? ativ : resv)).join('')}
       </div>`;
   }
   if(s.type==='news'){
