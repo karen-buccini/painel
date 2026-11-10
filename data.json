@@ -257,7 +257,22 @@
       },
       {
         "name": "Câmbio",
-        "sellers": [],
+        "sellers": [
+          {
+            "people": [
+              {
+                "name": "Julia Guimarães",
+                "color": "#9B8CFF",
+                "photo": "https://avatars.slack-edge.com/2026-05-05/11047051384311_1378438d2118923bfc6a_512.png"
+              },
+              {
+                "name": "Luis Oliveira",
+                "color": "var(--sky)",
+                "photo": "fotos/luis-oliveira.jpg"
+              }
+            ]
+          }
+        ],
         "metrics": [
           {
             "value": "R$ 8.549.444",
