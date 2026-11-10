@@ -153,7 +153,7 @@
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
     "quenteTotal": 6511000,
-    "mornoTotal": 27600000,
+    "mornoTotal": 27400000,
     "top3": [
       {
         "name": "Vila Porto International Business",
@@ -228,6 +228,13 @@
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
+          },
+          {
+            "name": "Julia Porto",
+            "oportunidades": 1,
+            "color": "var(--coral)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
+            "metricLabel": "oportunidades"
           }
         ]
       },
@@ -295,9 +302,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 86,
+    "reservas": 87,
     "parceirosReservaram": 17,
-    "oportunidades": 2,
+    "oportunidades": 3,
     "rankings": [
       {
         "titulo": "Reservas no mês",
