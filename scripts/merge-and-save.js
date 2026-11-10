@@ -288,8 +288,24 @@ function main() {
     }
     // Frete continua por contagem: a coluna mostra uma pessoa so, fixa.
     atualizarContagem(findDivision(slides, 'Frete'), hubspot.frete);
-    // Câmbio não entra aqui: a divisão mostra quatro métricas próprias
-    // (volume, margem, clientes, transações) e não uma contagem de negócios.
+    // Câmbio mostra três métricas (volume, clientes, transações),
+    // lidas das empresas no HubSpot, como no artefato "Reciprocidade de
+    // câmbio". Se a leitura falhou, a coluna fica como estava; no começo do
+    // mês, sem empresa com o mês novo, a coluna escreve "Em apuração".
+    const cambioDiv = findDivision(slides, 'Câmbio');
+    const cb = hubspot.cambio;
+    if (cambioDiv && cb) {
+      const brl = (v) => 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+      if (cb.clientes) {
+        cambioDiv.metrics = [
+          { value: brl(cb.volume), label: 'Volume total' },
+          { value: String(cb.clientes), label: 'Clientes' },
+          { value: String(cb.transacoes), label: 'Transações' },
+        ];
+      } else {
+        delete cambioDiv.metrics;
+      }
+    }
     mudancas.push('retargeting, frete e câmbio');
 
     // --- Novidades: o card de crédito aprovado ------------------------

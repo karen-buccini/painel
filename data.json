@@ -257,7 +257,21 @@
       },
       {
         "name": "Câmbio",
-        "sellers": []
+        "sellers": [],
+        "metrics": [
+          {
+            "value": "R$ 8.549.444",
+            "label": "Volume total"
+          },
+          {
+            "value": "14",
+            "label": "Clientes"
+          },
+          {
+            "value": "40",
+            "label": "Transações"
+          }
+        ]
       }
     ]
   },

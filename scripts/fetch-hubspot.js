@@ -459,6 +459,37 @@ async function creditoAprovado() {
 }
 
 /**
+ * Câmbio do mês — mesma fonte do artefato "Reciprocidade de câmbio": os campos
+ * de Informações de Câmbio das empresas no HubSpot. Entram as empresas cujo
+ * "Mês de referência" é o mês vigente (ex.: "Novembro/26") e com valor maior
+ * que zero, para que números do mês anterior não contem na virada.
+ *
+ * Volume = soma de "Valor total de câmbio (BRL)"; transações = soma de
+ * "Quantidade de operações"; clientes = empresas. A margem não entra: a
+ * Karen pediu para não mostrar na TV (10/11/2026).
+ */
+const MESES_PT = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+async function cambio() {
+  const p = mesVigente();
+  const rotulo = `${MESES_PT[p.mes - 1]}/${String(p.ano).slice(-2)}`;
+  const empresas = await buscarObjetos(
+    'companies',
+    [
+      { propertyName: 'mes_de_referencia', operator: 'EQ', value: rotulo },
+      { propertyName: 'valor_total_de_cambio__brl_', operator: 'GT', value: '0' },
+    ],
+    ['name', 'valor_total_de_cambio__brl_', 'quantidade_de_operacoes', 'mes_de_referencia']
+  );
+  let volume = 0, transacoes = 0;
+  for (const e of empresas) {
+    volume += num(e.properties.valor_total_de_cambio__brl_);
+    transacoes += num(e.properties.quantidade_de_operacoes);
+  }
+  return { mesReferencia: rotulo, volume, clientes: empresas.length, transacoes };
+}
+
+/**
  * Parceiros — mesma regra do artefato "Painel Parceiros" da Karen.
  *
  * Reserva de lead = negócio do Closing com parceiro (Nome do Finder, ou só o
@@ -592,6 +623,12 @@ async function main() {
   } catch (e) {
     console.error('Aviso: não consegui ler os números de parceiros:', e.message);
   }
+  let cbo = null;
+  try {
+    cbo = await cambio();
+  } catch (e) {
+    console.error('Aviso: não consegui ler os números de câmbio:', e.message);
+  }
   let credito = null;
   try {
     credito = await creditoAprovado();
@@ -605,7 +642,8 @@ async function main() {
     `closing=${closing.top3.length} farmer=${Object.entries(farmer).map(([k,v])=>k+":"+v.length).join(",")} ` +
     `parcerias=${farmingParcerias.length} retargeting=${retg.length} frete=${frt} ` +
     `credito=${credito ? credito.quantidade + ':' + credito.valor : 'falhou'} ` +
-    `parceiros=${parc ? parc.reservas + '/' + parc.oportunidades : 'falhou'}`);
+    `parceiros=${parc ? parc.reservas + '/' + parc.oportunidades : 'falhou'} ` +
+    `cambio=${cbo ? cbo.clientes + ':' + Math.round(cbo.volume) : 'falhou'}`);
 
   console.log(JSON.stringify({
     geradoEm: new Date().toISOString(),
@@ -618,7 +656,7 @@ async function main() {
     frete: frt,
     creditoAprovado: credito,
     parceiros: parc,
-    // Câmbio não entra: a Stella manda esses números uma vez por semana.
+    cambio: cbo,
   }, null, 2));
 }
 
