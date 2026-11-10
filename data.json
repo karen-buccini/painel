@@ -223,10 +223,10 @@
         "name": "Parcerias · Farming",
         "sellers": [
           {
-            "name": "Raquel Figueiredo",
+            "name": "Matheus Ferreira",
             "oportunidades": 1,
-            "color": "var(--sky)",
-            "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
           }
         ]
@@ -248,7 +248,7 @@
         "sellers": [
           {
             "name": "Luciana Turisco",
-            "oportunidades": 4,
+            "oportunidades": 6,
             "metricLabel": "embarques confirmados",
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
@@ -295,9 +295,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 82,
-    "parceirosReservaram": 13,
-    "oportunidades": 1,
+    "reservas": 83,
+    "parceirosReservaram": 14,
+    "oportunidades": 2,
     "rankings": [
       {
         "titulo": "Reservas no mês",
