@@ -230,6 +230,13 @@
             "metricLabel": "oportunidades"
           },
           {
+            "name": "Raquel Figueiredo",
+            "oportunidades": 1,
+            "color": "var(--sky)",
+            "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
+            "metricLabel": "oportunidades"
+          },
+          {
             "name": "Julia Porto",
             "oportunidades": 1,
             "color": "var(--coral)",
@@ -304,7 +311,7 @@
     "showMonth": true,
     "reservas": 87,
     "parceirosReservaram": 17,
-    "oportunidades": 3,
+    "oportunidades": 4,
     "rankings": [
       {
         "titulo": "Reservas no mês",
