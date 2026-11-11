@@ -224,9 +224,16 @@
         "sellers": [
           {
             "name": "Matheus Ferreira",
-            "oportunidades": 1,
+            "oportunidades": 2,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
+            "metricLabel": "oportunidades"
+          },
+          {
+            "name": "Julia Porto",
+            "oportunidades": 2,
+            "color": "var(--coral)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           },
           {
@@ -234,13 +241,6 @@
             "oportunidades": 1,
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
-            "metricLabel": "oportunidades"
-          },
-          {
-            "name": "Julia Porto",
-            "oportunidades": 1,
-            "color": "var(--coral)",
-            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           }
         ]
@@ -309,9 +309,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 90,
-    "parceirosReservaram": 19,
-    "oportunidades": 4,
+    "reservas": 91,
+    "parceirosReservaram": 20,
+    "oportunidades": 6,
     "rankings": [
       {
         "titulo": "Reservas no mês",
@@ -1323,8 +1323,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 15,5M no mês",
-        "text": "Soma do limite de crédito aprovado em 11 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 16,5M no mês",
+        "text": "Soma do limite de crédito aprovado em 12 créditos no mês."
       },
       {
         "tag": "evento",
