@@ -152,9 +152,15 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 6511000,
+    "quenteTotal": 8185697,
     "mornoTotal": 27650000,
     "top3": [
+      {
+        "name": "Veel Trade - Soc. Catarinense de Comércio (grupo Cecil)",
+        "value": 3085697,
+        "temp": "quente",
+        "owner": "Fernando Velloso"
+      },
       {
         "name": "Vila Porto International Business",
         "value": 2000000,
@@ -166,12 +172,6 @@
         "value": 2000000,
         "temp": "quente",
         "owner": "Kaio Oliveira"
-      },
-      {
-        "name": "Veel Trade - Soc. Catarinense de Comércio (grupo Cecil)",
-        "value": 1411000,
-        "temp": "quente",
-        "owner": "Fernando Velloso"
       }
     ]
   },
