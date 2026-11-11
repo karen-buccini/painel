@@ -309,7 +309,7 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 87,
+    "reservas": 88,
     "parceirosReservaram": 17,
     "oportunidades": 4,
     "rankings": [
@@ -1323,8 +1323,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 14,6M no mês",
-        "text": "Soma do limite de crédito aprovado em 9 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 15,2M no mês",
+        "text": "Soma do limite de crédito aprovado em 10 créditos no mês."
       },
       {
         "tag": "evento",
