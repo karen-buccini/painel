@@ -250,7 +250,7 @@
         "sellers": [
           {
             "name": "Juliane Gadi",
-            "oportunidades": 3,
+            "oportunidades": 4,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
             "metricLabel": "oportunidades"
@@ -309,8 +309,8 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 94,
-    "parceirosReservaram": 22,
+    "reservas": 98,
+    "parceirosReservaram": 24,
     "oportunidades": 7,
     "rankings": [
       {
@@ -345,7 +345,7 @@
           },
           {
             "name": "Cordier Investimentos",
-            "reservas": 103,
+            "reservas": 105,
             "logo": "logos/cordier.png"
           },
           {
