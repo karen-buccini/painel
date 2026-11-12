@@ -1126,7 +1126,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-06-04';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-12-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1529,10 +1529,14 @@ function renderSlide(s){
       </div>`;
   }
   if(s.type==='news'){
+    // Evento que já aconteceu sai da lista; card de eventos sem nenhum, some.
+    const itens = s.items
+      .map(n => n.linhas ? {...n, linhas: n.linhas.filter(l => !eventoJaPassou(l.quando))} : n)
+      .filter(n => !n.linhas || n.linhas.length);
     return `
       <div class="eyebrow">${eyebrowText(s)}</div>
       <div class="news-row">
-        ${s.items.map(n=>`
+        ${itens.map(n=>`
           <div class="news-card">
             <span class="news-tag ${n.tag}">${n.tag}</span>
             <h3>${n.title}</h3>
@@ -1605,6 +1609,21 @@ function renderSlide(s){
       ${cotacoesOffline ? `<div class="curr-updated">Não foi possível atualizar as cotações agora</div>` : ''}`;
   }
   return '';
+}
+
+// Um evento ("quando" em dd/mm, ou "dd/mm a dd/mm") já passou quando o último
+// dia dele é anterior a hoje em São Paulo. No dia do evento ele ainda aparece.
+// Sem ano na data: uma data mais de seis meses para trás é do ano que vem
+// (em dezembro, "15/01" é janeiro seguinte).
+function eventoJaPassou(quando){
+  const datas = String(quando || '').match(/\d{1,2}\/\d{1,2}/g);
+  if(!datas) return false;
+  const [d, m] = datas[datas.length - 1].split('/').map(Number);
+  const [hd, hm, ha] = new Date().toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo'}).split('/').map(Number);
+  const hoje = Date.UTC(ha, hm - 1, hd);
+  let dia = Date.UTC(ha, m - 1, d);
+  if(hoje - dia > 182 * 864e5) dia = Date.UTC(ha + 1, m - 1, d);
+  return dia < hoje;
 }
 
 // Deixa o rótulo no singular quando a contagem é 1: '1 oportunidade',
