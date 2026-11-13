@@ -224,16 +224,9 @@
         "sellers": [
           {
             "name": "Matheus Ferreira",
-            "oportunidades": 4,
+            "oportunidades": 5,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
-            "metricLabel": "oportunidades"
-          },
-          {
-            "name": "Julia Porto",
-            "oportunidades": 2,
-            "color": "var(--coral)",
-            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           },
           {
@@ -241,6 +234,13 @@
             "oportunidades": 1,
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
+            "metricLabel": "oportunidades"
+          },
+          {
+            "name": "Julia Porto",
+            "oportunidades": 1,
+            "color": "var(--coral)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           }
         ]
@@ -309,8 +309,8 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 101,
-    "parceirosReservaram": 25,
+    "reservas": 104,
+    "parceirosReservaram": 27,
     "oportunidades": 9,
     "rankings": [
       {
