@@ -289,15 +289,15 @@
         ],
         "metrics": [
           {
-            "value": "R$ 8.549.444",
+            "value": "R$ 8.694.136",
             "label": "Volume total"
           },
           {
-            "value": "14",
+            "value": "15",
             "label": "Clientes"
           },
           {
-            "value": "40",
+            "value": "43",
             "label": "Transações"
           }
         ]
@@ -309,7 +309,7 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 99,
+    "reservas": 100,
     "parceirosReservaram": 25,
     "oportunidades": 7,
     "rankings": [
