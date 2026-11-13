@@ -224,7 +224,7 @@
         "sellers": [
           {
             "name": "Matheus Ferreira",
-            "oportunidades": 2,
+            "oportunidades": 4,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
@@ -311,7 +311,7 @@
     "showMonth": true,
     "reservas": 100,
     "parceirosReservaram": 25,
-    "oportunidades": 7,
+    "oportunidades": 9,
     "rankings": [
       {
         "titulo": "Reservas no mês",
