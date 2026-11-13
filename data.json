@@ -250,7 +250,7 @@
         "sellers": [
           {
             "name": "Juliane Gadi",
-            "oportunidades": 4,
+            "oportunidades": 5,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
             "metricLabel": "oportunidades"
@@ -309,7 +309,7 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 100,
+    "reservas": 101,
     "parceirosReservaram": 25,
     "oportunidades": 9,
     "rankings": [
