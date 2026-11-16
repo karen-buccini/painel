@@ -152,8 +152,8 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 8185697,
-    "mornoTotal": 27650000,
+    "quenteTotal": 8085697,
+    "mornoTotal": 25950000,
     "top3": [
       {
         "name": "Veel Trade - Soc. Catarinense de Comércio (grupo Cecil)",
@@ -250,7 +250,7 @@
         "sellers": [
           {
             "name": "Juliane Gadi",
-            "oportunidades": 5,
+            "oportunidades": 6,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
             "metricLabel": "oportunidades"
@@ -309,9 +309,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 104,
-    "parceirosReservaram": 27,
-    "oportunidades": 8,
+    "reservas": 105,
+    "parceirosReservaram": 28,
+    "oportunidades": 9,
     "rankings": [
       {
         "titulo": "Reservas no mês",
