@@ -152,8 +152,8 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 8085697,
-    "mornoTotal": 25950000,
+    "quenteTotal": 6585697,
+    "mornoTotal": 14300000,
     "top3": [
       {
         "name": "Veel Trade - Soc. Catarinense de Comércio (grupo Cecil)",
@@ -169,7 +169,7 @@
       },
       {
         "name": "Customs Importacao Exportacao Consultoria e Assessoria",
-        "value": 2000000,
+        "value": 500000,
         "temp": "quente",
         "owner": "Kaio Oliveira"
       }
@@ -230,17 +230,17 @@
             "metricLabel": "oportunidades"
           },
           {
+            "name": "Julia Porto",
+            "oportunidades": 2,
+            "color": "var(--coral)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
+            "metricLabel": "oportunidades"
+          },
+          {
             "name": "Raquel Figueiredo",
             "oportunidades": 1,
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
-            "metricLabel": "oportunidades"
-          },
-          {
-            "name": "Julia Porto",
-            "oportunidades": 1,
-            "color": "var(--coral)",
-            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           }
         ]
@@ -289,15 +289,15 @@
         ],
         "metrics": [
           {
-            "value": "R$ 8.694.136",
+            "value": "R$ 20.253.988",
             "label": "Volume total"
           },
           {
-            "value": "15",
+            "value": "22",
             "label": "Clientes"
           },
           {
-            "value": "43",
+            "value": "96",
             "label": "Transações"
           }
         ]
@@ -309,9 +309,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 105,
-    "parceirosReservaram": 28,
-    "oportunidades": 9,
+    "reservas": 106,
+    "parceirosReservaram": 29,
+    "oportunidades": 10,
     "rankings": [
       {
         "titulo": "Reservas no mês",
