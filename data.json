@@ -309,9 +309,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 108,
+    "reservas": 109,
     "parceirosReservaram": 31,
-    "oportunidades": 10,
+    "oportunidades": 11,
     "rankings": [
       {
         "titulo": "Reservas no mês",
@@ -324,7 +324,7 @@
           },
           {
             "name": "XP Investimentos",
-            "reservas": 26,
+            "reservas": 28,
             "logo": "logos/xp.png"
           },
           {
@@ -340,7 +340,7 @@
         "lista": [
           {
             "name": "XP Investimentos",
-            "reservas": 127,
+            "reservas": 129,
             "logo": "logos/xp.png"
           },
           {
