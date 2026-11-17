@@ -259,14 +259,22 @@ function main() {
     }
 
     // --- Desempenho: parcerias ---------------------------------------
-    // Até quatro pessoas: a coluna hoje mostra quatro, e cortar em três
-    // deixaria alguém de fora sem ninguém perceber.
+    // A mesma lista do HubSpot vira duas caixinhas, uma embaixo da outra:
+    // quem é de onboarding (Karen, 17/11: a Julia Porto) e o resto, farming.
+    // Até quatro pessoas no farming e três no onboarding.
     if (hubspot.parcerias && hubspot.parcerias.farming) {
-      const farming = findDivision(slides, 'Parcerias · Farming');
-      if (farming) {
-        if (aplicarLista(farming, hubspot.parcerias.farming.slice(0, 4), 'Parcerias · Farming',
+      const ONBOARDING = ['Julia Porto'];
+      const ehOnb = (p) => ONBOARDING.includes(p.name);
+      const lista = hubspot.parcerias.farming;
+      const grupos = [
+        ['Parcerias · Farming', lista.filter((p) => !ehOnb(p)).slice(0, 4)],
+        ['Parcerias · Onboarding', lista.filter(ehOnb).slice(0, 3)],
+      ];
+      for (const [nome, pessoas] of grupos) {
+        const div = findDivision(slides, nome);
+        if (div && aplicarLista(div, pessoas, nome,
               (l) => vestir(l, elenco).map((v) => ({ ...v, metricLabel: 'oportunidades' })), virouMes)) {
-          mudancas.push('ranking de parcerias');
+          mudancas.push(`ranking de ${nome.toLowerCase()}`);
         }
       }
     }
