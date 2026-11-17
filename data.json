@@ -316,7 +316,7 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 116,
+    "reservas": 127,
     "parceirosReservaram": 36,
     "oportunidades": 11,
     "rankings": [
@@ -335,9 +335,8 @@
             "logo": "logos/xp.png"
           },
           {
-            "name": "First",
-            "reservas": 10,
-            "logo": "logos/first.png"
+            "name": "Fernando Da Silva Pacheco",
+            "reservas": 12
           }
         ]
       },
