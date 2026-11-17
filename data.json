@@ -316,8 +316,8 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 109,
-    "parceirosReservaram": 31,
+    "reservas": 113,
+    "parceirosReservaram": 34,
     "oportunidades": 10,
     "rankings": [
       {
@@ -326,7 +326,7 @@
         "lista": [
           {
             "name": "Tricapital",
-            "reservas": 30,
+            "reservas": 31,
             "logo": "logos/tricapital.png"
           },
           {
@@ -357,7 +357,7 @@
           },
           {
             "name": "Manchester Investimentos",
-            "reservas": 79,
+            "reservas": 80,
             "logo": "logos/manchester.png"
           }
         ]
