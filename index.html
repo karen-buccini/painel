@@ -492,7 +492,8 @@ html,body{
   width:260px;height:260px;border-radius:50%;overflow:hidden;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   font-weight:300;font-size:58px;color:#090F20;
-  box-shadow:0 0 0 6px var(--ink),0 0 0 10px var(--amber),0 0 60px rgba(245,181,68,0.35);
+  /* Cor da borda por pessoa: campo "borda" no data.json (padrão âmbar). */
+  box-shadow:0 0 0 6px var(--ink),0 0 0 10px var(--borda, var(--amber)),0 0 60px var(--brilho, rgba(245,181,68,0.35));
 }
 .niver-fotos.varias .niver-avatar{width:190px;height:190px;font-size:44px;}
 .niver-avatar img{width:100%;height:100%;object-fit:cover;}
@@ -1140,7 +1141,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-17-01';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-17-02';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1178,6 +1179,13 @@ function agoraEmSaoPaulo(){
   }).formatToParts(new Date());
   const p = Object.fromEntries(partes.map(x => [x.type, x.value]));
   return { dia: `${p.day}/${p.month}`, ano: Number(p.year), hora: Number(p.hour) };
+}
+// "#FF6FB5" vira a borda e um brilho da mesma cor, mais transparente.
+function corDaBorda(hex){
+  const m = /^#([0-9a-f]{6})$/i.exec(hex || '');
+  if(!m) return '';
+  const n = parseInt(m[1], 16);
+  return `--borda:${hex};--brilho:rgba(${n>>16},${(n>>8)&255},${n&255},0.35);`;
 }
 function aniversarianteDoDia(todos){
   const mes = todos.find(s => s.type==='birthdays');
@@ -1443,7 +1451,7 @@ function renderSlide(s){
       <div class="baloes" aria-hidden="true">${cores.map(balao).join('')}</div>
       <div class="niver">
         <div class="niver-fotos ${s.people.length > 1 ? 'varias' : ''}">
-          ${s.people.slice(0,3).map(p=>`<div class="niver-avatar" style="background:${p.photo ? 'transparent' : (p.color || 'var(--amber)')}">${avatarInner(p)}</div>`).join('')}
+          ${s.people.slice(0,3).map(p=>`<div class="niver-avatar" style="background:${p.photo ? 'transparent' : (p.color || 'var(--amber)')};${corDaBorda(p.borda)}">${avatarInner(p)}</div>`).join('')}
         </div>
         <div>
           <div class="eyebrow">${eyebrowText(s)}</div>

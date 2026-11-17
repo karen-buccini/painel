@@ -726,13 +726,15 @@
         "name": "Amanda Pczbiowski",
         "date": "18/11",
         "color": "var(--coral)",
-        "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png"
+        "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png",
+        "borda": "#FF6FB5"
       },
       {
         "name": "Leonardo Baltieri",
         "date": "18/11",
         "color": "#9B8CFF",
-        "photo": "https://avatars.slack-edge.com/2024-03-19/6829154042916_2636317fe6d688db4b51_512.jpg"
+        "photo": "https://avatars.slack-edge.com/2024-03-19/6829154042916_2636317fe6d688db4b51_512.jpg",
+        "borda": "#F5B544"
       },
       {
         "name": "Daniela Chaves",
