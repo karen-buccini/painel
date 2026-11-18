@@ -21,6 +21,8 @@
   --mint:#28B665;         /* vx-apoio-verde */
   --coral:#F0616D;        /* negativo / negócio quente */
   --amber:#F5B544;        /* atenção / negócio morno */
+  --orange:#F28A3C;       /* faixa de KR 30–49% */
+  --yellow:#F2D04B;       /* faixa de KR 50–69% */
   --overline:#8FDCFA;     /* sobrelinha do site */
   --paper:#FFFFFF;
   --muted:#929AB1;        /* vx-dark-ink-3 */
@@ -875,9 +877,11 @@ html,body{
 .okr-fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;}
 .okr-status{justify-self:end;text-align:right;font-size:15px;color:var(--muted)}
 .okr-status .okr-pct{display:block;font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
-.okr-ok .okr-fill{background:var(--mint)} .okr-ok .okr-pct{color:var(--mint)}
-.okr-atencao .okr-fill{background:var(--amber)} .okr-atencao .okr-pct{color:var(--amber)}
-.okr-atras .okr-fill{background:var(--coral)} .okr-atras .okr-pct{color:var(--coral)}
+.okr-f-verm .okr-fill{background:var(--coral)} .okr-f-verm .okr-pct{color:var(--coral)}
+.okr-f-lar .okr-fill{background:var(--orange)} .okr-f-lar .okr-pct{color:var(--orange)}
+.okr-f-ama .okr-fill{background:var(--yellow)} .okr-f-ama .okr-pct{color:var(--yellow)}
+.okr-f-ver .okr-fill{background:var(--mint)} .okr-f-ver .okr-pct{color:var(--mint)}
+.okr-f-azul .okr-fill{background:var(--sky)} .okr-f-azul .okr-pct{color:var(--sky)}
 .okr-nota{font-size:13px;color:var(--muted);line-height:1.25;margin-top:3px}
 .okr-legenda{margin-top:8px;font-size:14px;color:var(--muted);display:flex;gap:22px;align-items:center}
 .okr-legenda i{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:-1px;margin-right:6px}
@@ -901,6 +905,7 @@ html,body{
 .okr-pts{display:flex;gap:5px}
 .okr-pts i{display:inline-block;width:11px;height:11px;border-radius:50%;}
 i.okr-ok{background:var(--mint)} i.okr-atencao{background:var(--amber)} i.okr-atras{background:var(--coral)}
+i.okr-f-verm{background:var(--coral)} i.okr-f-lar{background:var(--orange)} i.okr-f-ama{background:var(--yellow)} i.okr-f-ver{background:var(--mint)} i.okr-f-azul{background:var(--sky)}
 i.okr-acum{background:var(--sky)} i.okr-vazio{background:transparent;border:1.5px solid rgba(255,255,255,.3)} i.okr-cong{background:transparent;border:1.5px dashed rgba(255,255,255,.22)}
 
 </style>
@@ -1196,7 +1201,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-03';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-04';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1331,16 +1336,19 @@ function eyebrowText(s){
 // ---------- OKRs DO CICLO (okrResumo + okr) ----------
 // Mesmas regras da prévia aprovada (.claude/previa/index.html):
 // - % do KR = atual ÷ meta, sem teto (a barra é que para no fim);
-// - KR "menor" (inadimplência): % = meta ÷ atual; até a meta verde, até
-//   atencaoAte amarelo, acima vermelho;
+// - KR "menor" (inadimplência): % = meta ÷ atual; até a meta verde, acima
+//   vermelho, sem faixa intermediária (Karen, 18/11) — vale no slide e no
+//   pontinho do resumo;
 // - KR "congelado" (NPS) fica fora das médias;
 // - média do objetivo = média simples dos KRs (sem número conta 0%);
 // - geral = média de todos os KRs ativos;
-// - nos slides de KR a cor vem das faixas 50% / 30%; no resumo, os pontinhos
-//   seguem o ritmo do trimestre.
+// - nos slides de KR a cor vem de 5 faixas sobre o % arredondado da tela
+//   (Karen, 18/11): abaixo de 30 vermelho, 30–49 laranja, 50–69 amarelo,
+//   70–99 verde, 100 ou mais azul. No resumo, os pontinhos seguem o ritmo
+//   do trimestre.
 // Os números vêm do data.json (slides "okr"), copiados do artefato de OKRs.
-const okrFaixa = p => p > .5 ? 'okr-ok' : p >= .3 ? 'okr-atencao' : 'okr-atras';
-const OKR_ROTULO_FAIXA = {'okr-ok':'no ritmo', 'okr-atencao':'atenção', 'okr-atras':'abaixo do ritmo'};
+const okrFaixa = p => { const v = Math.round(p*100); return v < 30 ? 'okr-f-verm' : v < 50 ? 'okr-f-lar' : v < 70 ? 'okr-f-ama' : v < 100 ? 'okr-f-ver' : 'okr-f-azul'; };
+const OKR_ROTULO_FAIXA = {'okr-f-verm':'crítico', 'okr-f-lar':'em risco', 'okr-f-ama':'atenção', 'okr-f-ver':'perto da meta', 'okr-f-azul':'batido'};
 const okrAtivos = l => l.filter(k=>!k.congelado);
 const okrPct = k => k.atual == null ? null : k.menor ? (k.atual > 0 ? k.meta/k.atual : 2) : k.atual/k.meta;
 const okrMedia = l => l.length ? l.reduce((a,b)=>a+b,0)/l.length : null;
@@ -1379,9 +1387,8 @@ function okrLinha(k){
   }
   if(k.menor){
     const dentro = k.atual <= k.meta;
-    const atencao = !dentro && k.atencaoAte != null && k.atual <= k.atencaoAte;
     const ating = k.atual > 0 ? k.meta/k.atual : 2;
-    return `<div class="okr-kr ${dentro?'okr-ok':atencao?'okr-atencao':'okr-atras'}">${okrSelo(k)}
+    return `<div class="okr-kr ${dentro?'okr-f-ver':'okr-f-verm'}">${okrSelo(k)}
       <div><div class="okr-val">${fmt(k.atual)}<span class="okr-meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
       <div><div class="okr-txt"><span><b>${k.b}</b> ${k.t}</span></div>
         <div class="okr-track"><div class="okr-fill" style="width:${Math.min(ating,1)*100}%"></div></div></div>
@@ -1410,7 +1417,7 @@ function okrStatusResumo(k, decorrido){
   if(k.congelado) return 'okr-cong';
   if(p == null) return 'okr-vazio';
   if(k.acumulado) return p>=1 ? 'okr-ok' : 'okr-acum';
-  if(k.menor) return p>=1 ? 'okr-ok' : (k.atencaoAte != null && k.atual <= k.atencaoAte) ? 'okr-atencao' : 'okr-atras';
+  if(k.menor) return k.atual <= k.meta ? 'okr-ok' : 'okr-atras';
   const r = p/decorrido;
   return p>=1 || r>=1 ? 'okr-ok' : r>=.7 ? 'okr-atencao' : 'okr-atras';
 }
@@ -1460,7 +1467,7 @@ function renderOkr(s){
     <div class="okr-eyebrow"><span>KRs do ciclo · ${s.n} · ${s.tag}</span></div>
     <div class="okr-h1">${s.titulo}</div>
     <div class="okr-krs">${s.krs.map(okrLinha).join('')}</div>
-    <div class="okr-legenda"><span><i class="okr-ok"></i>no ritmo</span><span><i class="okr-atencao"></i>atenção</span><span><i class="okr-atras"></i>abaixo do ritmo</span></div>
+    <div class="okr-legenda"><span><i class="okr-f-verm"></i>abaixo de 30%</span><span><i class="okr-f-lar"></i>30 a 49%</span><span><i class="okr-f-ama"></i>50 a 69%</span><span><i class="okr-f-ver"></i>70 a 99%</span><span><i class="okr-f-azul"></i>100% ou mais</span></div>
   </div>`;
 }
 // Encolhe o valor do KR (ex.: "R$ 2,5M / R$ 15M") até caber na coluna.
