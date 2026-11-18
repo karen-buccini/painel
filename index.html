@@ -856,7 +856,6 @@ html,body{
    pouco mais baixas, para caberem 5 KRs com nota e a legenda. */
 .okr-slide{flex:1;min-height:0;display:flex;flex-direction:column;margin:-14px 0 -20px;}
 .okr-eyebrow{font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--overline);display:flex;justify-content:space-between;align-items:baseline;}
-.okr-eyebrow .okr-q{letter-spacing:.08em;color:var(--muted);font-size:16px;text-transform:none}
 .okr-h1{font-weight:500;font-size:38px;letter-spacing:-.01em;margin:4px 0 12px;line-height:1.1}
 .okr-krs{display:flex;flex-direction:column;gap:8px;flex:1;}
 .okr-kr{position:relative;display:grid;grid-template-columns:220px 1fr 120px;align-items:center;gap:24px;background:rgba(18,29,61,.75);
@@ -1197,7 +1196,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-02';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-03';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1357,9 +1356,8 @@ function okrPeriodo(){
   const { t, ano } = okrHoje();
   const ini = r.inicio ? Date.parse(r.inicio+'T00:00:00Z') : Date.UTC(ano, 9, 1);
   const fim = r.fim ? Date.parse(r.fim+'T00:00:00Z') : Date.UTC(ano, 11, 31);
-  const decorrido = (t-ini)/(fim-ini+864e5);
-  const q = 'Q' + (Math.floor(new Date(ini).getUTCMonth()/3) + 1);
-  return { decorrido, q, rotulo: `${q} · ${Math.round(decorrido*100)}% do trimestre` };
+  // Fração do ciclo já decorrida: só para o ritmo dos pontinhos do resumo.
+  return { decorrido: (t-ini)/(fim-ini+864e5) };
 }
 function okrSelo(k){
   if(!k.em) return '';
@@ -1440,7 +1438,7 @@ function renderOkrResumo(s){
   const congelados = objetivos.reduce((n,o)=>n+o.krs.length-okrAtivos(o.krs).length,0);
   const geral = okrGeral();
   return `<div class="okr-slide">
-    <div class="okr-eyebrow"><span>OKRs do ciclo · Resumo geral</span><span class="okr-q">${per.rotulo}</span></div>
+    <div class="okr-eyebrow"><span>OKRs do ciclo · Resumo geral</span></div>
     ${s.northStar ? `<div class="okr-ns"><b>⭐ Para onde vamos</b>North Star: ${s.northStar}</div>` : ''}
     <div class="okr-topo"><span class="okr-topo-n">${geral==null?'—':Math.round(geral*100)+'%'}</span>
       <div class="okr-topo-meio"><div class="okr-topo-t">de avanço médio dos OKRs no ciclo<small>média dos ${totalKRs} KRs · ${todosMedidos.length} já com número${congelados ? ' · '+congelados+' fora da média' : ''}</small></div>
@@ -1459,7 +1457,7 @@ function renderOkrResumo(s){
 }
 function renderOkr(s){
   return `<div class="okr-slide">
-    <div class="okr-eyebrow"><span>KRs do ciclo · ${s.n} · ${s.tag}</span><span class="okr-q">${okrPeriodo().rotulo}</span></div>
+    <div class="okr-eyebrow"><span>KRs do ciclo · ${s.n} · ${s.tag}</span></div>
     <div class="okr-h1">${s.titulo}</div>
     <div class="okr-krs">${s.krs.map(okrLinha).join('')}</div>
     <div class="okr-legenda"><span><i class="okr-ok"></i>no ritmo</span><span><i class="okr-atencao"></i>atenção</span><span><i class="okr-atras"></i>abaixo do ritmo</span></div>
