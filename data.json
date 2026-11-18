@@ -1569,16 +1569,16 @@
     "sub": "Marca conhecida que atrai clientes e parceiros.",
     "krs": [
       {
-        "atual": 3.5,
+        "atual": 21,
         "meta": 30,
         "un": "%",
         "pre": "+",
         "acumulado": true,
         "taxa": true,
         "faltaUn": " p.p.",
-        "em": "16/11",
-        "b": "em buscas",
-        "t": "por “Vixtra” no Google",
+        "em": "18/11",
+        "b": "em buscas orgânicas",
+        "t": "no Google após o lançamento da campanha",
         "fonte": "manual"
       },
       {
