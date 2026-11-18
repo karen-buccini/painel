@@ -1197,7 +1197,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-01';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-02';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1426,13 +1426,19 @@ function okrAnel(p){
     <text x="56" y="64" text-anchor="middle" fill="${p==null?'rgba(255,255,255,.3)':'#fff'}" font-family="Rubik" font-size="26" font-weight="500">${p==null?'—':Math.round(p*100)+'%'}</text>
   </svg>`;
 }
+// Avanço médio geral: média de todos os KRs ativos (sem número conta 0%).
+// Usado no resumo e no rodapé.
+function okrGeral(){
+  const objetivos = allSlides.filter(x => x.type==='okr');
+  return okrMedia(objetivos.flatMap(o=>okrAtivos(o.krs).map(k=>okrPct(k)||0)));
+}
 function renderOkrResumo(s){
   const objetivos = allSlides.filter(x => x.type==='okr');
   const per = okrPeriodo();
   const todosMedidos = objetivos.flatMap(o=>okrAtivos(o.krs).map(okrPct)).filter(p=>p!=null);
   const totalKRs = objetivos.reduce((n,o)=>n+okrAtivos(o.krs).length,0);
   const congelados = objetivos.reduce((n,o)=>n+o.krs.length-okrAtivos(o.krs).length,0);
-  const geral = okrMedia(objetivos.flatMap(o=>okrAtivos(o.krs).map(k=>okrPct(k)||0)));
+  const geral = okrGeral();
   return `<div class="okr-slide">
     <div class="okr-eyebrow"><span>OKRs do ciclo · Resumo geral</span><span class="okr-q">${per.rotulo}</span></div>
     ${s.northStar ? `<div class="okr-ns"><b>⭐ Para onde vamos</b>North Star: ${s.northStar}</div>` : ''}
@@ -1994,6 +2000,7 @@ function buildTicker(){
     ...(curr && selicAtual(curr) ? [`🏦 Selic em <b>${selicAtual(curr).valor.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}%</b> ao ano`] : []),
     ...(usd ? [`💵 Dólar a <b>R$ ${usd.value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</b>`] : []),
     ...(wallet ? [`📈 Carteira em <b>${fmtBRL(Math.round(wallet.current))}</b>`] : []),
+    ...(okrGeral() != null ? [`🚀 OKRs do ciclo com <b>${Math.round(okrGeral()*100)}%</b> de avanço médio`] : []),
   ];
   const html = bits.map(b=>`<span>${b}</span>`).join('');
   // Esta função roda a cada troca de slide; reescrever o letreiro com o mesmo
