@@ -245,8 +245,15 @@
           {
             "name": "Julia Porto",
             "oportunidades": 2,
-            "color": "var(--coral)",
+            "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
+            "metricLabel": "oportunidades"
+          },
+          {
+            "name": "Amanda Pczbiowski",
+            "oportunidades": 1,
+            "color": "var(--mint)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png",
             "metricLabel": "oportunidades"
           }
         ]
@@ -256,9 +263,16 @@
         "sellers": [
           {
             "name": "Juliane Gadi",
-            "oportunidades": 7,
+            "oportunidades": 8,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
+            "metricLabel": "oportunidades"
+          },
+          {
+            "name": "Amanda Pczbiowski",
+            "oportunidades": 1,
+            "color": "var(--mint)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png",
             "metricLabel": "oportunidades"
           }
         ]
@@ -1377,5 +1391,238 @@
       "valor": 13.75,
       "desde": "17/09/2026"
     }
+  },
+  {
+    "type": "okrResumo",
+    "duration": 18000,
+    "northStar": "R$ 125M de ARR ao longo do 1º semestre de 2027",
+    "inicio": "2026-10-01",
+    "fim": "2026-12-31"
+  },
+  {
+    "type": "okr",
+    "duration": 18000,
+    "n": "01",
+    "tag": "Acquisition",
+    "titulo": "Acelerar a aquisição de novos clientes",
+    "sub": "Trazer novos importadores em ritmo acelerado.",
+    "krs": [
+      {
+        "atual": 21,
+        "meta": 22,
+        "em": "18/11",
+        "b": "Parceiros",
+        "t": "gerando oportunidades",
+        "fonte": "auto"
+      },
+      {
+        "atual": 4,
+        "meta": 5,
+        "em": "18/11",
+        "b": "Tradings",
+        "t": "gerando oportunidades",
+        "fonte": "auto"
+      },
+      {
+        "atual": 10,
+        "meta": 20,
+        "em": "18/11",
+        "b": "Oportunidades",
+        "t": "via retargeting",
+        "fonte": "auto"
+      },
+      {
+        "atual": 7,
+        "meta": 30,
+        "em": "18/11",
+        "b": "Clientes",
+        "t": "ativados no trimestre",
+        "fonte": "auto"
+      },
+      {
+        "atual": 1,
+        "meta": 6,
+        "em": "18/11",
+        "b": "Ativações",
+        "t": "acima de R$ 2,5M",
+        "fonte": "auto"
+      }
+    ]
+  },
+  {
+    "type": "okr",
+    "duration": 18000,
+    "n": "02",
+    "tag": "Profitability",
+    "titulo": "Garantir uma carteira rentável",
+    "sub": "Clientes que ficam e crescem com a gente.",
+    "krs": [
+      {
+        "atual": 24,
+        "meta": 80,
+        "un": "%",
+        "em": "17/11",
+        "b": "da carteira",
+        "t": "com agendas proativas",
+        "fonte": "manual"
+      },
+      {
+        "atual": 75.2,
+        "meta": 75,
+        "un": "%",
+        "acumulado": true,
+        "taxa": true,
+        "faltaUn": " p.p.",
+        "nota": "R$ 183,2M de R$ 243,6M",
+        "em": "18/11",
+        "b": "do limite de crédito",
+        "t": "em uso",
+        "fonte": "cr2"
+      },
+      {
+        "atual": 2.5,
+        "meta": 15,
+        "un": "M",
+        "pre": "R$ ",
+        "nota": "7 empresas",
+        "em": "17/11",
+        "b": "em crédito",
+        "t": "por aumento de limite",
+        "fonte": "hubspot"
+      },
+      {
+        "atual": 20,
+        "meta": 50,
+        "un": "%",
+        "nota": "2 de 10 empresas",
+        "em": "18/11",
+        "b": "das renegociações",
+        "t": "com cross-sell ou nova taxa",
+        "fonte": "hubspot"
+      },
+      {
+        "atual": 2.5,
+        "meta": 2,
+        "un": "%",
+        "menor": true,
+        "atencaoAte": 3,
+        "metaTxt": "até 2%",
+        "em": "17/11",
+        "b": "de inadimplência",
+        "t": "acima de 90 dias",
+        "fonte": "cr2"
+      }
+    ]
+  },
+  {
+    "type": "okr",
+    "duration": 18000,
+    "n": "03",
+    "tag": "Tech & Product",
+    "titulo": "Ter tecnologia como modelo de negócio",
+    "sub": "Tecnologia que escala e gera novos produtos.",
+    "krs": [
+      {
+        "atual": 17.5,
+        "meta": 45,
+        "un": "%",
+        "em": "17/11",
+        "b": "dos clientes ativos",
+        "t": "usando o Agent",
+        "fonte": "manual"
+      },
+      {
+        "atual": 80.2,
+        "meta": 100,
+        "un": "%",
+        "em": "17/11",
+        "b": "de acurácia",
+        "t": "na validação dos kits de garantia",
+        "fonte": "manual"
+      },
+      {
+        "atual": 20,
+        "meta": 100,
+        "un": "%",
+        "em": "17/11",
+        "b": "do novo instrumento",
+        "t": "de garantia entregue",
+        "fonte": "manual"
+      },
+      {
+        "atual": 2,
+        "meta": 5,
+        "nota": "em andamento avançado",
+        "em": "17/11",
+        "b": "pilotos",
+        "t": "com garantia estendida",
+        "fonte": "manual"
+      }
+    ]
+  },
+  {
+    "type": "okr",
+    "duration": 18000,
+    "n": "04",
+    "tag": "Awareness",
+    "titulo": "Ser referência no mercado",
+    "sub": "Marca conhecida que atrai clientes e parceiros.",
+    "krs": [
+      {
+        "atual": 3.5,
+        "meta": 30,
+        "un": "%",
+        "pre": "+",
+        "acumulado": true,
+        "taxa": true,
+        "faltaUn": " p.p.",
+        "em": "16/11",
+        "b": "em buscas",
+        "t": "por “Vixtra” no Google",
+        "fonte": "manual"
+      },
+      {
+        "atual": 4.6,
+        "meta": 8,
+        "un": "%",
+        "acumulado": true,
+        "taxa": true,
+        "faltaUn": " p.p.",
+        "nota": "novembro · LinkedIn + Instagram",
+        "em": "18/11",
+        "b": "de engajamento",
+        "t": "nas redes sociais",
+        "fonte": "mkt"
+      },
+      {
+        "atual": 280,
+        "meta": 1700,
+        "pre": "+",
+        "nota": "8.524 em 18/11 · partida 8.244",
+        "em": "18/11",
+        "b": "novos seguidores",
+        "t": "no Instagram + LinkedIn",
+        "fonte": "auto"
+      },
+      {
+        "atual": 4,
+        "meta": 5,
+        "nota": "4 de 4 eventos",
+        "em": "18/11",
+        "b": "eventos",
+        "t": "com presença acima de 60%",
+        "fonte": "manual"
+      },
+      {
+        "meta": 75,
+        "un": "%",
+        "b": "de resposta",
+        "t": "na pesquisa de NPS",
+        "congelado": true,
+        "status": "congelado",
+        "nota": "apurado no fim do tri",
+        "fonte": "manual"
+      }
+    ]
   }
 ]

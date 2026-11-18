@@ -260,10 +260,11 @@ function main() {
 
     // --- Desempenho: parcerias ---------------------------------------
     // A mesma lista do HubSpot vira duas caixinhas, uma embaixo da outra:
-    // quem é de onboarding (Karen, 17/11: a Julia Porto) e o resto, farming.
+    // quem é de onboarding (Karen, 17/11: a Julia Porto; 18/11: também a
+    // Amanda Pczbiowski) e o resto, farming.
     // Até quatro pessoas no farming e três no onboarding.
     if (hubspot.parcerias && hubspot.parcerias.farming) {
-      const ONBOARDING = ['Julia Porto'];
+      const ONBOARDING = ['Julia Porto', 'Amanda Pczbiowski'];
       const ehOnb = (p) => ONBOARDING.includes(p.name);
       const lista = hubspot.parcerias.farming;
       const grupos = [

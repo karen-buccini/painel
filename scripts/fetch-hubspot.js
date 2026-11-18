@@ -366,7 +366,8 @@ async function forecastingFarmer() {
  * pontuação da Stella: negócio marcado como Small Lead vale 0,5 oportunidade;
  * os demais valem 1.
  */
-const BDR_FARMING = ['2069515993', '83054562', '85322310', '1566756950', '98365645'];
+// 82184823 = Amanda Pczbiowski (onboarding, incluída pela Karen em 18/11).
+const BDR_FARMING = ['2069515993', '83054562', '85322310', '1566756950', '98365645', '82184823'];
 
 async function parceriasFarming() {
   const p = mesVigente();
