@@ -152,12 +152,12 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 6667701.58,
+    "quenteTotal": 6696823.390000001,
     "mornoTotal": 11800000,
     "top3": [
       {
         "name": "Veel Trade (grupo Cecil) - Sociedade Catarinense de Comércio, Imp. e Exp.",
-        "value": 3167701.58,
+        "value": 3196823.39,
         "temp": "quente",
         "owner": "Fernando Velloso"
       },
@@ -316,8 +316,8 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 127,
-    "parceirosReservaram": 36,
+    "reservas": 134,
+    "parceirosReservaram": 37,
     "oportunidades": 11,
     "rankings": [
       {
@@ -331,7 +331,7 @@
           },
           {
             "name": "XP Investimentos",
-            "reservas": 28,
+            "reservas": 29,
             "logo": "logos/xp.png"
           },
           {
@@ -346,7 +346,7 @@
         "lista": [
           {
             "name": "XP Investimentos",
-            "reservas": 129,
+            "reservas": 130,
             "logo": "logos/xp.png"
           },
           {
@@ -1331,8 +1331,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 16,5M no mês",
-        "text": "Soma do limite de crédito aprovado em 12 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 21,3M no mês",
+        "text": "Soma do limite de crédito aprovado em 13 créditos no mês."
       },
       {
         "tag": "evento",
