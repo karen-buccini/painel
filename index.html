@@ -1204,7 +1204,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-05';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-19-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1339,9 +1339,10 @@ function eyebrowText(s){
 // ---------- OKRs DO CICLO (okrResumo + okr) ----------
 // Mesmas regras da prévia aprovada (.claude/previa/index.html):
 // - % do KR = atual ÷ meta, sem teto (a barra é que para no fim);
-// - KR "menor" (inadimplência): % = meta ÷ atual; até a meta verde, acima
-//   vermelho, sem faixa intermediária (Karen, 18/11) — vale no slide e no
-//   pontinho do resumo;
+// - KR "menor": % = meta ÷ atual; até a meta verde, acima vermelho;
+// - KR com "corTeto" (inadimplência desde 19/11): a cor vem do nível, não do
+//   %: nível até o teto verde, acima vermelho, sem faixa intermediária —
+//   vale no slide e no pontinho do resumo;
 // - KR "congelado" (NPS) fica fora das médias;
 // - média do objetivo = média simples dos KRs (sem número conta 0%);
 // - geral = média de todos os KRs ativos;
@@ -1399,7 +1400,7 @@ function okrLinha(k){
     </div>`;
   }
   const p = k.atual/k.meta, larg = Math.min(p,1)*100;
-  const cls = okrFaixa(p);
+  const cls = k.corTeto != null && k.nivel != null ? (k.nivel <= k.corTeto ? 'okr-f-ver' : 'okr-f-verm') : okrFaixa(p);
   let st;
   if(k.acumulado){
     const falta = k.meta - k.atual;
@@ -1419,6 +1420,7 @@ function okrStatusResumo(k, decorrido){
   const p = okrPct(k);
   if(k.congelado) return 'okr-cong';
   if(p == null) return 'okr-vazio';
+  if(k.corTeto != null && k.nivel != null) return k.nivel <= k.corTeto ? 'okr-ok' : 'okr-atras';
   if(k.acumulado) return p>=1 ? 'okr-ok' : 'okr-acum';
   if(k.menor) return k.atual <= k.meta ? 'okr-ok' : 'okr-atras';
   const r = p/decorrido;
