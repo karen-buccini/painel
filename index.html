@@ -1182,6 +1182,9 @@ function isSlideActive(s){
     const horasDesde = (now - new Date(s.postedAt)) / (1000*60*60);
     return horasDesde <= (s.diasVisivel || 7) * 24;
   }
+  // Ranking com "soComDados" só entra na rotação se alguma coluna tiver gente
+  // (slide do Closing: só aparece quando há conta ativada no mês — Karen, 18/11).
+  if(s.type==='ranking' && s.soComDados && !(s.divisions||[]).some(d=>(d.sellers||[]).length)) return false;
   if(s.type==='newhire' && s.joinedAt){
     const daysSince = (now - new Date(s.joinedAt+'T00:00:00-03:00')) / (1000*60*60*24);
     return daysSince <= (s.diasVisivel || 30);
@@ -1201,7 +1204,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-04';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-05';
 
 async function conferirVersaoDoPainel(){
   try{
