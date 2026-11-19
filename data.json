@@ -1442,16 +1442,19 @@
         "fonte": "manual"
       },
       {
-        "atual": 75.2,
-        "meta": 75,
-        "un": "%",
+        "atual": 7.2,
+        "meta": 7,
+        "pre": "+",
+        "un": " p.p.",
         "acumulado": true,
         "taxa": true,
         "faltaUn": " p.p.",
-        "nota": "R$ 183,2M de R$ 243,6M",
-        "em": "18/11",
-        "b": "do limite de crédito",
-        "t": "em uso",
+        "base": 68,
+        "nivel": 75.2,
+        "nota": "68% → 75,2%",
+        "em": "19/11",
+        "b": "de crescimento",
+        "t": "no limite de crédito em uso",
         "fonte": "cr2"
       },
       {
@@ -1476,15 +1479,20 @@
         "fonte": "hubspot"
       },
       {
-        "atual": 2.5,
-        "meta": 2,
-        "un": "%",
-        "menor": true,
-        "atencaoAte": 3,
-        "metaTxt": "até 2%",
-        "em": "17/11",
-        "b": "de inadimplência",
-        "t": "acima de 90 dias",
+        "atual": 0.17,
+        "meta": 0.67,
+        "pre": "−",
+        "un": " p.p.",
+        "acumulado": true,
+        "taxa": true,
+        "faltaUn": " p.p.",
+        "base": 2.67,
+        "nivel": 2.5,
+        "corTeto": 2,
+        "nota": "2,67% → 2,5%",
+        "em": "19/11",
+        "b": "de redução",
+        "t": "na inadimplência acima de 90 dias",
         "fonte": "cr2"
       }
     ]
