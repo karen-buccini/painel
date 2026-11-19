@@ -305,8 +305,8 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 138,
-    "parceirosReservaram": 39,
+    "reservas": 141,
+    "parceirosReservaram": 40,
     "oportunidades": 13,
     "rankings": [
       {
@@ -340,7 +340,7 @@
           },
           {
             "name": "Cordier Investimentos",
-            "reservas": 106,
+            "reservas": 108,
             "logo": "logos/cordier.png"
           },
           {
