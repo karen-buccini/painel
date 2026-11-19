@@ -199,7 +199,7 @@
         "sellers": [
           {
             "name": "Matheus Ferreira",
-            "oportunidades": 5,
+            "oportunidades": 7,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
@@ -307,7 +307,7 @@
     "showMonth": true,
     "reservas": 141,
     "parceirosReservaram": 40,
-    "oportunidades": 13,
+    "oportunidades": 15,
     "rankings": [
       {
         "titulo": "Reservas no mês",
@@ -1320,8 +1320,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 21,3M no mês",
-        "text": "Soma do limite de crédito aprovado em 13 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 22,8M no mês",
+        "text": "Soma do limite de crédito aprovado em 14 créditos no mês."
       },
       {
         "tag": "evento",
