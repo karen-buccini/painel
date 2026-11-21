@@ -1442,7 +1442,7 @@
         "fonte": "manual"
       },
       {
-        "atual": 7.2,
+        "atual": 5.7,
         "meta": 7,
         "pre": "+",
         "un": " p.p.",
@@ -1450,9 +1450,9 @@
         "taxa": true,
         "faltaUn": " p.p.",
         "base": 68,
-        "nivel": 75.2,
-        "nota": "68% → 75,2%",
-        "em": "19/11",
+        "nivel": 73.7,
+        "nota": "68% → 73,7%",
+        "em": "21/11",
         "b": "de crescimento",
         "t": "no limite de crédito em uso",
         "fonte": "cr2"
