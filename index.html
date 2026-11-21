@@ -866,11 +866,11 @@ html,body{
 .okr-val{font-size:40px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
 .okr-val .okr-meta{font-size:22px;color:var(--muted);font-weight:300}
 .okr-val.okr-vazio{color:rgba(255,255,255,.28)}
-/* Selo de atualização: ponto verde = número desta semana (desde segunda);
-   âmbar = número de antes da segunda. */
+/* Selo de atualização: ponto verde = número atualizado há menos de 7 dias;
+   amarelo = 7 dias ou mais sem atualizar (Karen, 21/11). */
 .okr-atz{position:absolute;top:7px;right:166px;font-size:11px;line-height:1;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
 .okr-atz i{width:6px;height:6px;border-radius:50%;background:var(--mint)}
-.okr-atz.okr-velho{color:var(--amber)} .okr-atz.okr-velho i{background:var(--amber)}
+.okr-atz.okr-velho{color:var(--yellow)} .okr-atz.okr-velho i{background:var(--yellow)}
 .okr-txt{font-size:20px;line-height:1.25;margin-bottom:9px;display:flex;align-items:center;gap:10px}
 .okr-txt b{font-weight:500}
 .okr-track{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.08);}
@@ -1204,7 +1204,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-19-02';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-21-01';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1374,9 +1374,11 @@ function okrPeriodo(){
 function okrSelo(k){
   if(!k.em) return '';
   const { t, ano } = okrHoje();
-  const segunda = t - ((new Date(t).getUTCDay()+6)%7) * 864e5;
   const [d, m] = k.em.split('/').map(Number);
-  const velho = Date.UTC(ano, m-1, d) < segunda;
+  // Data no futuro só acontece na virada do ano (ex.: 28/12 visto em janeiro).
+  let dt = Date.UTC(ano, m-1, d);
+  if(dt > t) dt = Date.UTC(ano-1, m-1, d);
+  const velho = Math.round((t - dt) / 864e5) >= 7;
   return `<span class="okr-atz${velho?' okr-velho':''}"><i></i>${k.em}</span>`;
 }
 function okrLinha(k){
