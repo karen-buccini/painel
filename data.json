@@ -206,7 +206,7 @@
           },
           {
             "name": "Raquel Figueiredo",
-            "oportunidades": 1,
+            "oportunidades": 2,
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12356372071074_83a3c7a3ccea2d501249_512.jpg",
             "metricLabel": "oportunidades"
@@ -307,7 +307,7 @@
     "showMonth": true,
     "reservas": 140,
     "parceirosReservaram": 39,
-    "oportunidades": 14,
+    "oportunidades": 15,
     "rankings": [
       {
         "titulo": "Reservas no mês",
