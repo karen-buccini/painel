@@ -152,12 +152,12 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 6710693.55,
-    "mornoTotal": 10800000,
+    "quenteTotal": 6273273,
+    "mornoTotal": 9500000,
     "top3": [
       {
         "name": "Veel Trade (grupo Cecil) - Sociedade Catarinense de Comércio, Imp. e Exp.",
-        "value": 3210693.55,
+        "value": 3273273,
         "temp": "quente",
         "owner": "Fernando Velloso"
       },
@@ -199,7 +199,7 @@
         "sellers": [
           {
             "name": "Matheus Ferreira",
-            "oportunidades": 7,
+            "oportunidades": 8,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
@@ -285,15 +285,15 @@
         ],
         "metrics": [
           {
-            "value": "R$ 20.253.988",
+            "value": "R$ 27.913.816",
             "label": "Volume total"
           },
           {
-            "value": "22",
+            "value": "24",
             "label": "Clientes"
           },
           {
-            "value": "96",
+            "value": "121",
             "label": "Transações"
           }
         ]
@@ -305,9 +305,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 140,
-    "parceirosReservaram": 39,
-    "oportunidades": 16,
+    "reservas": 146,
+    "parceirosReservaram": 42,
+    "oportunidades": 18,
     "rankings": [
       {
         "titulo": "Reservas no mês",
