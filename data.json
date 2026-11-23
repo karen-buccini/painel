@@ -1383,9 +1383,9 @@
     "sub": "Trazer novos importadores em ritmo acelerado.",
     "krs": [
       {
-        "atual": 23,
+        "atual": 26,
         "meta": 22,
-        "em": "21/11",
+        "em": "23/11",
         "b": "Parceiros",
         "t": "gerando oportunidades",
         "fonte": "auto"
@@ -1393,7 +1393,7 @@
       {
         "atual": 3,
         "meta": 5,
-        "em": "21/11",
+        "em": "23/11",
         "b": "Tradings",
         "t": "gerando oportunidades",
         "fonte": "auto"
@@ -1401,7 +1401,7 @@
       {
         "atual": 9,
         "meta": 20,
-        "em": "21/11",
+        "em": "23/11",
         "b": "Oportunidades",
         "t": "via retargeting",
         "fonte": "auto"
@@ -1409,7 +1409,7 @@
       {
         "atual": 7,
         "meta": 30,
-        "em": "21/11",
+        "em": "23/11",
         "b": "Clientes",
         "t": "ativados no trimestre",
         "fonte": "auto"
@@ -1417,7 +1417,7 @@
       {
         "atual": 1,
         "meta": 6,
-        "em": "21/11",
+        "em": "23/11",
         "b": "Ativações",
         "t": "acima de R$ 2,5M",
         "fonte": "auto"
@@ -1473,7 +1473,7 @@
         "meta": 50,
         "un": "%",
         "nota": "2 de 10 empresas",
-        "em": "21/11",
+        "em": "23/11",
         "b": "das renegociações",
         "t": "com cross-sell ou nova taxa",
         "fonte": "hubspot"
@@ -1564,7 +1564,7 @@
         "taxa": true,
         "faltaUn": " p.p.",
         "nota": "novembro · LinkedIn + Instagram",
-        "em": "21/11",
+        "em": "23/11",
         "b": "de engajamento",
         "t": "nas redes sociais",
         "fonte": "mkt"
@@ -1574,7 +1574,7 @@
         "meta": 1700,
         "pre": "+",
         "nota": "8.535 em 19/11 · partida 8.244",
-        "em": "21/11",
+        "em": "23/11",
         "b": "novos seguidores",
         "t": "no Instagram + LinkedIn",
         "fonte": "auto"
