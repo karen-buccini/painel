@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prévia KRs na TV</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+:root{
+  --ink:#090F20; --ink-2:#0E162E; --panel:#121D3D; --panel-line:rgba(255,255,255,0.12);
+  --gold:#5FC0E9; --sky:#27AAE1; --mint:#28B665; --coral:#F0616D; --amber:#F5B544;
+  --overline:#8FDCFA; --paper:#FFFFFF; --muted:#929AB1;
+  --font:'Rubik',Verdana,system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#05080F;color:var(--paper);font-family:var(--font);overflow:hidden;}
+.tv{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;display:flex;flex-direction:column;
+  background:linear-gradient(140deg,#16244C 0%,var(--ink) 62%);}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 38px;border-bottom:1px solid var(--panel-line);}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;}
+.brand b{color:var(--paper);font-weight:500;letter-spacing:.06em;text-transform:none;font-size:22px}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);}
+.clock{font-size:30px;font-weight:500;font-variant-numeric:tabular-nums;text-align:right}
+.clock small{display:block;font-size:17px;color:var(--muted);font-weight:400}
+.stage{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;padding:26px 64px 18px;display:flex;flex-direction:column;opacity:0;transform:translateY(18px);
+  transition:opacity .55s ease,transform .55s ease;}
+.slide.active{opacity:1;transform:none;}
+.eyebrow{font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--overline);display:flex;justify-content:space-between;align-items:baseline;}
+.eyebrow .q{letter-spacing:.08em;color:var(--muted);font-size:16px;text-transform:none}
+h1{font-weight:500;font-size:38px;letter-spacing:-.01em;margin:6px 0 18px;line-height:1.1}
+.krs{display:flex;flex-direction:column;gap:10px;flex:1;}
+.kr{display:grid;grid-template-columns:220px 1fr 120px;align-items:center;gap:24px;background:rgba(18,29,61,.75);
+  border:1px solid var(--panel-line);border-radius:14px;padding:10px 22px;}
+.kr .val{font-size:40px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
+.kr .val .meta{font-size:22px;color:var(--muted);font-weight:300}
+.kr > div{min-width:0}
+.kr .val.vazio{color:rgba(255,255,255,.28)}
+/* Selo mínimo de atualização: data do último número no canto da caixa.
+   Ponto verde = atualizado nesta semana (desde segunda); âmbar = desatualizado. */
+.kr{position:relative}
+.kr .atz{position:absolute;top:9px;right:166px;font-size:11px;line-height:1;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
+.kr .atz i{width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.kr .atz.velho{color:var(--amber)} .kr .atz.velho i{background:var(--amber)}
+.kr .txt{font-size:20px;line-height:1.25;margin-bottom:9px;display:flex;align-items:center;gap:10px}
+.kr .txt b{font-weight:500}
+.fonte{font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.fonte.auto{color:var(--mint)} .fonte.regra{color:var(--amber)} .fonte.cr2{color:var(--sky)} .fonte.manual{color:var(--muted)}
+.track{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.08);}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;}
+.hoje{position:absolute;top:-5px;bottom:-5px;width:2px;background:rgba(255,255,255,.65);}
+.status{justify-self:end;text-align:right;font-size:15px;color:var(--muted)}
+.status .pct{display:block;font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.ok .fill{background:var(--mint)} .ok .pct{color:var(--mint)}
+.atencao .fill{background:var(--amber)} .atencao .pct{color:var(--amber)}
+.atras .fill{background:var(--coral)} .atras .pct{color:var(--coral)}
+.legenda{margin-top:12px;font-size:14px;color:var(--muted);display:flex;gap:22px;align-items:center}
+.legenda i{display:inline-block;width:2px;height:14px;background:rgba(255,255,255,.65);vertical-align:-2px;margin-right:6px}
+.bottom{height:44px;border-top:1px solid var(--panel-line);display:flex;align-items:center;justify-content:center;gap:8px}
+.bottom span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer}
+.bottom span.on{background:var(--gold);width:22px;border-radius:4px}
+/* ===== Resumo geral ===== */
+/* North Star como contexto (linha) e o % dos OKRs do Q4 numa barra própria — Karen, 17/11 */
+.ns-linha{font-size:19px;color:var(--paper);margin:8px 2px 10px;letter-spacing:.01em}
+.ns-linha b{color:var(--overline);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:14px;margin-right:10px}
+.okr-topo{display:flex;align-items:center;gap:18px;background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:12px;padding:8px 20px;margin-bottom:12px}
+.okr-topo .n{font-size:38px;font-weight:300;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.okr-topo .meio{flex:1;min-width:0}
+.okr-topo .t{font-size:17px;font-weight:500}.okr-topo .t small{font-size:12px;color:var(--muted);font-weight:400;margin-left:8px}
+.okr-topo .track{margin-top:7px;height:8px}
+.okr-topo .fill{background:var(--gold)}
+.resumo .north{margin-top:10px}
+.north{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#1B2B5C,#14214A);
+  border:1px solid rgba(95,192,233,.35);border-radius:14px;padding:14px 26px;}
+.ns-tag{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky);font-weight:500}
+.ns-t{font-size:26px;font-weight:500;margin-top:4px}
+.ns-emoji{display:inline-block;font-size:18px;margin-right:10px;vertical-align:-2px;letter-spacing:0}
+.ns-geral{display:flex;align-items:center;gap:14px}
+.ns-geral .n{font-size:50px;font-weight:300;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
+.ns-geral .l{font-size:17px;line-height:1.2}
+.ns-geral small{font-size:13px;color:var(--muted)}
+.ligacao{position:relative;height:22px;margin:0 calc(12.5% - 12px);border:1.5px solid rgba(143,220,250,.35);border-bottom:none;border-top:none}
+.ligacao::before{content:'';position:absolute;left:0;right:0;bottom:0;border-top:1.5px solid rgba(143,220,250,.35)}
+.ligacao::after{content:'';position:absolute;left:50%;top:0;height:100%;border-left:1.5px solid rgba(143,220,250,.35)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1;min-height:0}
+.card{background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
+.c-tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--overline);font-weight:500}
+.c-t{font-size:20px;font-weight:500;line-height:1.2;margin-top:6px;min-height:48px}
+.c-meio{display:flex;align-items:center;gap:12px;margin:auto 0}
+.c-meio svg{flex-shrink:0}
+.c-sub{font-size:14px;color:var(--muted);line-height:1.35}
+.c-pe{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--overline);font-weight:500;margin-top:10px}
+.pts{display:flex;gap:5px}
+.pts i,.pontos i{display:inline-block;width:11px;height:11px;border-radius:50%;}
+.pontos i{vertical-align:-1px;margin-right:6px}
+i.ok{background:var(--mint)} i.atencao{background:var(--amber)} i.atras{background:var(--coral)}
+i.acum{background:var(--sky)} i.vazio{background:transparent;border:1.5px solid rgba(255,255,255,.3)} i.cong{background:transparent;border:1.5px dashed rgba(255,255,255,.22)}
+.nota-kr{font-size:13px;color:var(--muted);line-height:1.25;margin-top:3px}
+.aviso{position:fixed;right:12px;bottom:10px;font:13px var(--font);color:#5d6680}
+</style>
+</head>
+<body>
+<div class="tv" id="tv">
+  <div class="topbar">
+    <div class="brand"><img src="logo-vixtra.png" style="height:18px"><span class="dot"></span> TV Comercial · Ao vivo</div>
+    <div class="clock">14:05<small>quarta-feira, 18 de novembro</small></div>
+  </div>
+  <div class="stage" id="stage"></div>
+  <div class="bottom" id="dots"></div>
+</div>
+<div class="aviso">Clique nos pontos ou use ← → para trocar de slide</div>
+
+<script>
+// Trimestre vigente: 01/10 a 31/12. Em 05/11 passaram 36 de 92 dias.
+const INICIO = new Date(2026,9,1), FIM = new Date(2026,11,31), HOJE = new Date(2026,10,18);
+const decorrido = (HOJE-INICIO)/(FIM-INICIO+864e5);
+
+// fonte: auto (HubSpot, já dá), regra (HubSpot, falta definir a regra), cr2, manual
+const OBJETIVOS = [
+  {n:'01', tag:'Acquisition', titulo:'Acelerar a aquisição de novos clientes', krs:[
+    {atual:21, meta:22, em:'18/11', b:'Parceiros', t:'gerando oportunidades', fonte:'auto'},
+    // Tradings: First, Vequis, Level Trade e Degoeye (Silcor, 17/11; Karen confirmou que conta em 18/11). Vox fora (sem finder, Karen 17/11).
+    {atual:4,  meta:5,  em:'18/11', b:'Tradings', t:'gerando oportunidades', fonte:'auto'},
+    {atual:10, meta:20, em:'18/11', b:'Oportunidades', t:'via retargeting', fonte:'auto'},
+    {atual:7,  meta:30, em:'18/11', b:'Clientes', t:'ativados no trimestre', fonte:'auto'},
+    {atual:1,  meta:6,  em:'18/11', b:'Ativações', t:'acima de R$ 2,5M', fonte:'auto'},
+  ]},
+  {n:'02', tag:'Profitability', titulo:'Garantir uma carteira rentável', krs:[
+    {atual:24.0, meta:80, un:'%', em:'17/11', b:'da carteira', t:'com agendas proativas', fonte:'manual'},
+    // Limite de R$ 0,01 é preenchimento, não limite: DRC Solar e Intersteel ficam fora (Karen, 18/11).
+    {atual:75.2, meta:75, un:'%', acumulado:true, taxa:true, faltaUn:' p.p.', nota:'R$ 183,2M de R$ 243,6M', em:'18/11', b:'do limite de crédito', t:'em uso', fonte:'cr2'},
+    // Volta à média em 16/11 (Karen). Regra: carteira acima do limite antigo, aumentos desde o Q3, uso só a partir de out. Só carteira do FIDC VIXTRA (Karen, 17/11; as 7 empresas são 100% FIDC).
+    {atual:2.5, meta:15, un:'M', pre:'R$ ', nota:'7 empresas', em:'17/11', b:'em crédito', t:'por aumento de limite', fonte:'hubspot'},
+    // 10 empresas com recíproca de câmbio = Sim. Conta quem fez pelo menos 80% do câmbio acordado em algum mês do tri (regra da Karen em 10/11) ou passou para a taxa 'sem câmbio' — medida no campo Taxa (CDI+Spread%) - Flex (taxa__cdi_spread__), não no Spread% (Crédito) - Flex (Karen, 17/11). Out (histórico do HubSpot): Brasilquímica R$ 2,04M ≈ USD 397k de USD 300k (132%, PTAX média 5,13); MIMO R$ 2,35M de R$ 2,5M (94%); Tuicial R$ 200k de R$ 5M (4%). Caracol subiu a taxa Flex de 1,86% para 1,89% (spread 0,70→0,73%) em 23/10, mas não conta (decisão da Karen em 10/11)
+    {atual:20, meta:50, un:'%', nota:'2 de 10 empresas', em:'18/11', b:'das renegociações', t:'com cross-sell ou nova taxa', fonte:'hubspot'},
+    // Teto: na média conta meta ÷ atual (2% = 100%, 1% = 200%, 2,7% = 74%). Cor: até 2% verde, até 3% amarelo, acima vermelho.
+    {atual:2.5, meta:2, un:'%', menor:true, atencaoAte:3, metaTxt:'até 2%', em:'17/11', b:'de inadimplência', t:'acima de 90 dias', fonte:'cr2'},
+  ]},
+  {n:'03', tag:'Tech & Product', titulo:'Ter tecnologia como modelo de negócio', krs:[
+    // 3.1–3.3: Mayara, Slack 17/11.
+    {atual:17.5, meta:45, un:'%', em:'17/11', b:'dos clientes ativos', t:'usando o Agent', fonte:'manual'},
+    {atual:80.2, meta:100,un:'%', em:'17/11', b:'de acurácia', t:'na validação dos kits de garantia', fonte:'manual'},
+    {atual:20, meta:100,un:'%', em:'17/11', b:'do novo instrumento', t:'de garantia entregue', fonte:'manual'},
+    // 2 de 5 pilotos, em andamento avançado (Adriana, Slack 17/11).
+    {atual:2, meta:5, nota:'em andamento avançado', em:'17/11', b:'pilotos', t:'com garantia estendida', fonte:'manual'},
+  ]},
+  {n:'04', tag:'Awareness', titulo:'Ser referência no mercado', krs:[
+    {atual:3.5, meta:30, un:'%', pre:'+', acumulado:true, taxa:true, faltaUn:' p.p.', em:'16/11', b:'em buscas', t:'por “Vixtra” no Google', fonte:'manual'},
+    {atual:4.6, meta:8, un:'%', acumulado:true, taxa:true, faltaUn:' p.p.', nota:'novembro · LinkedIn + Instagram', em:'18/11', b:'de engajamento', t:'nas redes sociais', fonte:'mkt'},
+    // Ganho sobre o ponto de partida de 8.244 seguidores (Karen, 12/11); meta = +1.700 no ciclo.
+    {atual:8524-8244, meta:1700, pre:'+', nota:'8.524 em 18/11 · partida 8.244', em:'18/11', b:'novos seguidores', t:'no Instagram + LinkedIn', fonte:'auto'},
+    // Meta 5 no ciclo; até 18/11 foram 4 eventos, todos com presença > 60% (Karen).
+    {atual:4, meta:5, nota:'4 de 4 eventos', em:'18/11', b:'eventos', t:'com presença acima de 60%', fonte:'manual'},
+    // Congelado: apurado só no fim do trimestre; fica fora das médias até lá.
+    {meta:75, un:'%', b:'de resposta', t:'na pesquisa de NPS', congelado:true, status:'congelado', nota:'apurado no fim do tri', fonte:'manual'},
+  ]},
+];
+
+const ROTULO = {auto:'HubSpot · automático', regra:'HubSpot · falta regra', cr2:'CR2 / financeiro', manual:'manual'};
+
+// Cor pelo percentual da meta: acima de 50% verde, de 30% a 50% amarelo,
+// abaixo de 30% vermelho. Vale para KR, objetivo e OKR geral.
+const faixa = p => p > .5 ? 'ok' : p >= .3 ? 'atencao' : 'atras';
+const ROTULO_FAIXA = {ok:'no ritmo', atencao:'atenção', atras:'abaixo do ritmo'};
+const COR_FAIXA = {ok:'var(--mint)', atencao:'var(--amber)', atras:'var(--coral)'};
+
+// Semana atual (pela data real de quem está vendo) começa na segunda; número
+// com data anterior a ela é "desatualizado" e o selo fica âmbar.
+const AGORA = new Date();
+const SEGUNDA = new Date(AGORA.getFullYear(), AGORA.getMonth(), AGORA.getDate() - ((AGORA.getDay()+6)%7));
+function selo(k){
+  if(!k.em) return '';
+  const [d,m] = k.em.split('/').map(Number);
+  const velho = new Date(2026, m-1, d) < SEGUNDA; // ciclo Q4 2026
+  return `<span class="atz${velho?' velho':''}" title="atualizado em ${k.em}"><i></i>${k.em}</span>`;
+}
+
+function linha(k){
+  const fmt = v => (k.pre||'') + v.toLocaleString('pt-BR') + (k.un||'');
+  const fonte = ''; // a fonte (k.fonte) fica só nos dados, não aparece na TV
+  const nota = k.nota ? `<div class="nota-kr">${k.nota}</div>` : '';
+  if(k.atual == null){
+    return `<div class="kr">${selo(k)}
+      <div><div class="val vazio">—<span class="meta"> / ${fmt(k.meta)}</span></div>${nota}</div>
+      <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+        <div class="track"></div></div>
+      <div class="status"><span class="pct" style="color:rgba(255,255,255,.28)">—</span>${k.status || 'aguardando'}</div>
+    </div>`;
+  }
+  if(k.menor){
+    // KR de teto (inadimplência): até o teto é verde; até atencaoAte (3%) é
+    // amarelo; acima disso é vermelho. O % é o atingimento (meta ÷ atual).
+    const dentro = k.atual <= k.meta;
+    const atencao = !dentro && k.atencaoAte != null && k.atual <= k.atencaoAte;
+    const ating = k.atual > 0 ? k.meta/k.atual : 2; // mesmo cálculo da média: 2% = 100%, 2,7% = 74%
+    return `<div class="kr ${dentro?'ok':atencao?'atencao':'atras'}">${selo(k)}
+      <div><div class="val">${fmt(k.atual)}<span class="meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
+      <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+        <div class="track"><div class="fill" style="width:${Math.min(ating,1)*100}%"></div></div></div>
+      <div class="status"><span class="pct">${Math.round(ating*100)}%</span>${dentro?'dentro da meta':'acima da meta'}</div>
+    </div>`;
+  }
+  // Sem trava em 100%: quem passa da meta mostra o percentual real (a barra
+  // é que para no fim).
+  const p = k.atual/k.meta, larg = Math.min(p,1)*100;
+  const cls = faixa(p);
+  let st;
+  if(k.acumulado){
+    // Total (seguidores) ou taxa (engajamento, limite em uso): mostra quanto
+    // falta. Taxa oscila: acima da meta é "no ritmo", nunca "batido".
+    const falta = k.meta - k.atual;
+    st = falta>0 ? 'faltam '+(+falta.toFixed(1)).toLocaleString('pt-BR')+(k.faltaUn||'') : (k.taxa ? 'no ritmo' : 'batido');
+  } else {
+    st = p>=1 ? 'batido' : ROTULO_FAIXA[cls];
+  }
+  return `<div class="kr ${cls}">${selo(k)}
+    <div><div class="val">${fmt(k.atual)}<span class="meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
+    <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+      <div class="track"><div class="fill" style="width:${larg}%"></div></div></div>
+    <div class="status"><span class="pct">${Math.round(p*100)}%</span>${st}</div>
+  </div>`;
+}
+
+const stage = document.getElementById('stage'), dots = document.getElementById('dots');
+
+// ---- Resumo geral: média de conclusão por objetivo -----------------------
+// KR acima da meta conta pelo percentual real (pode passar de 100%). A média
+// divide pelo TOTAL de KRs: KR sem número ainda conta como 0%. KR com
+// congelado:true (NPS, apurado no fim do tri; R$ 15M, por enquanto) fica fora da conta.
+const ativos = l => l.filter(k=>!k.congelado);
+const pctKR = k => k.atual == null ? null : k.menor ? (k.atual > 0 ? k.meta/k.atual : 2) : k.atual/k.meta;
+const statusKR = k => {
+  const p = pctKR(k);
+  if(k.congelado) return 'cong';
+  if(p == null) return 'vazio';
+  // Resumo (página inicial) mantém a regra antiga: ritmo do trimestre, e
+  // total/taxa em azul. As faixas de 50%/30% valem só nos slides de KRs.
+  if(k.acumulado) return p>=1 ? 'ok' : 'acum';
+  if(k.menor) return p>=1 ? 'ok' : (k.atencaoAte != null && k.atual <= k.atencaoAte) ? 'atencao' : 'atras';
+  const r = p/decorrido;
+  return p>=1 || r>=1 ? 'ok' : r>=.7 ? 'atencao' : 'atras';
+};
+const media = l => l.length ? l.reduce((a,b)=>a+b,0)/l.length : null;
+
+
+function anel(p){
+  const R = 46, C = 2*Math.PI*R;
+  const fill = p == null ? '' :
+    `<circle cx="56" cy="56" r="${R}" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round"
+       stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 56 56)"/>`;
+  return `<svg width="112" height="112" viewBox="0 0 112 112">
+    <circle cx="56" cy="56" r="${R}" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="10"/>${fill}
+    <text x="56" y="64" text-anchor="middle" fill="${p==null?'rgba(255,255,255,.3)':'#fff'}" font-family="Rubik" font-size="26" font-weight="500">${p==null?'—':Math.round(p*100)+'%'}</text>
+  </svg>`;
+}
+
+const SUB = {
+  '01':'Trazer novos importadores em ritmo acelerado.',
+  '02':'Clientes que ficam e crescem com a gente.',
+  '03':'Tecnologia que escala e gera novos produtos.',
+  '04':'Marca conhecida que atrai clientes e parceiros.',
+};
+const todosMedidos = OBJETIVOS.flatMap(o=>ativos(o.krs).map(pctKR)).filter(p=>p!=null);
+const totalKRs = OBJETIVOS.reduce((s,o)=>s+ativos(o.krs).length,0);
+const congelados = OBJETIVOS.reduce((s,o)=>s+o.krs.length-ativos(o.krs).length,0);
+const geral = media(OBJETIVOS.flatMap(o=>ativos(o.krs).map(k=>pctKR(k)||0)));
+
+stage.insertAdjacentHTML('beforeend', `<div class="slide resumo">
+  <div class="eyebrow"><span>OKRs do ciclo · Resumo geral</span><span class="q">Q4 · ${Math.round(decorrido*100)}% do trimestre</span></div>
+  <div class="ns-linha"><b>⭐ Para onde vamos</b>North Star: R$ 125M de ARR ao longo do 1º semestre de 2027</div>
+  <div class="okr-topo"><span class="n">${geral==null?'—':Math.round(geral*100)+'%'}</span>
+    <div class="meio"><div class="t">de avanço médio dos OKRs no ciclo<small>média dos ${totalKRs} KRs · ${todosMedidos.length} já com número${congelados ? ' · '+congelados+' fora da média' : ''}</small></div>
+      <div class="track"><div class="fill" style="width:${Math.min(geral||0,1)*100}%"></div></div></div>
+  </div>
+  <div class="cards">${OBJETIVOS.map(o=>{
+    const at = ativos(o.krs), ps = at.map(pctKR).filter(p=>p!=null), cg = o.krs.length-at.length;
+    return `<div class="card">
+      <div class="c-tag">${o.n} · ${o.tag}</div>
+      <div class="c-t">${o.titulo}</div>
+      <div class="c-meio">${anel(ps.length ? media(at.map(k=>pctKR(k)||0)) : null)}<div class="c-sub">${SUB[o.n]}</div></div>
+      <div class="c-pe"><span class="pts">${o.krs.map(k=>`<i class="${statusKR(k)}"></i>`).join('')}</span>
+        <span>${(ps.length===at.length ? at.length+' KRs' : ps.length+' de '+at.length+' KRs medidos') + (cg ? ' · '+cg+' fora da média' : '')}</span></div>
+    </div>`;}).join('')}</div>
+</div>`);
+dots.insertAdjacentHTML('beforeend','<span></span>');
+
+OBJETIVOS.forEach((o,i)=>{
+  stage.insertAdjacentHTML('beforeend', `<div class="slide">
+    <div class="eyebrow"><span>KRs do ciclo · ${o.n} · ${o.tag}</span><span class="q">Q4 · ${Math.round(decorrido*100)}% do trimestre</span></div>
+    <h1>${o.titulo}</h1>
+    <div class="krs">${o.krs.map(linha).join('')}</div>
+    <div class="legenda pontos"><span><i class="ok"></i>no ritmo</span><span><i class="atencao"></i>atenção</span><span><i class="atras"></i>abaixo do ritmo</span></div>
+  </div>`);
+  dots.insertAdjacentHTML('beforeend','<span></span>');
+});
+let atual = 0;
+// Encolhe o valor do KR (ex.: "R$ 2,5M / R$ 15M") até caber na coluna, sem invadir o texto ao lado.
+function ajustaValores(root){
+  root.querySelectorAll('.kr .val').forEach(v=>{
+    const m = v.querySelector('.meta');
+    v.style.fontSize=''; if(m) m.style.fontSize='';
+    const max = v.parentElement.clientWidth; let f = 40;
+    while(v.scrollWidth > max && f > 20){ f -= 2; v.style.fontSize = f+'px'; if(m) m.style.fontSize = Math.round(f*0.55)+'px'; }
+  });
+}
+function mostra(i){
+  atual = (i+stage.children.length)%stage.children.length;
+  [...stage.children].forEach((s,j)=>s.classList.toggle('active',j===atual));
+  ajustaValores(stage.children[atual]);
+  [...dots.children].forEach((d,j)=>d.classList.toggle('on',j===atual));
+}
+mostra(0);
+let timer = setInterval(()=>mostra(atual+1), 12000);
+dots.addEventListener('click',e=>{const i=[...dots.children].indexOf(e.target); if(i>=0){clearInterval(timer);mostra(i);}});
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){clearInterval(timer);mostra(atual+(e.key==='ArrowRight'?1:-1));}
+});
+function encaixa(){
+  const s = Math.min(innerWidth/1280, innerHeight/720);
+  const tv = document.getElementById('tv');
+  tv.style.transform = `scale(${s})`;
+  tv.style.left = (innerWidth-1280*s)/2+'px'; tv.style.top = (innerHeight-720*s)/2+'px';
+}
+addEventListener('resize',encaixa); encaixa();
+if(document.fonts) document.fonts.ready.then(()=>ajustaValores(stage.children[atual]));
+</script>
+</body>
+</html>

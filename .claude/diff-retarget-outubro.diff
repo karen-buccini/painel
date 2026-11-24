@@ -1,0 +1,41 @@
+--- scripts/fetch-hubspot.js	2026-11-18 14:20:30
++++ scripts/fetch-hubspot.js	2026-11-24 12:11:41
+@@ -94,6 +94,16 @@
+ const STAGE_EMBARQUE = '1315985497';
+ const DATE_RETARGETING = 'hs_v2_date_entered_983301662';
+ 
++// Cards do pipeline Retarget que contam num mês diferente do mês em que
++// entraram em "Oportunidade Qualificada" (ID do negócio -> 'AAAA-MM').
++// Fora do mês indicado, não entram na coluna Retargeting do Desempenho.
++// Censi e SB Trade entraram em 03/11/2026, mas a Karen considera as duas só
++// em outubro (24/11/2026).
++const RETARGET_MES_CONTADO = {
++  '66486445883': '2026-10', // CENSI INDUSTRIA DE PRODUTOS HIDROSSANITARIOS SA
++  '67307204901': '2026-10', // SB TRADE COMERCIO EXTERIOR LTDA
++};
++
+ /* --------------------------------------------------------------------- */
+ /* Cliente HTTP                                                           */
+ /* --------------------------------------------------------------------- */
+@@ -425,7 +435,10 @@
+   // Os valores do campo BDR são os mesmos IDs de usuário do HubSpot.
+   const nomes = await owners();
+   const porPessoa = {};
++  const mesAtual = `${p.ano}-${String(p.mes).padStart(2, '0')}`;
+   for (const d of negocios) {
++    const mesContado = RETARGET_MES_CONTADO[String(d.id)];
++    if (mesContado && mesContado !== mesAtual) continue;
+     const bdr = d.properties.nome_bdr__hunter__farmer_;
+     if (!bdr) continue;
+     porPessoa[bdr] = (porPessoa[bdr] || 0) + 1;
+--- data.json	2026-11-24 11:02:07
++++ data.json	2026-11-24 12:11:41
+@@ -267,7 +267,7 @@
+         "sellers": [
+           {
+             "name": "Juliane Gadi",
+-            "oportunidades": 8,
++            "oportunidades": 6,
+             "color": "var(--gold)",
+             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
+             "metricLabel": "oportunidades"

@@ -1,0 +1,67 @@
+--- data.json	2026-11-24 13:56:32
++++ data.json	2026-11-24 14:16:50
+@@ -17,32 +17,6 @@
+     "valorAtivado": 3273273,
+     "limiteAprovado": 5000000,
+     "visivelAte": "2026-12-01"
+-  },
+-  {
+-    "type": "campanha",
+-    "duration": 18000,
+-    "tema": "azul",
+-    "eyebrow": "People · Pesquisa de clima",
+-    "titulo": "A Vixtra que a gente quer se constrói <em>ouvindo quem faz ela acontecer.</em>",
+-    "texto": "Esta pesquisa é o seu espaço para dizer o que funciona e o que pode ser melhor.",
+-    "fatos": [
+-      {
+-        "val": "~15 min",
+-        "rot": "para responder"
+-      },
+-      {
+-        "val": "100%",
+-        "rot": "anônima"
+-      },
+-      {
+-        "val": "até 27/11",
+-        "rot": "período para responder"
+-      }
+-    ],
+-    "chamada": "Sua voz faz a diferença ;)",
+-    "qr": "qr/pesquisa-clima.png",
+-    "qrRotulo": "Escaneie e responda",
+-    "visivelAte": "2026-11-27"
+   },
+   {
+     "type": "goal",
+@@ -1654,5 +1628,31 @@
+         "fonte": "manual"
+       }
+     ]
++  },
++  {
++    "type": "campanha",
++    "duration": 18000,
++    "tema": "azul",
++    "eyebrow": "People · Pesquisa de clima",
++    "titulo": "A Vixtra que a gente quer se constrói <em>ouvindo quem faz ela acontecer.</em>",
++    "texto": "Esta pesquisa é o seu espaço para dizer o que funciona e o que pode ser melhor.",
++    "fatos": [
++      {
++        "val": "~15 min",
++        "rot": "para responder"
++      },
++      {
++        "val": "100%",
++        "rot": "anônima"
++      },
++      {
++        "val": "até 27/11",
++        "rot": "período para responder"
++      }
++    ],
++    "chamada": "Sua voz faz a diferença ;)",
++    "qr": "qr/pesquisa-clima.png",
++    "qrRotulo": "Escaneie e responda",
++    "visivelAte": "2026-11-27"
+   }
+ ]

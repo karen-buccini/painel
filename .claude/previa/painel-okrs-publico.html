@@ -1,0 +1,293 @@
+<title>OKRs Q4 Vixtra</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+:root{
+  color-scheme:dark;
+  --ink:#090F20; --ink-2:#0E162E; --panel:#121D3D; --panel-line:rgba(255,255,255,0.12);
+  --gold:#5FC0E9; --sky:#27AAE1; --mint:#28B665; --coral:#F0616D; --amber:#F5B544; --orange:#F28A3C; --yellow:#F2D04B;
+  --overline:#8FDCFA; --paper:#FFFFFF; --muted:#929AB1;
+  --font:'Rubik',Verdana,system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#05080F;color:var(--paper);font-family:var(--font);overflow:hidden;}
+.tv{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;display:flex;flex-direction:column;
+  background:linear-gradient(140deg,#16244C 0%,var(--ink) 62%);}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 38px;border-bottom:1px solid var(--panel-line);}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;}
+.brand b{color:var(--paper);font-weight:500;letter-spacing:.06em;text-transform:none;font-size:22px}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);}
+.clock{font-size:30px;font-weight:500;font-variant-numeric:tabular-nums;text-align:right}
+.clock small{display:block;font-size:17px;color:var(--muted);font-weight:400}
+.stage{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;padding:26px 64px 18px;display:flex;flex-direction:column;opacity:0;transform:translateY(18px);
+  transition:opacity .55s ease,transform .55s ease;}
+.slide.active{opacity:1;transform:none;}
+.eyebrow{font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--overline);display:flex;justify-content:space-between;align-items:baseline;}
+.eyebrow .q{letter-spacing:.08em;color:var(--muted);font-size:16px;text-transform:none}
+h1{font-weight:500;font-size:38px;letter-spacing:-.01em;margin:6px 0 18px;line-height:1.1}
+.krs{display:flex;flex-direction:column;gap:10px;flex:1;}
+.kr{display:grid;grid-template-columns:220px 1fr 120px;align-items:center;gap:24px;background:rgba(18,29,61,.75);
+  border:1px solid var(--panel-line);border-radius:14px;padding:10px 22px;}
+.kr .val{font-size:40px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
+.kr .val .meta{font-size:22px;color:var(--muted);font-weight:300}
+.kr > div{min-width:0}
+.kr .val.vazio{color:rgba(255,255,255,.28)}
+.kr{position:relative}
+.kr .atz{position:absolute;top:9px;right:166px;font-size:11px;line-height:1;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
+.kr .atz i{width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.kr .atz.velho{color:var(--yellow)} .kr .atz.velho i{background:var(--yellow)}
+.kr .txt{font-size:20px;line-height:1.25;margin-bottom:9px;display:flex;align-items:center;gap:10px}
+.kr .txt b{font-weight:500}
+.fonte{font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.fonte.auto{color:var(--mint)} .fonte.regra{color:var(--amber)} .fonte.cr2{color:var(--sky)} .fonte.manual{color:var(--muted)}
+.track{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.08);}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;}
+.hoje{position:absolute;top:-5px;bottom:-5px;width:2px;background:rgba(255,255,255,.65);}
+.status{justify-self:end;text-align:right;font-size:15px;color:var(--muted)}
+.status .pct{display:block;font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.f-verm .fill{background:var(--coral)} .f-verm .pct{color:var(--coral)}
+.f-lar .fill{background:var(--orange)} .f-lar .pct{color:var(--orange)}
+.f-ama .fill{background:var(--yellow)} .f-ama .pct{color:var(--yellow)}
+.f-ver .fill{background:var(--mint)} .f-ver .pct{color:var(--mint)}
+.f-azul .fill{background:var(--sky)} .f-azul .pct{color:var(--sky)}
+.legenda{margin-top:12px;font-size:14px;color:var(--muted);display:flex;gap:22px;align-items:center}
+.legenda i{display:inline-block;width:2px;height:14px;background:rgba(255,255,255,.65);vertical-align:-2px;margin-right:6px}
+.bottom{height:44px;border-top:1px solid var(--panel-line);display:flex;align-items:center;justify-content:center;gap:8px}
+.bottom span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer}
+.bottom span.on{background:var(--gold);width:22px;border-radius:4px}
+.ns-linha{font-size:19px;color:var(--paper);margin:8px 2px 10px;letter-spacing:.01em}
+.ns-linha b{color:var(--overline);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:14px;margin-right:10px}
+.okr-topo{display:flex;align-items:center;gap:18px;background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:12px;padding:8px 20px;margin-bottom:12px}
+.okr-topo .n{font-size:38px;font-weight:300;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.okr-topo .meio{flex:1;min-width:0}
+.okr-topo .t{font-size:17px;font-weight:500}.okr-topo .t small{font-size:12px;color:var(--muted);font-weight:400;margin-left:8px}
+.okr-topo .track{margin-top:7px;height:8px}
+.okr-topo .fill{background:var(--gold)}
+.resumo .north{margin-top:10px}
+.north{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#1B2B5C,#14214A);
+  border:1px solid rgba(95,192,233,.35);border-radius:14px;padding:14px 26px;}
+.ns-tag{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky);font-weight:500}
+.ns-t{font-size:26px;font-weight:500;margin-top:4px}
+.ns-emoji{display:inline-block;font-size:18px;margin-right:10px;vertical-align:-2px;letter-spacing:0}
+.ns-geral{display:flex;align-items:center;gap:14px}
+.ns-geral .n{font-size:50px;font-weight:300;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
+.ns-geral .l{font-size:17px;line-height:1.2}
+.ns-geral small{font-size:13px;color:var(--muted)}
+.ligacao{position:relative;height:22px;margin:0 calc(12.5% - 12px);border:1.5px solid rgba(143,220,250,.35);border-bottom:none;border-top:none}
+.ligacao::before{content:'';position:absolute;left:0;right:0;bottom:0;border-top:1.5px solid rgba(143,220,250,.35)}
+.ligacao::after{content:'';position:absolute;left:50%;top:0;height:100%;border-left:1.5px solid rgba(143,220,250,.35)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1;min-height:0}
+.card{background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
+.c-tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--overline);font-weight:500}
+.c-t{font-size:20px;font-weight:500;line-height:1.2;margin-top:6px;min-height:48px}
+.c-meio{display:flex;align-items:center;gap:12px;margin:auto 0}
+.c-meio svg{flex-shrink:0}
+.c-sub{font-size:14px;color:var(--muted);line-height:1.35}
+.c-pe{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--overline);font-weight:500;margin-top:10px}
+.pts{display:flex;gap:5px}
+.pts i,.pontos i{display:inline-block;width:11px;height:11px;border-radius:50%;}
+.pontos i{vertical-align:-1px;margin-right:6px}
+i.ok{background:var(--mint)} i.atencao{background:var(--amber)} i.atras{background:var(--coral)}
+i.f-verm{background:var(--coral)} i.f-lar{background:var(--orange)} i.f-ama{background:var(--yellow)} i.f-ver{background:var(--mint)} i.f-azul{background:var(--sky)}
+i.acum{background:var(--sky)} i.vazio{background:transparent;border:1.5px solid rgba(255,255,255,.3)} i.cong{background:transparent;border:1.5px dashed rgba(255,255,255,.22)}
+.nota-kr{font-size:13px;color:var(--muted);line-height:1.25;margin-top:3px}
+.aviso{position:fixed;right:12px;bottom:10px;font:13px var(--font);color:#5d6680}
+</style>
+<div class="tv" id="tv">
+  <div class="topbar">
+    <div class="brand"><img src="data:image/png;base64,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" alt="Vixtra" style="height:18px"><span class="dot"></span> TV Comercial · Ao vivo</div>
+    <div class="clock">14:05<small>quarta-feira, 18 de novembro</small></div>
+  </div>
+  <div class="stage" id="stage"></div>
+  <div class="bottom" id="dots"></div>
+</div>
+<div class="aviso">Pontos ou ← → trocam de slide</div>
+
+<script>
+const INICIO = new Date(2026,9,1), FIM = new Date(2026,11,31), HOJE = new Date(2026,10,18);
+const decorrido = (HOJE-INICIO)/(FIM-INICIO+864e5);
+
+const OBJETIVOS = [
+  {n:'01', tag:'Acquisition', titulo:'Acelerar a aquisição de novos clientes', krs:[
+    {atual:27, meta:22, em:'24/11', b:'Parceiros', t:'gerando oportunidades', fonte:'auto'},
+    {atual:3,  meta:5,  em:'24/11', b:'Tradings', t:'gerando oportunidades', fonte:'auto'},
+    {atual:11, meta:20, em:'24/11', b:'Oportunidades', t:'via retargeting', fonte:'auto'},
+    {atual:8,  meta:30, em:'24/11', b:'Clientes', t:'ativados no trimestre', fonte:'auto'},
+    {atual:2,  meta:6,  em:'24/11', b:'Ativações', t:'acima de R$ 2,5M', fonte:'auto'},
+  ]},
+  {n:'02', tag:'Profitability', titulo:'Garantir uma carteira rentável', krs:[
+    {atual:64, meta:80, un:'%', em:'18/11', b:'da carteira', t:'com agendas proativas', fonte:'manual'},
+    {atual:4.8, meta:7, pre:'+', un:' p.p.', acumulado:true, taxa:true, faltaUn:' p.p.', base:68, nivel:72.8, nota:'68% → 72,8%', em:'24/11', b:'de crescimento', t:'no limite de crédito em uso', fonte:'cr2'},
+    {atual:2.5, meta:15, un:'M', pre:'R$ ', nota:'7 empresas', em:'17/11', b:'em crédito', t:'por aumento de limite', fonte:'hubspot'},
+    {atual:20, meta:50, un:'%', nota:'2 de 10 empresas', em:'24/11', b:'das renegociações', t:'com cross-sell ou nova taxa', fonte:'hubspot'},
+    {atual:0.17, meta:0.67, un:' p.p.', acumulado:true, taxa:true, faltaUn:' p.p.', base:2.67, nivel:2.5, corTeto:2, mostraNivel:true, metaTxt:'até 2%', nota:'reduziu 0,17 de 0,67 p.p.', em:'23/11', b:'de inadimplência', t:'acima de 90 dias', fonte:'cr2'},
+  ]},
+  {n:'03', tag:'Tech & Product', titulo:'Ter tecnologia como modelo de negócio', krs:[
+    {atual:17.5, meta:45, un:'%', em:'17/11', b:'dos clientes ativos', t:'usando o Agent', fonte:'manual'},
+    {atual:80.2, meta:100,un:'%', em:'17/11', b:'de acurácia', t:'na validação dos kits de garantia', fonte:'manual'},
+    {atual:20, meta:100,un:'%', em:'17/11', b:'do novo instrumento', t:'de garantia entregue', fonte:'manual'},
+  ]},
+  {n:'04', tag:'Awareness', titulo:'Ser referência no mercado', krs:[
+    {atual:21, meta:30, un:'%', pre:'+', acumulado:true, taxa:true, faltaUn:' p.p.', em:'18/11', b:'em buscas orgânicas', t:'no Google após o lançamento da campanha', fonte:'manual'},
+    {atual:4.8, meta:8, un:'%', acumulado:true, taxa:true, faltaUn:' p.p.', nota:'novembro · LinkedIn + Instagram', em:'24/11', b:'de engajamento', t:'nas redes sociais', fonte:'mkt'},
+    {atual:8557-8228, meta:1700, pre:'+', nota:'8.557 em 24/11 · partida 8.228', em:'24/11', b:'novos seguidores', t:'no Instagram + LinkedIn', fonte:'auto'},
+    {atual:4, meta:5, nota:'4 de 4 eventos', em:'18/11', b:'eventos', t:'com presença acima de 60%', fonte:'manual'},
+    {meta:75, un:'%', b:'de resposta', t:'na pesquisa de NPS', congelado:true, status:'congelado', nota:'apurado no fim do tri', fonte:'manual'},
+  ]},
+];
+
+const ROTULO = {auto:'HubSpot · automático', regra:'HubSpot · falta regra', cr2:'CR2 / financeiro', manual:'manual'};
+
+const faixa = p => { const v = Math.round(p*100); return v < 30 ? 'f-verm' : v < 50 ? 'f-lar' : v < 70 ? 'f-ama' : v < 100 ? 'f-ver' : 'f-azul'; };
+const ROTULO_FAIXA = {'f-verm':'crítico', 'f-lar':'em risco', 'f-ama':'atenção', 'f-ver':'perto da meta', 'f-azul':'batido'};
+
+const AGORA = new Date();
+const HOJE0 = new Date(AGORA.getFullYear(), AGORA.getMonth(), AGORA.getDate());
+function selo(k){
+  if(!k.em) return '';
+  const [d,m] = k.em.split('/').map(Number);
+  const velho = Math.round((HOJE0 - new Date(2026, m-1, d)) / 864e5) >= 7; // ciclo Q4 2026
+  return `<span class="atz${velho?' velho':''}" title="atualizado em ${k.em}"><i></i>${k.em}</span>`;
+}
+
+
+function linha(k, id){
+  const clic = '';
+  const fmt = v => (k.pre||'') + v.toLocaleString('pt-BR') + (k.un||'');
+  const valor = () => k.mostraNivel && k.nivel != null ? k.nivel.toLocaleString('pt-BR') + '%' : fmt(k.atual);
+  const fonte = ''; // a fonte (k.fonte) fica só nos dados, não aparece na TV
+  const nota = k.nota ? `<div class="nota-kr">${k.nota}</div>` : '';
+  if(k.atual == null){
+    return `<div class="kr${clic}">${selo(k)}
+      <div><div class="val vazio">—<span class="meta"> / ${fmt(k.meta)}</span></div>${nota}</div>
+      <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+        <div class="track"></div></div>
+      <div class="status"><span class="pct" style="color:rgba(255,255,255,.28)">—</span>${k.status || 'aguardando'}</div>
+    </div>`;
+  }
+  if(k.menor){
+    const dentro = k.atual <= k.meta;
+    const ating = k.atual > 0 ? k.meta/k.atual : 2; // mesmo cálculo da média: 2% = 100%, 2,7% = 74%
+    return `<div class="kr ${dentro?'f-ver':'f-verm'}${clic}">${selo(k)}
+      <div><div class="val">${fmt(k.atual)}<span class="meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
+      <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+        <div class="track"><div class="fill" style="width:${Math.min(ating,1)*100}%"></div></div></div>
+      <div class="status"><span class="pct">${Math.round(ating*100)}%</span>${dentro?'dentro da meta':'acima da meta'}</div>
+    </div>`;
+  }
+  const p = k.atual/k.meta, larg = Math.min(p,1)*100;
+  const cls = k.corTeto != null && k.nivel != null ? (k.nivel <= k.corTeto ? 'f-ver' : 'f-verm') : faixa(p);
+  let st;
+  if(k.acumulado){
+    const falta = k.meta - k.atual;
+    st = falta>0 ? 'faltam '+(+falta.toFixed(1)).toLocaleString('pt-BR')+(k.faltaUn||'') : (k.taxa ? 'no ritmo' : 'batido');
+  } else {
+    st = p>=1 ? 'batido' : ROTULO_FAIXA[cls];
+  }
+  return `<div class="kr ${cls}${clic}">${selo(k)}
+    <div><div class="val">${valor()}<span class="meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
+    <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+      <div class="track"><div class="fill" style="width:${larg}%"></div></div></div>
+    <div class="status"><span class="pct">${Math.round(p*100)}%</span>${st}</div>
+  </div>`;
+}
+
+const stage = document.getElementById('stage'), dots = document.getElementById('dots');
+
+const ativos = l => l.filter(k=>!k.congelado);
+const pctKR = k => k.atual == null ? null : k.menor ? (k.atual > 0 ? k.meta/k.atual : 2) : k.atual/k.meta;
+const statusKR = k => {
+  const p = pctKR(k);
+  if(k.congelado) return 'cong';
+  if(p == null) return 'vazio';
+  if(k.corTeto != null && k.nivel != null) return k.nivel <= k.corTeto ? 'ok' : 'atras';
+  if(k.acumulado) return p>=1 ? 'ok' : 'acum';
+  if(k.menor) return p>=1 ? 'ok' : 'atras'; // inadimplência: até 2% verde, acima vermelho
+  const r = p/decorrido;
+  return p>=1 || r>=1 ? 'ok' : r>=.7 ? 'atencao' : 'atras';
+};
+const media = l => l.length ? l.reduce((a,b)=>a+b,0)/l.length : null;
+
+
+function anel(p){
+  const R = 46, C = 2*Math.PI*R;
+  const fill = p == null ? '' :
+    `<circle cx="56" cy="56" r="${R}" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round"
+       stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 56 56)"/>`;
+  return `<svg width="112" height="112" viewBox="0 0 112 112">
+    <circle cx="56" cy="56" r="${R}" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="10"/>${fill}
+    <text x="56" y="64" text-anchor="middle" fill="${p==null?'rgba(255,255,255,.3)':'#fff'}" font-family="Rubik" font-size="26" font-weight="500">${p==null?'—':Math.round(p*100)+'%'}</text>
+  </svg>`;
+}
+
+const SUB = {
+  '01':'Trazer novos importadores em ritmo acelerado.',
+  '02':'Clientes que ficam e crescem com a gente.',
+  '03':'Tecnologia que escala e gera novos produtos.',
+  '04':'Marca conhecida que atrai clientes e parceiros.',
+};
+const todosMedidos = OBJETIVOS.flatMap(o=>ativos(o.krs).map(pctKR)).filter(p=>p!=null);
+const totalKRs = OBJETIVOS.reduce((s,o)=>s+ativos(o.krs).length,0);
+const congelados = OBJETIVOS.reduce((s,o)=>s+o.krs.length-ativos(o.krs).length,0);
+const geral = media(OBJETIVOS.flatMap(o=>ativos(o.krs).map(k=>pctKR(k)||0)));
+
+stage.insertAdjacentHTML('beforeend', `<div class="slide resumo">
+  <div class="eyebrow"><span>OKRs do ciclo · Resumo geral</span><span class="q">Q4 · ${Math.round(decorrido*100)}% do trimestre</span></div>
+  <div class="ns-linha"><b>⭐ Para onde vamos</b>North Star: R$ 125M de ARR ao longo do 1º semestre de 2027</div>
+  <div class="okr-topo"><span class="n">${geral==null?'—':Math.round(geral*100)+'%'}</span>
+    <div class="meio"><div class="t">de avanço médio dos OKRs no ciclo<small>média dos ${totalKRs} KRs · ${todosMedidos.length} já com número${congelados ? ' · '+congelados+' fora da média' : ''}</small></div>
+      <div class="track"><div class="fill" style="width:${Math.min(geral||0,1)*100}%"></div></div></div>
+  </div>
+  <div class="cards">${OBJETIVOS.map(o=>{
+    const at = ativos(o.krs), ps = at.map(pctKR).filter(p=>p!=null), cg = o.krs.length-at.length;
+    return `<div class="card">
+      <div class="c-tag">${o.n} · ${o.tag}</div>
+      <div class="c-t">${o.titulo}</div>
+      <div class="c-meio">${anel(ps.length ? media(at.map(k=>pctKR(k)||0)) : null)}<div class="c-sub">${SUB[o.n]}</div></div>
+      <div class="c-pe"><span class="pts">${o.krs.map(k=>`<i class="${statusKR(k)}"></i>`).join('')}</span>
+        <span>${(ps.length===at.length ? at.length+' KRs' : ps.length+' de '+at.length+' KRs medidos') + (cg ? ' · '+cg+' fora da média' : '')}</span></div>
+    </div>`;}).join('')}</div>
+</div>`);
+dots.insertAdjacentHTML('beforeend','<span></span>');
+
+OBJETIVOS.forEach((o,i)=>{
+  stage.insertAdjacentHTML('beforeend', `<div class="slide">
+    <div class="eyebrow"><span>KRs do ciclo · ${o.n} · ${o.tag}</span><span class="q">Q4 · ${Math.round(decorrido*100)}% do trimestre</span></div>
+    <h1>${o.titulo}</h1>
+    <div class="krs">${o.krs.map((k,j)=>linha(k, (+o.n)+'.'+(j+1))).join('')}</div>
+    <div class="legenda pontos"><span><i class="f-verm"></i>abaixo de 30%</span><span><i class="f-lar"></i>30 a 49%</span><span><i class="f-ama"></i>50 a 69%</span><span><i class="f-ver"></i>70 a 99%</span><span><i class="f-azul"></i>100% ou mais</span></div>
+  </div>`);
+  dots.insertAdjacentHTML('beforeend','<span></span>');
+});
+let atual = 0;
+function ajustaValores(root){
+  root.querySelectorAll('.kr .val').forEach(v=>{
+    const m = v.querySelector('.meta');
+    v.style.fontSize=''; if(m) m.style.fontSize='';
+    const max = v.parentElement.clientWidth; let f = 40;
+    while(v.scrollWidth > max && f > 20){ f -= 2; v.style.fontSize = f+'px'; if(m) m.style.fontSize = Math.round(f*0.55)+'px'; }
+  });
+}
+function mostra(i){
+  atual = (i+stage.children.length)%stage.children.length;
+  [...stage.children].forEach((s,j)=>s.classList.toggle('active',j===atual));
+  ajustaValores(stage.children[atual]);
+  [...dots.children].forEach((d,j)=>d.classList.toggle('on',j===atual));
+}
+mostra(0);
+let timer = setInterval(()=>mostra(atual+1), 12000);
+dots.addEventListener('click',e=>{const i=[...dots.children].indexOf(e.target); if(i>=0){clearInterval(timer);mostra(i);}});
+addEventListener('keydown',e=>{
+  if((e.key==='ArrowRight'||e.key==='ArrowLeft')){clearInterval(timer);mostra(atual+(e.key==='ArrowRight'?1:-1));}
+});
+
+function encaixa(){
+  const s = Math.min(innerWidth/1280, innerHeight/720);
+  const tv = document.getElementById('tv');
+  tv.style.transform = `scale(${s})`;
+  tv.style.left = (innerWidth-1280*s)/2+'px'; tv.style.top = (innerHeight-720*s)/2+'px';
+}
+addEventListener('resize',encaixa); encaixa();
+if(document.fonts) document.fonts.ready.then(()=>ajustaValores(stage.children[atual]));
+</script>
+

@@ -1,0 +1,109 @@
+--- index.html	2026-11-21 13:14:22
++++ /private/tmp/claude-501/-Users-karenbuccini-Documents-painel/71fa1fc9-dfdd-4851-9be1-a159fea2f62e/scratchpad/tv/index.html	2026-11-24 10:36:32
+@@ -1204,7 +1204,7 @@
+ //
+ // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
+ // avisa às telas abertas que existe coisa nova.
+-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-21-01';
++const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-24-01';
+ 
+ async function conferirVersaoDoPainel(){
+   try{
+@@ -2051,41 +2051,74 @@
+ tickClock();
+ setInterval(tickClock,1000);
+ 
+-// ---------- COTAÇÃO AO VIVO (API pública, sem chave — AwesomeAPI) ----------
++// ---------- COTAÇÃO AO VIVO (APIs públicas, sem chave nem cota) ----------
++// Desde 24/11 (Karen): a AwesomeAPI passou a recusar pedidos sem chave
++// ("Quota exceeded") e a TV ficou mostrando o dólar de outubro. Agora:
++// - Dólar e euro: PTAX do Banco Central (cotação de venda). O BC publica 4
++//   boletins por dia útil (≈10h, 11h, 12h e 13h); vale o último, e depois das
++//   13h fica o fechamento. O "% hoje" compara com o fechamento do dia útil
++//   anterior.
++// - Tether: Binance (USDT/BRL), preço do momento e variação de 24 horas.
+ // As cotações ao vivo ficam fora do slide. O data.json é rebuscado de 2 em 2
+ // minutos e recria os slides com os valores gravados nele (que são só a
+-// reserva para quando a API não responde); antes, quando elas eram gravadas
+-// dentro do slide, essa rebusca trocava a cotação do dia pelo valor velho do
+-// arquivo, e a TV passava a maior parte do tempo com o dólar de outubro.
++// reserva para quando as fontes não respondem); antes, quando elas eram
++// gravadas dentro do slide, essa rebusca trocava a cotação do dia pelo valor
++// velho do arquivo.
+ let cotacoesAoVivo = {};
+ let cotacoesOffline = false;
+ function moedasAtuais(slide){
+   return (slide.list || []).map(c => cotacoesAoVivo[c.code] ? { ...c, ...cotacoesAoVivo[c.code] } : c);
+ }
++// Data no formato do Banco Central (MM-DD-AAAA), no fuso de São Paulo.
++function dataBC(d){
++  const [dia, mes, ano] = d.toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo'}).split('/');
++  return `${mes}-${dia}-${ano}`;
++}
++async function cotacaoBC(moeda){
++  const hoje = new Date();
++  const inicio = new Date(hoje.getTime() - 15*864e5); // cobre feriados emendados
++  const url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/'
++    + 'CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)'
++    + `?@moeda='${moeda}'&@dataInicial='${dataBC(inicio)}'&@dataFinalCotacao='${dataBC(hoje)}'&$format=json`;
++  const res = await fetch(url);
++  if(!res.ok) throw new Error('HTTP ' + res.status);
++  const lista = (await res.json()).value || [];
++  if(!lista.length) throw new Error('sem boletins');
++  const ultimo = lista[lista.length-1];
++  const dia = ultimo.dataHoraCotacao.slice(0,10);
++  const fechAnterior = lista.filter(b => String(b.tipoBoletim).startsWith('Fechamento') && b.dataHoraCotacao.slice(0,10) < dia).pop();
++  const value = ultimo.cotacaoVenda;
++  const pct = fechAnterior ? (value/fechAnterior.cotacaoVenda - 1) * 100 : 0;
++  return { value, pct };
++}
++async function cotacaoBinance(par){
++  const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=' + par);
++  if(!res.ok) throw new Error('HTTP ' + res.status);
++  const d = await res.json();
++  const value = parseFloat(d.lastPrice), pct = parseFloat(d.priceChangePercent);
++  if(!(value > 0)) throw new Error('preço inválido');
++  return { value, pct };
++}
+ async function refreshCurrency(){
+   const slide = slides.find(s=>s.type==='currency');
+   if(!slide) return;
++  const fontes = {
++    USD: () => cotacaoBC('USD'),
++    EUR: () => cotacaoBC('EUR'),
++    USDT: () => cotacaoBinance('USDTBRL'),
++  };
+   let anySuccess = false;
+-  try{
+-    // Libra, USDC e Bitcoin saíram do painel em 23/10. O USDC vinha de uma
+-    // segunda fonte (CoinGecko), que deixou de ser consultada.
+-    const res = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,USDT-BRL');
+-    if(!res.ok) throw new Error('HTTP ' + res.status);
+-    const data = await res.json();
+-    // Mapeamento confirmado testando a API: USDT-BRL retorna sob a chave "USDBRLT", não "USDTBRL"
+-    const map = {USD:'USDBRL', EUR:'EURBRL', USDT:'USDBRLT'};
+-    slide.list.forEach(c=>{
+-      const d = data[map[c.code]];
+-      if(d){
+-        cotacoesAoVivo[c.code] = { value: parseFloat(d.bid), pct: parseFloat(d.pctChange) };
+-        anySuccess = true;
+-      }
+-    });
+-  }catch(err){
+-    console.warn('Falha ao buscar cotações (AwesomeAPI):', err);
+-  }
++  await Promise.all(slide.list.map(async c => {
++    if(!fontes[c.code]) return;
++    try{
++      cotacoesAoVivo[c.code] = await fontes[c.code]();
++      anySuccess = true;
++    }catch(err){
++      console.warn(`Falha ao buscar a cotação ${c.code}:`, err);
++    }
++  }));
+   // Sem horário no slide: o que importa para quem olha é saber se o número
+-  // vale ou não. Se a fonte não respondeu, o painel avisa.
++  // vale ou não. Se nenhuma fonte respondeu, o painel avisa.
+   cotacoesOffline = !anySuccess;
+   if(slides[current] && slides[current].type==='currency') renderCurrent();
+   buildTicker();

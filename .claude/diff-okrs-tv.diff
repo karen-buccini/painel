@@ -1,0 +1,549 @@
+diff --git a/data.json b/data.json
+index a990b89..c5c93f5 100644
+--- a/data.json
++++ b/data.json
+@@ -245,9 +245,16 @@
+           {
+             "name": "Julia Porto",
+             "oportunidades": 2,
+-            "color": "var(--coral)",
++            "color": "var(--gold)",
+             "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
+             "metricLabel": "oportunidades"
++          },
++          {
++            "name": "Amanda Pczbiowski",
++            "oportunidades": 1,
++            "color": "var(--mint)",
++            "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png",
++            "metricLabel": "oportunidades"
+           }
+         ]
+       },
+@@ -256,10 +263,17 @@
+         "sellers": [
+           {
+             "name": "Juliane Gadi",
+-            "oportunidades": 7,
++            "oportunidades": 8,
+             "color": "var(--gold)",
+             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
+             "metricLabel": "oportunidades"
++          },
++          {
++            "name": "Amanda Pczbiowski",
++            "oportunidades": 1,
++            "color": "var(--mint)",
++            "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png",
++            "metricLabel": "oportunidades"
+           }
+         ]
+       },
+@@ -1377,5 +1391,238 @@
+       "valor": 13.75,
+       "desde": "17/09/2026"
+     }
++  },
++  {
++    "type": "okrResumo",
++    "duration": 18000,
++    "northStar": "R$ 125M de ARR ao longo do 1º semestre de 2027",
++    "inicio": "2026-10-01",
++    "fim": "2026-12-31"
++  },
++  {
++    "type": "okr",
++    "duration": 18000,
++    "n": "01",
++    "tag": "Acquisition",
++    "titulo": "Acelerar a aquisição de novos clientes",
++    "sub": "Trazer novos importadores em ritmo acelerado.",
++    "krs": [
++      {
++        "atual": 21,
++        "meta": 22,
++        "em": "18/11",
++        "b": "Parceiros",
++        "t": "gerando oportunidades",
++        "fonte": "auto"
++      },
++      {
++        "atual": 4,
++        "meta": 5,
++        "em": "18/11",
++        "b": "Tradings",
++        "t": "gerando oportunidades",
++        "fonte": "auto"
++      },
++      {
++        "atual": 10,
++        "meta": 20,
++        "em": "18/11",
++        "b": "Oportunidades",
++        "t": "via retargeting",
++        "fonte": "auto"
++      },
++      {
++        "atual": 7,
++        "meta": 30,
++        "em": "18/11",
++        "b": "Clientes",
++        "t": "ativados no trimestre",
++        "fonte": "auto"
++      },
++      {
++        "atual": 1,
++        "meta": 6,
++        "em": "18/11",
++        "b": "Ativações",
++        "t": "acima de R$ 2,5M",
++        "fonte": "auto"
++      }
++    ]
++  },
++  {
++    "type": "okr",
++    "duration": 18000,
++    "n": "02",
++    "tag": "Profitability",
++    "titulo": "Garantir uma carteira rentável",
++    "sub": "Clientes que ficam e crescem com a gente.",
++    "krs": [
++      {
++        "atual": 24,
++        "meta": 80,
++        "un": "%",
++        "em": "17/11",
++        "b": "da carteira",
++        "t": "com agendas proativas",
++        "fonte": "manual"
++      },
++      {
++        "atual": 75.2,
++        "meta": 75,
++        "un": "%",
++        "acumulado": true,
++        "taxa": true,
++        "faltaUn": " p.p.",
++        "nota": "R$ 183,2M de R$ 243,6M",
++        "em": "18/11",
++        "b": "do limite de crédito",
++        "t": "em uso",
++        "fonte": "cr2"
++      },
++      {
++        "atual": 2.5,
++        "meta": 15,
++        "un": "M",
++        "pre": "R$ ",
++        "nota": "7 empresas",
++        "em": "17/11",
++        "b": "em crédito",
++        "t": "por aumento de limite",
++        "fonte": "hubspot"
++      },
++      {
++        "atual": 20,
++        "meta": 50,
++        "un": "%",
++        "nota": "2 de 10 empresas",
++        "em": "18/11",
++        "b": "das renegociações",
++        "t": "com cross-sell ou nova taxa",
++        "fonte": "hubspot"
++      },
++      {
++        "atual": 2.5,
++        "meta": 2,
++        "un": "%",
++        "menor": true,
++        "atencaoAte": 3,
++        "metaTxt": "até 2%",
++        "em": "17/11",
++        "b": "de inadimplência",
++        "t": "acima de 90 dias",
++        "fonte": "cr2"
++      }
++    ]
++  },
++  {
++    "type": "okr",
++    "duration": 18000,
++    "n": "03",
++    "tag": "Tech & Product",
++    "titulo": "Ter tecnologia como modelo de negócio",
++    "sub": "Tecnologia que escala e gera novos produtos.",
++    "krs": [
++      {
++        "atual": 17.5,
++        "meta": 45,
++        "un": "%",
++        "em": "17/11",
++        "b": "dos clientes ativos",
++        "t": "usando o Agent",
++        "fonte": "manual"
++      },
++      {
++        "atual": 80.2,
++        "meta": 100,
++        "un": "%",
++        "em": "17/11",
++        "b": "de acurácia",
++        "t": "na validação dos kits de garantia",
++        "fonte": "manual"
++      },
++      {
++        "atual": 20,
++        "meta": 100,
++        "un": "%",
++        "em": "17/11",
++        "b": "do novo instrumento",
++        "t": "de garantia entregue",
++        "fonte": "manual"
++      },
++      {
++        "atual": 2,
++        "meta": 5,
++        "nota": "em andamento avançado",
++        "em": "17/11",
++        "b": "pilotos",
++        "t": "com garantia estendida",
++        "fonte": "manual"
++      }
++    ]
++  },
++  {
++    "type": "okr",
++    "duration": 18000,
++    "n": "04",
++    "tag": "Awareness",
++    "titulo": "Ser referência no mercado",
++    "sub": "Marca conhecida que atrai clientes e parceiros.",
++    "krs": [
++      {
++        "atual": 3.5,
++        "meta": 30,
++        "un": "%",
++        "pre": "+",
++        "acumulado": true,
++        "taxa": true,
++        "faltaUn": " p.p.",
++        "em": "16/11",
++        "b": "em buscas",
++        "t": "por “Vixtra” no Google",
++        "fonte": "manual"
++      },
++      {
++        "atual": 4.6,
++        "meta": 8,
++        "un": "%",
++        "acumulado": true,
++        "taxa": true,
++        "faltaUn": " p.p.",
++        "nota": "novembro · LinkedIn + Instagram",
++        "em": "18/11",
++        "b": "de engajamento",
++        "t": "nas redes sociais",
++        "fonte": "mkt"
++      },
++      {
++        "atual": 280,
++        "meta": 1700,
++        "pre": "+",
++        "nota": "8.524 em 18/11 · partida 8.244",
++        "em": "18/11",
++        "b": "novos seguidores",
++        "t": "no Instagram + LinkedIn",
++        "fonte": "auto"
++      },
++      {
++        "atual": 4,
++        "meta": 5,
++        "nota": "4 de 4 eventos",
++        "em": "18/11",
++        "b": "eventos",
++        "t": "com presença acima de 60%",
++        "fonte": "manual"
++      },
++      {
++        "meta": 75,
++        "un": "%",
++        "b": "de resposta",
++        "t": "na pesquisa de NPS",
++        "congelado": true,
++        "status": "congelado",
++        "nota": "apurado no fim do tri",
++        "fonte": "manual"
++      }
++    ]
+   }
+ ]
+diff --git a/index.html b/index.html
+index 00a5245..d05138b 100644
+--- a/index.html
++++ b/index.html
+@@ -848,6 +848,62 @@ html,body{
+ }
+ .dot-btn.on{background:var(--gold);transform:scale(1.3);}
+ 
++/* ===== SLIDES DE OKR (okrResumo + okr) =====
++   Copiados da prévia aprovada (.claude/previa/index.html), com tudo prefixado
++   em okr- porque a TV já usa .val, .track, .fill, .status e outras. */
++/* A TV tem barra de "AGORA" e pontinhos embaixo, e sobra menos altura que na
++   prévia: o slide de OKR usa parte do respiro do .slide e as caixas são um
++   pouco mais baixas, para caberem 5 KRs com nota e a legenda. */
++.okr-slide{flex:1;min-height:0;display:flex;flex-direction:column;margin:-14px 0 -20px;}
++.okr-eyebrow{font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--overline);display:flex;justify-content:space-between;align-items:baseline;}
++.okr-eyebrow .okr-q{letter-spacing:.08em;color:var(--muted);font-size:16px;text-transform:none}
++.okr-h1{font-weight:500;font-size:38px;letter-spacing:-.01em;margin:4px 0 12px;line-height:1.1}
++.okr-krs{display:flex;flex-direction:column;gap:8px;flex:1;}
++.okr-kr{position:relative;display:grid;grid-template-columns:220px 1fr 120px;align-items:center;gap:24px;background:rgba(18,29,61,.75);
++  border:1px solid var(--panel-line);border-radius:14px;padding:7px 22px;}
++.okr-kr > div{min-width:0}
++.okr-val{font-size:40px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
++.okr-val .okr-meta{font-size:22px;color:var(--muted);font-weight:300}
++.okr-val.okr-vazio{color:rgba(255,255,255,.28)}
++/* Selo de atualização: ponto verde = número desta semana (desde segunda);
++   âmbar = número de antes da segunda. */
++.okr-atz{position:absolute;top:7px;right:166px;font-size:11px;line-height:1;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
++.okr-atz i{width:6px;height:6px;border-radius:50%;background:var(--mint)}
++.okr-atz.okr-velho{color:var(--amber)} .okr-atz.okr-velho i{background:var(--amber)}
++.okr-txt{font-size:20px;line-height:1.25;margin-bottom:9px;display:flex;align-items:center;gap:10px}
++.okr-txt b{font-weight:500}
++.okr-track{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.08);}
++.okr-fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;}
++.okr-status{justify-self:end;text-align:right;font-size:15px;color:var(--muted)}
++.okr-status .okr-pct{display:block;font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
++.okr-ok .okr-fill{background:var(--mint)} .okr-ok .okr-pct{color:var(--mint)}
++.okr-atencao .okr-fill{background:var(--amber)} .okr-atencao .okr-pct{color:var(--amber)}
++.okr-atras .okr-fill{background:var(--coral)} .okr-atras .okr-pct{color:var(--coral)}
++.okr-nota{font-size:13px;color:var(--muted);line-height:1.25;margin-top:3px}
++.okr-legenda{margin-top:8px;font-size:14px;color:var(--muted);display:flex;gap:22px;align-items:center}
++.okr-legenda i{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:-1px;margin-right:6px}
++/* Resumo geral: North Star como contexto e o avanço médio numa barra própria. */
++.okr-ns{font-size:19px;color:var(--paper);margin:8px 2px 10px;letter-spacing:.01em}
++.okr-ns b{color:var(--overline);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:14px;margin-right:10px}
++.okr-topo{display:flex;align-items:center;gap:18px;background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:12px;padding:8px 20px;margin-bottom:12px}
++.okr-topo-n{font-size:38px;font-weight:300;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
++.okr-topo-meio{flex:1;min-width:0}
++.okr-topo-t{font-size:17px;font-weight:500}.okr-topo-t small{font-size:12px;color:var(--muted);font-weight:400;margin-left:8px}
++.okr-topo .okr-track{margin-top:7px;height:8px}
++.okr-topo .okr-fill{background:var(--gold)}
++.okr-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1;min-height:0}
++.okr-card{background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
++.okr-c-tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--overline);font-weight:500}
++.okr-c-t{font-size:20px;font-weight:500;line-height:1.2;margin-top:6px;min-height:48px}
++.okr-c-meio{display:flex;align-items:center;gap:12px;margin:auto 0}
++.okr-c-meio svg{flex-shrink:0}
++.okr-c-sub{font-size:14px;color:var(--muted);line-height:1.35}
++.okr-c-pe{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--overline);font-weight:500;margin-top:10px}
++.okr-pts{display:flex;gap:5px}
++.okr-pts i{display:inline-block;width:11px;height:11px;border-radius:50%;}
++i.okr-ok{background:var(--mint)} i.okr-atencao{background:var(--amber)} i.okr-atras{background:var(--coral)}
++i.okr-acum{background:var(--sky)} i.okr-vazio{background:transparent;border:1.5px solid rgba(255,255,255,.3)} i.okr-cong{background:transparent;border:1.5px dashed rgba(255,255,255,.22)}
++
+ </style>
+ </head>
+ <body>
+@@ -1141,7 +1197,7 @@ function isSlideActive(s){
+ //
+ // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
+ // avisa às telas abertas que existe coisa nova.
+-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-17-02';
++const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-18-01';
+ 
+ async function conferirVersaoDoPainel(){
+   try{
+@@ -1273,7 +1329,149 @@ function eyebrowText(s){
+   return s.showMonth ? `${s.eyebrow} · ${mesAtual()}` : s.eyebrow;
+ }
+ 
++// ---------- OKRs DO CICLO (okrResumo + okr) ----------
++// Mesmas regras da prévia aprovada (.claude/previa/index.html):
++// - % do KR = atual ÷ meta, sem teto (a barra é que para no fim);
++// - KR "menor" (inadimplência): % = meta ÷ atual; até a meta verde, até
++//   atencaoAte amarelo, acima vermelho;
++// - KR "congelado" (NPS) fica fora das médias;
++// - média do objetivo = média simples dos KRs (sem número conta 0%);
++// - geral = média de todos os KRs ativos;
++// - nos slides de KR a cor vem das faixas 50% / 30%; no resumo, os pontinhos
++//   seguem o ritmo do trimestre.
++// Os números vêm do data.json (slides "okr"), copiados do artefato de OKRs.
++const okrFaixa = p => p > .5 ? 'okr-ok' : p >= .3 ? 'okr-atencao' : 'okr-atras';
++const OKR_ROTULO_FAIXA = {'okr-ok':'no ritmo', 'okr-atencao':'atenção', 'okr-atras':'abaixo do ritmo'};
++const okrAtivos = l => l.filter(k=>!k.congelado);
++const okrPct = k => k.atual == null ? null : k.menor ? (k.atual > 0 ? k.meta/k.atual : 2) : k.atual/k.meta;
++const okrMedia = l => l.length ? l.reduce((a,b)=>a+b,0)/l.length : null;
++
++// Datas em São Paulo, em dias UTC (sem fuso): hoje, início e fim do ciclo.
++function okrHoje(){
++  const { dia, ano } = agoraEmSaoPaulo();
++  const [d, m] = dia.split('/').map(Number);
++  return { t: Date.UTC(ano, m-1, d), ano };
++}
++function okrPeriodo(){
++  const r = allSlides.find(x => x.type==='okrResumo') || {};
++  const { t, ano } = okrHoje();
++  const ini = r.inicio ? Date.parse(r.inicio+'T00:00:00Z') : Date.UTC(ano, 9, 1);
++  const fim = r.fim ? Date.parse(r.fim+'T00:00:00Z') : Date.UTC(ano, 11, 31);
++  const decorrido = (t-ini)/(fim-ini+864e5);
++  const q = 'Q' + (Math.floor(new Date(ini).getUTCMonth()/3) + 1);
++  return { decorrido, q, rotulo: `${q} · ${Math.round(decorrido*100)}% do trimestre` };
++}
++function okrSelo(k){
++  if(!k.em) return '';
++  const { t, ano } = okrHoje();
++  const segunda = t - ((new Date(t).getUTCDay()+6)%7) * 864e5;
++  const [d, m] = k.em.split('/').map(Number);
++  const velho = Date.UTC(ano, m-1, d) < segunda;
++  return `<span class="okr-atz${velho?' okr-velho':''}"><i></i>${k.em}</span>`;
++}
++function okrLinha(k){
++  const fmt = v => (k.pre||'') + v.toLocaleString('pt-BR') + (k.un||'');
++  const nota = k.nota ? `<div class="okr-nota">${k.nota}</div>` : '';
++  if(k.atual == null){
++    return `<div class="okr-kr">${okrSelo(k)}
++      <div><div class="okr-val okr-vazio">—<span class="okr-meta"> / ${fmt(k.meta)}</span></div>${nota}</div>
++      <div><div class="okr-txt"><span><b>${k.b}</b> ${k.t}</span></div><div class="okr-track"></div></div>
++      <div class="okr-status"><span class="okr-pct" style="color:rgba(255,255,255,.28)">—</span>${k.status || 'aguardando'}</div>
++    </div>`;
++  }
++  if(k.menor){
++    const dentro = k.atual <= k.meta;
++    const atencao = !dentro && k.atencaoAte != null && k.atual <= k.atencaoAte;
++    const ating = k.atual > 0 ? k.meta/k.atual : 2;
++    return `<div class="okr-kr ${dentro?'okr-ok':atencao?'okr-atencao':'okr-atras'}">${okrSelo(k)}
++      <div><div class="okr-val">${fmt(k.atual)}<span class="okr-meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
++      <div><div class="okr-txt"><span><b>${k.b}</b> ${k.t}</span></div>
++        <div class="okr-track"><div class="okr-fill" style="width:${Math.min(ating,1)*100}%"></div></div></div>
++      <div class="okr-status"><span class="okr-pct">${Math.round(ating*100)}%</span>${dentro?'dentro da meta':'acima da meta'}</div>
++    </div>`;
++  }
++  const p = k.atual/k.meta, larg = Math.min(p,1)*100;
++  const cls = okrFaixa(p);
++  let st;
++  if(k.acumulado){
++    const falta = k.meta - k.atual;
++    st = falta>0 ? 'faltam '+(+falta.toFixed(1)).toLocaleString('pt-BR')+(k.faltaUn||'') : (k.taxa ? 'no ritmo' : 'batido');
++  } else {
++    st = p>=1 ? 'batido' : OKR_ROTULO_FAIXA[cls];
++  }
++  return `<div class="okr-kr ${cls}">${okrSelo(k)}
++    <div><div class="okr-val">${fmt(k.atual)}<span class="okr-meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
++    <div><div class="okr-txt"><span><b>${k.b}</b> ${k.t}</span></div>
++      <div class="okr-track"><div class="okr-fill" style="width:${larg}%"></div></div></div>
++    <div class="okr-status"><span class="okr-pct">${Math.round(p*100)}%</span>${st}</div>
++  </div>`;
++}
++// Pontinhos do resumo: ritmo do trimestre; total/taxa em azul.
++function okrStatusResumo(k, decorrido){
++  const p = okrPct(k);
++  if(k.congelado) return 'okr-cong';
++  if(p == null) return 'okr-vazio';
++  if(k.acumulado) return p>=1 ? 'okr-ok' : 'okr-acum';
++  if(k.menor) return p>=1 ? 'okr-ok' : (k.atencaoAte != null && k.atual <= k.atencaoAte) ? 'okr-atencao' : 'okr-atras';
++  const r = p/decorrido;
++  return p>=1 || r>=1 ? 'okr-ok' : r>=.7 ? 'okr-atencao' : 'okr-atras';
++}
++function okrAnel(p){
++  const R = 46, C = 2*Math.PI*R;
++  const fill = p == null ? '' :
++    `<circle cx="56" cy="56" r="${R}" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round"
++       stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 56 56)"/>`;
++  return `<svg width="112" height="112" viewBox="0 0 112 112">
++    <circle cx="56" cy="56" r="${R}" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="10"/>${fill}
++    <text x="56" y="64" text-anchor="middle" fill="${p==null?'rgba(255,255,255,.3)':'#fff'}" font-family="Rubik" font-size="26" font-weight="500">${p==null?'—':Math.round(p*100)+'%'}</text>
++  </svg>`;
++}
++function renderOkrResumo(s){
++  const objetivos = allSlides.filter(x => x.type==='okr');
++  const per = okrPeriodo();
++  const todosMedidos = objetivos.flatMap(o=>okrAtivos(o.krs).map(okrPct)).filter(p=>p!=null);
++  const totalKRs = objetivos.reduce((n,o)=>n+okrAtivos(o.krs).length,0);
++  const congelados = objetivos.reduce((n,o)=>n+o.krs.length-okrAtivos(o.krs).length,0);
++  const geral = okrMedia(objetivos.flatMap(o=>okrAtivos(o.krs).map(k=>okrPct(k)||0)));
++  return `<div class="okr-slide">
++    <div class="okr-eyebrow"><span>OKRs do ciclo · Resumo geral</span><span class="okr-q">${per.rotulo}</span></div>
++    ${s.northStar ? `<div class="okr-ns"><b>⭐ Para onde vamos</b>North Star: ${s.northStar}</div>` : ''}
++    <div class="okr-topo"><span class="okr-topo-n">${geral==null?'—':Math.round(geral*100)+'%'}</span>
++      <div class="okr-topo-meio"><div class="okr-topo-t">de avanço médio dos OKRs no ciclo<small>média dos ${totalKRs} KRs · ${todosMedidos.length} já com número${congelados ? ' · '+congelados+' fora da média' : ''}</small></div>
++        <div class="okr-track"><div class="okr-fill" style="width:${Math.min(geral||0,1)*100}%"></div></div></div>
++    </div>
++    <div class="okr-cards">${objetivos.map(o=>{
++      const at = okrAtivos(o.krs), ps = at.map(okrPct).filter(p=>p!=null), cg = o.krs.length-at.length;
++      return `<div class="okr-card">
++        <div class="okr-c-tag">${o.n} · ${o.tag}</div>
++        <div class="okr-c-t">${o.titulo}</div>
++        <div class="okr-c-meio">${okrAnel(ps.length ? okrMedia(at.map(k=>okrPct(k)||0)) : null)}<div class="okr-c-sub">${o.sub || ''}</div></div>
++        <div class="okr-c-pe"><span class="okr-pts">${o.krs.map(k=>`<i class="${okrStatusResumo(k, per.decorrido)}"></i>`).join('')}</span>
++          <span>${(ps.length===at.length ? at.length+' KRs' : ps.length+' de '+at.length+' KRs medidos') + (cg ? ' · '+cg+' fora da média' : '')}</span></div>
++      </div>`;}).join('')}</div>
++  </div>`;
++}
++function renderOkr(s){
++  return `<div class="okr-slide">
++    <div class="okr-eyebrow"><span>KRs do ciclo · ${s.n} · ${s.tag}</span><span class="okr-q">${okrPeriodo().rotulo}</span></div>
++    <div class="okr-h1">${s.titulo}</div>
++    <div class="okr-krs">${s.krs.map(okrLinha).join('')}</div>
++    <div class="okr-legenda"><span><i class="okr-ok"></i>no ritmo</span><span><i class="okr-atencao"></i>atenção</span><span><i class="okr-atras"></i>abaixo do ritmo</span></div>
++  </div>`;
++}
++// Encolhe o valor do KR (ex.: "R$ 2,5M / R$ 15M") até caber na coluna.
++function okrAjustaValores(root){
++  root.querySelectorAll('.okr-val').forEach(v=>{
++    const m = v.querySelector('.okr-meta');
++    v.style.fontSize=''; if(m) m.style.fontSize='';
++    const max = v.parentElement.clientWidth; let f = 40;
++    while(v.scrollWidth > max && f > 20){ f -= 2; v.style.fontSize = f+'px'; if(m) m.style.fontSize = Math.round(f*0.55)+'px'; }
++  });
++}
++
+ function renderSlide(s){
++  if(s.type==='okrResumo') return renderOkrResumo(s);
++  if(s.type==='okr') return renderOkr(s);
+   if(s.type==='goal'){
+     // Meta do mes ainda nao definida: mostrar o que ja foi ativado sem
+     // inventar um percentual (0/0 virava "NaN%" na tela).
+@@ -1744,6 +1942,10 @@ function paintDots(){
+ 
+ function renderCurrent(){
+   stage.innerHTML = `<div class="slide active">${renderSlide(slides[current])}</div>`;
++  if(slides[current].type==='okr'){
++    okrAjustaValores(stage);
++    if(document.fonts) document.fonts.ready.then(()=>okrAjustaValores(stage));
++  }
+   paintDots();
+   buildTicker();
+   restartProgress(slides[current].duration);
+diff --git a/scripts/fetch-hubspot.js b/scripts/fetch-hubspot.js
+index 14e6775..3503e02 100644
+--- a/scripts/fetch-hubspot.js
++++ b/scripts/fetch-hubspot.js
+@@ -366,7 +366,8 @@ async function forecastingFarmer() {
+  * pontuação da Stella: negócio marcado como Small Lead vale 0,5 oportunidade;
+  * os demais valem 1.
+  */
+-const BDR_FARMING = ['2069515993', '83054562', '85322310', '1566756950', '98365645'];
++// 82184823 = Amanda Pczbiowski (onboarding, incluída pela Karen em 18/11).
++const BDR_FARMING = ['2069515993', '83054562', '85322310', '1566756950', '98365645', '82184823'];
+ 
+ async function parceriasFarming() {
+   const p = mesVigente();
+diff --git a/scripts/merge-and-save.js b/scripts/merge-and-save.js
+index 2912eb2..d7928ca 100644
+--- a/scripts/merge-and-save.js
++++ b/scripts/merge-and-save.js
+@@ -260,10 +260,11 @@ function main() {
+ 
+     // --- Desempenho: parcerias ---------------------------------------
+     // A mesma lista do HubSpot vira duas caixinhas, uma embaixo da outra:
+-    // quem é de onboarding (Karen, 17/11: a Julia Porto) e o resto, farming.
++    // quem é de onboarding (Karen, 17/11: a Julia Porto; 18/11: também a
++    // Amanda Pczbiowski) e o resto, farming.
+     // Até quatro pessoas no farming e três no onboarding.
+     if (hubspot.parcerias && hubspot.parcerias.farming) {
+-      const ONBOARDING = ['Julia Porto'];
++      const ONBOARDING = ['Julia Porto', 'Amanda Pczbiowski'];
+       const ehOnb = (p) => ONBOARDING.includes(p.name);
+       const lista = hubspot.parcerias.farming;
+       const grupos = [

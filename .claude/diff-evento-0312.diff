@@ -1,0 +1,13 @@
+--- data.json	2026-11-23 14:56:07
++++ /private/tmp/claude-501/-Users-karenbuccini-Documents-painel/71fa1fc9-dfdd-4851-9be1-a159fea2f62e/scratchpad/tv/data.json	2026-11-23 17:33:18
+@@ -1328,8 +1328,8 @@
+         "title": "Próximos eventos",
+         "linhas": [
+           {
+-            "quando": "18/11",
+-            "oque": "Jantar co branded - Comexland em Curitiba"
++            "quando": "03/12",
++            "oque": "Jantar Cobranded - Cordier em Curitiba"
+           }
+         ]
+       }

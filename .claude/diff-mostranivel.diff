@@ -1,0 +1,30 @@
+--- /Users/karenbuccini/Documents/painel/index.html	2026-11-19 20:25:13
++++ index.html	2026-11-19 20:32:31
+@@ -1204,7 +1204,7 @@
+ //
+ // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
+ // avisa às telas abertas que existe coisa nova.
+-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-19-01';
++const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-19-02';
+ 
+ async function conferirVersaoDoPainel(){
+   try{
+@@ -1381,6 +1381,9 @@
+ }
+ function okrLinha(k){
+   const fmt = v => (k.pre||'') + v.toLocaleString('pt-BR') + (k.un||'');
++  // "mostraNivel" (inadimplência, 19/11): a caixa mostra o nível de hoje
++  // (ex.: 2,5% / até 2%); o % e o "faltam" continuam vindo de atual ÷ meta.
++  const valor = () => k.mostraNivel && k.nivel != null ? k.nivel.toLocaleString('pt-BR') + '%' : fmt(k.atual);
+   const nota = k.nota ? `<div class="okr-nota">${k.nota}</div>` : '';
+   if(k.atual == null){
+     return `<div class="okr-kr">${okrSelo(k)}
+@@ -1409,7 +1412,7 @@
+     st = p>=1 ? 'batido' : OKR_ROTULO_FAIXA[cls];
+   }
+   return `<div class="okr-kr ${cls}">${okrSelo(k)}
+-    <div><div class="okr-val">${fmt(k.atual)}<span class="okr-meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
++    <div><div class="okr-val">${valor()}<span class="okr-meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
+     <div><div class="okr-txt"><span><b>${k.b}</b> ${k.t}</span></div>
+       <div class="okr-track"><div class="okr-fill" style="width:${larg}%"></div></div></div>
+     <div class="okr-status"><span class="okr-pct">${Math.round(p*100)}%</span>${st}</div>

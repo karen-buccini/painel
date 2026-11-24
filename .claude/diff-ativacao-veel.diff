@@ -1,0 +1,57 @@
+--- data.json	2026-11-24 10:37:20
++++ /private/tmp/claude-501/-Users-karenbuccini-Documents-painel/71fa1fc9-dfdd-4851-9be1-a159fea2f62e/scratchpad/tv/data.json	2026-11-24 10:39:41
+@@ -1,13 +1,34 @@
+ [
+   {
++    "type": "celebration",
++    "duration": 16000,
++    "eyebrow": "Novo cliente ativado",
++    "client": "Veel Trade (Grupo Cecil)",
++    "pessoas": [
++      {
++        "name": "Fernando Velloso",
++        "photo": "https://avatars.slack-edge.com/2026-08-28/11929341580899_ad448f83f67214a68488_512.jpg"
++      },
++      {
++        "name": "Caio Gelfi",
++        "photo": "https://avatars.slack-edge.com/2024-03-15/6807855125090_ada0fc6e0c989953f4a2_512.jpg"
++      }
++    ],
++    "valorAtivado": 3273273,
++    "limiteAprovado": 5000000,
++    "visivelAte": "2026-12-01"
++  },
++  {
+     "type": "goal",
+     "duration": 20000,
+     "eyebrow": "Progresso da meta",
+     "showMonth": true,
+     "metaValor": 16000000,
+-    "atual": 0,
+-    "clientesAtivados": 0,
+-    "clientesLista": [],
++    "atual": 3273273,
++    "clientesAtivados": 1,
++    "clientesLista": [
++      "Veel Trade (grupo Cecil) - Sociedade Catarinense de Comércio, Imp. e Exp."
++    ],
+     "periodo": "2026-11"
+   },
+   {
+@@ -184,7 +205,15 @@
+     "divisions": [
+       {
+         "name": "Closing",
+-        "sellers": []
++        "sellers": [
++          {
++            "name": "Fernando Velloso",
++            "value": 3273273,
++            "deals": 1,
++            "color": "#9B8CFF",
++            "photo": "https://avatars.slack-edge.com/2026-08-28/11929341580899_ad448f83f67214a68488_512.jpg"
++          }
++        ]
+       }
+     ]
+   },

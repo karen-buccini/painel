@@ -1,0 +1,22 @@
+{
+  "ultima_atualizacao": {
+    "3.1": "17/11",
+    "3.2": "17/11",
+    "3.3": "17/11",
+    "2.5": "23/11"
+  },
+  "pedido": {
+    "data": "2026-11-23",
+    "prazo": "quarta, 17h (25/11)",
+    "mayara": {
+      "user_id": "U07UGN0T1T4",
+      "channel_id": "D0CH13U0H6C",
+      "ts": "1795438448.077269"
+    },
+    "filipe": {
+      "user_id": "U06PQ97B2AD",
+      "channel_id": "D0BMLQ8SU69",
+      "ts": "1795438452.949049"
+    }
+  }
+}

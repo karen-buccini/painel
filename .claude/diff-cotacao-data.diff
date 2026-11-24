@@ -1,0 +1,31 @@
+--- data.json	2026-11-24 10:07:07
++++ /private/tmp/claude-501/-Users-karenbuccini-Documents-painel/71fa1fc9-dfdd-4851-9be1-a159fea2f62e/scratchpad/tv/data.json	2026-11-24 10:36:39
+@@ -1344,22 +1344,22 @@
+         "code": "USD",
+         "name": "Dólar americano",
+         "flag": "🇺🇸",
+-        "value": 5.18,
+-        "pct": -0.01
++        "value": 5.87,
++        "pct": -1.75
+       },
+       {
+         "code": "EUR",
+         "name": "Euro",
+         "flag": "🇪🇺",
+-        "value": 5.91,
+-        "pct": 0.09
++        "value": 6.43,
++        "pct": -1.18
+       },
+       {
+         "code": "USDT",
+         "name": "Tether",
+         "flag": "₮",
+-        "value": 5.21,
+-        "pct": 0.27
++        "value": 5.83,
++        "pct": -3.07
+       }
+     ],
+     "selic": {

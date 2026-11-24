@@ -1,0 +1,49 @@
+--- data.json	2026-11-21 12:03:57
++++ /private/tmp/claude-501/-Users-karenbuccini-Documents-painel/71fa1fc9-dfdd-4851-9be1-a159fea2f62e/scratchpad/tv/data.json	2026-11-21 12:04:49
+@@ -14,22 +14,10 @@
+     "type": "wallet",
+     "duration": 20000,
+     "eyebrow": "Evolução da carteira · Últimos 30 dias",
+-    "source": "Fonte: CR2 · série diária de 19/10 a 18/11",
+-    "current": 252360000,
+-    "pctChange": -0.84,
++    "source": "Fonte: CR2 · série diária de 22/10 a 21/11",
++    "current": 248640000,
++    "pctChange": -2.03,
+     "series": [
+-      {
+-        "t": "19/10",
+-        "v": 254500000
+-      },
+-      {
+-        "t": "20/10",
+-        "v": 254750000
+-      },
+-      {
+-        "t": "21/10",
+-        "v": 253780000
+-      },
+       {
+         "t": "22/10",
+         "v": 253780000
+@@ -140,7 +128,19 @@
+       },
+       {
+         "t": "18/11",
+-        "v": 252360000
++        "v": 251730000
++      },
++      {
++        "t": "19/11",
++        "v": 248640000
++      },
++      {
++        "t": "20/11",
++        "v": 248640000
++      },
++      {
++        "t": "21/11",
++        "v": 248640000
+       }
+     ],
+     "metaCarteira": 324000000,

@@ -1,0 +1,402 @@
+<title>OKRs Q4 - detalhado</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+:root{
+  color-scheme:dark;
+  --ink:#090F20; --ink-2:#0E162E; --panel:#121D3D; --panel-line:rgba(255,255,255,0.12);
+  --gold:#5FC0E9; --sky:#27AAE1; --mint:#28B665; --coral:#F0616D; --amber:#F5B544; --orange:#F28A3C; --yellow:#F2D04B;
+  --overline:#8FDCFA; --paper:#FFFFFF; --muted:#929AB1;
+  --font:'Rubik',Verdana,system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:#05080F;color:var(--paper);font-family:var(--font);overflow:hidden;}
+.tv{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;display:flex;flex-direction:column;
+  background:linear-gradient(140deg,#16244C 0%,var(--ink) 62%);}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 38px;border-bottom:1px solid var(--panel-line);}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;}
+.brand b{color:var(--paper);font-weight:500;letter-spacing:.06em;text-transform:none;font-size:22px}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);}
+.clock{font-size:30px;font-weight:500;font-variant-numeric:tabular-nums;text-align:right}
+.clock small{display:block;font-size:17px;color:var(--muted);font-weight:400}
+.stage{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;padding:26px 64px 18px;display:flex;flex-direction:column;opacity:0;transform:translateY(18px);
+  transition:opacity .55s ease,transform .55s ease;}
+.slide.active{opacity:1;transform:none;}
+.eyebrow{font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--overline);display:flex;justify-content:space-between;align-items:baseline;}
+.eyebrow .q{letter-spacing:.08em;color:var(--muted);font-size:16px;text-transform:none}
+h1{font-weight:500;font-size:38px;letter-spacing:-.01em;margin:6px 0 18px;line-height:1.1}
+.krs{display:flex;flex-direction:column;gap:10px;flex:1;}
+.kr{display:grid;grid-template-columns:220px 1fr 120px;align-items:center;gap:24px;background:rgba(18,29,61,.75);
+  border:1px solid var(--panel-line);border-radius:14px;padding:10px 22px;}
+.kr .val{font-size:40px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
+.kr .val .meta{font-size:22px;color:var(--muted);font-weight:300}
+.kr > div{min-width:0}
+.kr .val.vazio{color:rgba(255,255,255,.28)}
+/* Selo mínimo de atualização: data do último número no canto da caixa.
+   Ponto verde = atualizado há menos de 7 dias; amarelo = 7 dias ou mais sem atualizar (Karen, 21/11). */
+.kr{position:relative}
+.kr .atz{position:absolute;top:9px;right:166px;font-size:11px;line-height:1;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
+.kr .atz i{width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.kr .atz.velho{color:var(--yellow)} .kr .atz.velho i{background:var(--yellow)}
+.kr .txt{font-size:20px;line-height:1.25;margin-bottom:9px;display:flex;align-items:center;gap:10px}
+.kr .txt b{font-weight:500}
+.fonte{font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.fonte.auto{color:var(--mint)} .fonte.regra{color:var(--amber)} .fonte.cr2{color:var(--sky)} .fonte.manual{color:var(--muted)}
+.track{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.08);}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;}
+.hoje{position:absolute;top:-5px;bottom:-5px;width:2px;background:rgba(255,255,255,.65);}
+.status{justify-self:end;text-align:right;font-size:15px;color:var(--muted)}
+.status .pct{display:block;font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+/* Faixas dos KRs pelo % da meta (Karen, 18/11): vermelho <30, laranja 30–49, amarelo 50–69, verde 70–99, azul 100+. */
+.f-verm .fill{background:var(--coral)} .f-verm .pct{color:var(--coral)}
+.f-lar .fill{background:var(--orange)} .f-lar .pct{color:var(--orange)}
+.f-ama .fill{background:var(--yellow)} .f-ama .pct{color:var(--yellow)}
+.f-ver .fill{background:var(--mint)} .f-ver .pct{color:var(--mint)}
+.f-azul .fill{background:var(--sky)} .f-azul .pct{color:var(--sky)}
+.legenda{margin-top:12px;font-size:14px;color:var(--muted);display:flex;gap:22px;align-items:center}
+.legenda i{display:inline-block;width:2px;height:14px;background:rgba(255,255,255,.65);vertical-align:-2px;margin-right:6px}
+.bottom{height:44px;border-top:1px solid var(--panel-line);display:flex;align-items:center;justify-content:center;gap:8px}
+.bottom span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer}
+.bottom span.on{background:var(--gold);width:22px;border-radius:4px}
+/* ===== Resumo geral ===== */
+/* North Star como contexto (linha) e o % dos OKRs do Q4 numa barra própria — Karen, 17/11 */
+.ns-linha{font-size:19px;color:var(--paper);margin:8px 2px 10px;letter-spacing:.01em}
+.ns-linha b{color:var(--overline);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:14px;margin-right:10px}
+.okr-topo{display:flex;align-items:center;gap:18px;background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:12px;padding:8px 20px;margin-bottom:12px}
+.okr-topo .n{font-size:38px;font-weight:300;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.okr-topo .meio{flex:1;min-width:0}
+.okr-topo .t{font-size:17px;font-weight:500}.okr-topo .t small{font-size:12px;color:var(--muted);font-weight:400;margin-left:8px}
+.okr-topo .track{margin-top:7px;height:8px}
+.okr-topo .fill{background:var(--gold)}
+.resumo .north{margin-top:10px}
+.north{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#1B2B5C,#14214A);
+  border:1px solid rgba(95,192,233,.35);border-radius:14px;padding:14px 26px;}
+.ns-tag{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky);font-weight:500}
+.ns-t{font-size:26px;font-weight:500;margin-top:4px}
+.ns-emoji{display:inline-block;font-size:18px;margin-right:10px;vertical-align:-2px;letter-spacing:0}
+.ns-geral{display:flex;align-items:center;gap:14px}
+.ns-geral .n{font-size:50px;font-weight:300;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
+.ns-geral .l{font-size:17px;line-height:1.2}
+.ns-geral small{font-size:13px;color:var(--muted)}
+.ligacao{position:relative;height:22px;margin:0 calc(12.5% - 12px);border:1.5px solid rgba(143,220,250,.35);border-bottom:none;border-top:none}
+.ligacao::before{content:'';position:absolute;left:0;right:0;bottom:0;border-top:1.5px solid rgba(143,220,250,.35)}
+.ligacao::after{content:'';position:absolute;left:50%;top:0;height:100%;border-left:1.5px solid rgba(143,220,250,.35)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1;min-height:0}
+.card{background:rgba(18,29,61,.75);border:1px solid var(--panel-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
+.c-tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--overline);font-weight:500}
+.c-t{font-size:20px;font-weight:500;line-height:1.2;margin-top:6px;min-height:48px}
+.c-meio{display:flex;align-items:center;gap:12px;margin:auto 0}
+.c-meio svg{flex-shrink:0}
+.c-sub{font-size:14px;color:var(--muted);line-height:1.35}
+.c-pe{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--overline);font-weight:500;margin-top:10px}
+.pts{display:flex;gap:5px}
+.pts i,.pontos i{display:inline-block;width:11px;height:11px;border-radius:50%;}
+.pontos i{vertical-align:-1px;margin-right:6px}
+i.ok{background:var(--mint)} i.atencao{background:var(--amber)} i.atras{background:var(--coral)}
+i.f-verm{background:var(--coral)} i.f-lar{background:var(--orange)} i.f-ama{background:var(--yellow)} i.f-ver{background:var(--mint)} i.f-azul{background:var(--sky)}
+i.acum{background:var(--sky)} i.vazio{background:transparent;border:1.5px solid rgba(255,255,255,.3)} i.cong{background:transparent;border:1.5px dashed rgba(255,255,255,.22)}
+.nota-kr{font-size:13px;color:var(--muted);line-height:1.25;margin-top:3px}
+/* ===== Drill-down (só no artefato) ===== */
+/* Slides ficam empilhados: só o visível recebe clique (senão o clique cai no último slide). */
+.slide{pointer-events:none}.slide.active{pointer-events:auto}
+.kr.clic{cursor:pointer;transition:border-color .15s,background .15s}
+.kr.clic:hover{border-color:rgba(143,220,250,.55);background:rgba(27,43,92,.85)}
+/* "detalhe" fica na linha de cima, à esquerda da data, longe da barra e do % */
+.kr.clic::after{content:'detalhe ›';position:absolute;top:9px;right:222px;line-height:1;font-size:11px;color:rgba(143,220,250,.55);letter-spacing:.04em}
+.det-fundo{position:absolute;inset:0;background:rgba(5,8,15,.72);display:flex;align-items:center;justify-content:center;z-index:20}
+.det{width:1080px;max-height:640px;display:flex;flex-direction:column;background:#0F1A38;border:1px solid rgba(143,220,250,.35);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.det-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding:20px 26px 14px;border-bottom:1px solid var(--panel-line)}
+.det-id{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--overline);font-weight:500}
+.det-t{font-size:24px;font-weight:500;margin-top:4px;line-height:1.2}
+.det-num{text-align:right;white-space:nowrap}
+.det-num .v{font-size:30px;font-weight:300;font-variant-numeric:tabular-nums}
+.det-num .v small{font-size:17px;color:var(--muted)}
+.det-num .p{font-size:14px;color:var(--muted);margin-top:2px}
+.det-x{background:none;border:1px solid var(--panel-line);color:var(--paper);border-radius:8px;width:34px;height:34px;font-size:20px;line-height:1;cursor:pointer;flex-shrink:0}
+.det-x:hover{border-color:var(--overline)}
+.det-corpo{padding:16px 26px 22px;overflow:auto;min-height:0}
+.det-sec{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--overline);font-weight:500;margin:14px 0 6px}
+.det-sec:first-child{margin-top:0}
+.det-txt{font-size:16px;line-height:1.45;color:#D6DBE8;max-width:980px}
+.det-fonte{display:inline-block;font-size:13px;color:var(--muted);border:1px solid var(--panel-line);border-radius:999px;padding:3px 10px;margin-top:8px}
+.det table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.det th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-bottom:1px solid var(--panel-line);position:sticky;top:-16px;background:#0F1A38}
+.det td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;color:#E8EBF3}
+.det tr:last-child td{border-bottom:none}
+.det tr.tot td{font-weight:500;color:var(--paper);border-top:1px solid var(--panel-line)}
+.det ul{margin:0;padding-left:20px;font-size:15px;line-height:1.5;color:#C9CFDF}
+.aviso{position:fixed;right:12px;bottom:10px;font:13px var(--font);color:#5d6680}
+</style>
+<div class="tv" id="tv">
+  <div class="topbar">
+    <div class="brand"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVUAAAA+CAYAAACbSIgDAAAMRUlEQVR4nO2dv4scyRXHPyucrhNj8Bl2HTgyx63wIZCCS0aBwTjQOlmB4SzEJfIKbDAX6BLvyInAGIMD/cBgjgul5Fr/gBaEAwkOjGQudKDd4JQ40h/QDmpK21vTr/pHverp6XkfaKTt7nld3V397devql5tlWW5C3yBDr9TsmOc8VDJzj3gRMmWYRgCW2VZlor2ToFdRXubzgmwo2jv+8A7RXuGYQRcULa3g3lDWmgLKsAlZXuGYQRcwHmXmpiwppNDUAG+yWDTMIwKF3Cf6yas4yGXoP4E+/Q3jOz4z38T1nGQU1DtXhjGAFRjqiasq8UE1TAmQNhQZcK6GkxQDWMi1LX+m7AOiwmqYUwIqUuVCeswjFFQC6CsWQ5UStbMkXD8w2C/pjJuC/sUA5e7SiHss8olrCe5yljgBrL45QDYa7qomTkhQx3fauj7n+OhtwECjjEKKrgKf0vYtpVgty1ShbwNPGjY7xFno/pmwDPB1lNgv0/hBA6B+8K26jXTHGijyRjKOAe+ZDjHS7pnyXW8qfO/eax5GKugQnyocegtahMbkvsgsq2OY+ClsO1aw7G6sIssqE+VjrEJzIE3wAuGcbqke5Zcx9uMqPow9SA1bLKwjllQPY+E9VJF1ELykG/3tHcF2Sm4hc5L4o2w/hRdb3hTuIy7pjlf4DHbyXW8jai+wz2w2uzg3kqbRMH4BRVW461qeqlVYl7PfdLiaLFrbiGuNO6Tr641CWfScZtiqlV2kd/KKWjHt8ZKgfvs1CZXK//QsdW2sdTY/tWYapWmutvnGhbI91Oytwf8oONxPH+IHG8OPO9pF1yoxCPdh6fA3xOOAWcvsA9o/yxo1+9Y/LtK7zreRVTBhLUvBeslqJ6uQteXPgLeRVRBV1hj5b0OPGlppyvS/dB8yQ1xjCoz4CvkL7iXuDCOFm0Fr3cd75ql6oQ8oYBr5OvqsmoK1lNQYbjYqnYstY6TBnv/amnnELm8c/IJ6lQ5xr3wpHtzGdc9ToMun/W963if1H8mrO0pWF9BhWFiq7liqZI96eFt03ja1NJ/t2e5DHdvpN4SWikruwplrzreN5+qCWszBestqJ7c3uoQXmqV2MPb1HhqLf15+b2w/mcKtmMCKXW961XHU5JUm7DKFExDUCGvtzqkl1plH1lYL1Nf/6ylPz/SNf5IwbYkkI+Ix2w71/HUzP8mrMsUTEdQPbm81aG91Cr7yH1Yr3H+YSqQG1Jy1H9Dl5gweqdBrY5rTKdiwnpGwfQEFfJ4q6vyUqvERgz6PqyHyPf0Ops7iCUHM2F9auNfzEv1qNVxrTmqTFinK6gebW91lV5qldin+2Pk85tjLf3a3BPW/y/BZhsv1aNSxzUn/ttkYS2YtqCCrrc6Bi+1Std6ay39uuzh6vnlmm2nwOsE2228VI9KHdeeTTWnsOZO5tGXgukLqkfLWx2Ll+rpUm+tpV+PGe75eYUcs76RYL+Ll+pJruNdR1S1JdfIK+2RPKkUbI6gelJHWWkNf+06oqoNbYYwDpH+UGJMI6q6Drmt5liQ7n9I6vMunUtTPUmq47lEFaYvrAWbJ6iQLopaQ19ziCq4ZNNzYdtF0j5FUxmTqObOu5r6HLTNcVtHUh3X/vyvkisUkDN7TVtiLcIpjF1QIS3uNLZYah2fRbZ9MlgpNpdTnHClPgddYqkhSbHVnKIK0xTWtlluunKV8QuqR6qYdxp+N7ZYakhBPDVjaqpAo56XuO5pW+gMpOgTSw3pHVvNLaowLWHNJai3OZ9+bexIFXMHua/hUcTeGLzUgnZfH4+xEVSpPMJpwtZiuYJu97QUL9XT21vNGVMNWfcYa05BHYOodEWKO0lzkGmnEdSMqfa5t6tosBpTTPUI+FHNfm1zpeYKdaXEUkP6xVbLshxy2S3zcJi53IdrWu7ci8Qs2C92/TSP/bCHnVjZThq2jeV6j/EY22VZFhF7ZZmn/kv0qRsxe2LZh/j8r3KCi51okzMUYB6qjJSU5Kvgb+n6rTqWekD83u4ih652GP+glFXyDtef92pkH+3nViOWGtI5tjq0qIKLneR4mHIIqwlqHClVWzW2Grsnq7wGu7j4qIQX01hya81ZWafKMfE2lfvE4+1d0IilhnSPrWZwv9suuT6pd0devnX/5A+XF8J5+s9jiaPE49bR9hOvKQwVhi9Y2JYY6p5KrMsxYuGUItF2jhBTm3u/tP+QDVV15PIEU4Pg696oNiSxa3WK3EUptXElpaEqVulj9+gF9ePTYZiBAWNqqOpLbIr2lLnq+o6eSrW/VF9W8flfJTa9RQpt5xuSMEFtzwly5nTp4Un5HEsl9rJ9SvweXUFOFfgK62rVhli6xb7Jk6RufKAjqNAhtrpqUYU8wprSiJCjm8dUBdXTtUO8VkXvioaX9GFkW+rLfFPQFtawYdSj+fKO1dlzoj4GUYU8wnqN7g/7EfERNX2YuqBC3FsNWZWXWiDf2y6Zp94ht2i3mTzQcGgJ6wz5vkr5Wfsi1d1zor7qmGpIjhhrauajFDZBUD1t49BasbkuMdUCuUO6NFihiVhdTYkNxphCTDUk9etB+v1L4nNP9SFWx6+yGBU5Fk/Vk8NjbdvNSrtrzCYJKrTzVlfhpT4kPsIn9jkfIzYr6zX0uglNnRSPNeal5sjREKvj773VsXmqHm2PNSUlXR82TVA9Td5qbo8q9FSb6pHGUMmYp3Ud3THtU/RUPX081iG9VE+jtzo2T9Wj7bGmpKTryqYKKsTf5EN7qXvEBVVr0r6mOa6MdnT1WIf2Uj2N3upYPVWPpscae9NqXYRNFlSP9CbX9nSaPNUZ8Ez4rfZ9inkv6+ZFrspT9cQ81q0W++X0Uj1Rb/V7mQ+eiq/4GsK6R33nbK2hrSaoDj+s86PKuhxpDes832pr7zFyK712eXx6y58q2w2Zs5wZSvtcrrPc7/Ot8jFi7FKfASs8z3/W7APDdNerq+Oeb8buqXo0PNaucZkumKAahgGM//O/ioaw1n3CpF4AE1TDMN4z1oaqOjQar7aDv/cS7ZmgGoZxjnUSVUgX1kvB379OsGWCahjGEusmqpAmrGFXi1/2tGOCahhGLesoqtBfWD8I/pbSuMUwQTUMQ2SdGqrqSJ2wrevJm6AahhFl3UUV2k8t7OkrqiaohmE0MgVRhW7C2kdUTVCNMXBAfULmaof3asf5Y+K5B46A59QPIKge6xg360E4rHcb+EuwrumYM863bTwRjg9uIMBN4G7Ntm3gj8G2GfDfoJxHwT5HwJeVfarnWN3nb7g0j56H1A8s8NfpPyw0Yl1jqiH7yBmDUjFBNcbGz5Hno59z1nbwG5zjUJefYHuxrzSUd7Y4DjjxesNy5q1LwK/aFLjCwcLuE5wQ3UPOwfBkUca6ro+XarYdsDyqbV75fwF8FhzvgOUG7DnwbbCu7nqfAH/Fncdv8U6awqRYY1qKyARd4URd2y32ndokfbZMY5mVjrpt4frDsn5SPb++LOsny3xYnp8Aca/G9qxsP9li1W74m9i5FEL5/TU4KeUyexvbCxsnNXak8pSBrbCMBzXrXpRleTgVT9WzT3uP9V3DdvNQjalQN0b+DvAnnFd2s4UNnzdDex4uaX6pQ9yz/ClyaO9pZd8Y3wIf063sp8hePLhyz4N1V4AHUxNV0AkFmKAa68wh7qE/wvWO+SLYvovLd/EaFzucd7Adfl7fwn32+iU2CV/db55RnxzHi/47nMDVhQC+Az6huQfQzmK/LtzAZbyKpQV9vvh3d7HfQ+BgiqIKacJqgmqsO7/AxQnniyVsCLrJmZDGRKsNT3GNv35pkzWr+pvbLMcrtzkTfYDPgX8Itk4W9ppyIvdJFn5lUTYpP+sPK2Xw9mdTFVWoF9am6T5MUI0psI9rqb6Oa5gJmS8W7y3uAH9uaTsUze96lK/6G/+8VUX908W/vnyPiQ/U2ceJn9R4dxH4Mf1mWJ5Tn2z8La4Bz+Ovy9spiyosC+u/I/uaoBpT4733VFnn44pV7/IqzV0StfIOh/iyVXMd38G9EKplPCWe0T82wvI17rw/pruw3qV+RoKvcULvXwZ7OFH/euqiCmfCOmd5ytqLi20mqMZUucH5KZSrn/6eY+pDAM848xbv4BJxh4Qx1TZ9v8OYaiiIOyx/rn/Oec8w5AHydCweL6xdp1u5UbPuNa7cr3Dn8Wrx9+v/AytsPW3MLQP8AAAAAElFTkSuQmCC" alt="Vixtra" style="height:18px"><span class="dot"></span> TV Comercial · Ao vivo</div>
+    <div class="clock">14:05<small>quarta-feira, 18 de novembro</small></div>
+  </div>
+  <div class="stage" id="stage"></div>
+  <div class="bottom" id="dots"></div>
+</div>
+<div class="aviso">Clique num KR para ver o que compõe o número · pontos ou ← → trocam de slide</div>
+
+<script>
+// Trimestre vigente: 01/10 a 31/12. Em 05/11 passaram 36 de 92 dias.
+const INICIO = new Date(2026,9,1), FIM = new Date(2026,11,31), HOJE = new Date(2026,10,18);
+const decorrido = (HOJE-INICIO)/(FIM-INICIO+864e5);
+
+// fonte: auto (HubSpot, já dá), regra (HubSpot, falta definir a regra), cr2, manual
+const OBJETIVOS = [
+  {n:'01', tag:'Acquisition', titulo:'Acelerar a aquisição de novos clientes', krs:[
+    {atual:27, meta:22, em:'24/11', b:'Parceiros', t:'gerando oportunidades', fonte:'auto'},
+    // Tradings: First, Level Trade e Macroex. Em 21/11 o Nando corrigiu o HubSpot: a Silcor ficou sem parceiro (sai a Degoeye) e os negócios
+    // da Vequis (ex-funcionária da Vex) foram para Parcerias, onde passam a contar no 1.1. Vox fora (sem finder, Karen 17/11).
+    {atual:3,  meta:5,  em:'24/11', b:'Tradings', t:'gerando oportunidades', fonte:'auto'},
+    // Pipeline Retargeting, qualificadas desde 01/10, Canal (Novo) = Retarget (Karen, 18/11). Japi, Biosul, TDZ, Nexofour e Imprav
+    // tiveram o canal corrigido para Retarget no HubSpot em 18/11; VerticalParts e Sunny (Inbound) ficam fora.
+    // + Projeto XP – Modular DTC: criado direto no Closing com canal Retarget, conta (Karen, 18/11).
+    {atual:11, meta:20, em:'24/11', b:'Oportunidades', t:'via retargeting', fonte:'auto'},
+    {atual:8,  meta:30, em:'24/11', b:'Clientes', t:'ativados no trimestre', fonte:'auto'},
+    {atual:2,  meta:6,  em:'24/11', b:'Ativações', t:'acima de R$ 2,5M', fonte:'auto'},
+  ]},
+  {n:'02', tag:'Profitability', titulo:'Garantir uma carteira rentável', krs:[
+    // Planilha "controle de visitas_OKR", aba Empresas por Farmer (Karen, 18/11): elegível Sim/Talvez e Visita = SIM → 64 de 100.
+    {atual:64, meta:80, un:'%', em:'18/11', b:'da carteira', t:'com agendas proativas', fonte:'manual'},
+    // Limite de R$ 0,01 é preenchimento, não limite: DRC Solar e Intersteel ficam fora (Karen, 18/11).
+    // Desde 19/11 (reunião Karen/Alisson): mede o CRESCIMENTO do uso desde o fim do Q3 (base 68%), meta +7 p.p. (68% → 75%).
+    // atual = uso de hoje − 68 (21/11, data-7: 73,7% → 5.7). O uso de hoje sai do CR2 como antes (só FIDC VIXTRA, só quem tem limite de verdade).
+    {atual:4.8, meta:7, pre:'+', un:' p.p.', acumulado:true, taxa:true, faltaUn:' p.p.', base:68, nivel:72.8, nota:'68% → 72,8%', em:'24/11', b:'de crescimento', t:'no limite de crédito em uso', fonte:'cr2'},
+    // Volta à média em 16/11 (Karen). Regra: carteira acima do limite antigo, aumentos desde o Q3, uso só a partir de out. Só carteira do FIDC VIXTRA (Karen, 17/11; as 7 empresas são 100% FIDC).
+    {atual:2.5, meta:15, un:'M', pre:'R$ ', nota:'7 empresas', em:'17/11', b:'em crédito', t:'por aumento de limite', fonte:'hubspot'},
+    // 10 empresas com recíproca de câmbio = Sim. Conta quem fez pelo menos 80% do câmbio acordado em algum mês do tri (regra da Karen em 10/11) ou passou para a taxa 'sem câmbio' — medida no campo Taxa (CDI+Spread%) - Flex (taxa__cdi_spread__), não no Spread% (Crédito) - Flex (Karen, 17/11). Out (histórico do HubSpot): Brasilquímica R$ 2,04M ≈ USD 397k de USD 300k (132%, PTAX média 5,13); MIMO R$ 2,35M de R$ 2,5M (94%); Tuicial R$ 200k de R$ 5M (4%). Caracol subiu a taxa Flex de 1,86% para 1,89% (spread 0,70→0,73%) em 23/10, mas não conta (decisão da Karen em 10/11)
+    {atual:20, meta:50, un:'%', nota:'2 de 10 empresas', em:'24/11', b:'das renegociações', t:'com cross-sell ou nova taxa', fonte:'hubspot'},
+    // Teto: na média conta meta ÷ atual (2% = 100%, 1% = 200%, 2,7% = 74%). Cor: até 2% verde, acima de 2% vermelho (Karen, 18/11; é o contrário dos outros KRs).
+    // Desde 19/11 (reunião Karen/Alisson): mede a REDUÇÃO desde o Q3 (base 2,67%), meta −0,67 p.p. (chegar a 2%).
+    // atual = 2.67 − nível de hoje (2,5% → 0.17); nivel guarda o % informado. Cor (Karen, 18/11): nível até 2% verde, acima vermelho (corTeto).
+    // Na caixa aparece o nível e a meta de 2% (mostraNivel + metaTxt); a redução vai na nota embaixo (Karen, 19/11). O % continua sendo a redução ÷ 0,67.
+    {atual:0.17, meta:0.67, un:' p.p.', acumulado:true, taxa:true, faltaUn:' p.p.', base:2.67, nivel:2.5, corTeto:2, mostraNivel:true, metaTxt:'até 2%', nota:'reduziu 0,17 de 0,67 p.p.', em:'23/11', b:'de inadimplência', t:'acima de 90 dias', fonte:'cr2'},
+  ]},
+  {n:'03', tag:'Tech & Product', titulo:'Ter tecnologia como modelo de negócio', krs:[
+    // 3.1–3.3: Mayara, Slack 17/11.
+    {atual:17.5, meta:45, un:'%', em:'17/11', b:'dos clientes ativos', t:'usando o Agent', fonte:'manual'},
+    {atual:80.2, meta:100,un:'%', em:'17/11', b:'de acurácia', t:'na validação dos kits de garantia', fonte:'manual'},
+    {atual:20, meta:100,un:'%', em:'17/11', b:'do novo instrumento', t:'de garantia entregue', fonte:'manual'},
+    // KR 3.4 (pilotos com garantia estendida) saiu do OKR em 19/11: não será mais medido (Karen).
+  ]},
+  {n:'04', tag:'Awareness', titulo:'Ser referência no mercado', krs:[
+    // KR redefinido pela Karen em 18/11: +30% em buscas orgânicas no Google após o lançamento da campanha; 21% em 18/11.
+    {atual:21, meta:30, un:'%', pre:'+', acumulado:true, taxa:true, faltaUn:' p.p.', em:'18/11', b:'em buscas orgânicas', t:'no Google após o lançamento da campanha', fonte:'manual'},
+    {atual:4.8, meta:8, un:'%', acumulado:true, taxa:true, faltaUn:' p.p.', nota:'novembro · LinkedIn + Instagram', em:'24/11', b:'de engajamento', t:'nas redes sociais', fonte:'mkt'},
+    // Ganho sobre o ponto de partida de 8.228 seguidores (Karen, 12/11; corrigido de 8.244 em 23/11); meta = +1.700 no ciclo.
+    {atual:8557-8228, meta:1700, pre:'+', nota:'8.557 em 24/11 · partida 8.228', em:'24/11', b:'novos seguidores', t:'no Instagram + LinkedIn', fonte:'auto'},
+    // Meta 5 no ciclo; até 18/11 foram 4 eventos, todos com presença > 60% (Karen).
+    {atual:4, meta:5, nota:'4 de 4 eventos', em:'18/11', b:'eventos', t:'com presença acima de 60%', fonte:'manual'},
+    // Congelado: apurado só no fim do trimestre; fica fora das médias até lá.
+    {meta:75, un:'%', b:'de resposta', t:'na pesquisa de NPS', congelado:true, status:'congelado', nota:'apurado no fim do tri', fonte:'manual'},
+  ]},
+];
+
+const ROTULO = {auto:'HubSpot · automático', regra:'HubSpot · falta regra', cr2:'CR2 / financeiro', manual:'manual'};
+
+// Cor pelo percentual da meta (Karen, 18/11), sobre o % arredondado que aparece na tela:
+// abaixo de 30% vermelho, 30–49% laranja, 50–69% amarelo, 70–99% verde, 100% ou mais azul.
+// Vale para todos os KRs, menos o de teto (inadimplência), que é o contrário: quanto menor, melhor (regra própria em linha()).
+const faixa = p => { const v = Math.round(p*100); return v < 30 ? 'f-verm' : v < 50 ? 'f-lar' : v < 70 ? 'f-ama' : v < 100 ? 'f-ver' : 'f-azul'; };
+const ROTULO_FAIXA = {'f-verm':'crítico', 'f-lar':'em risco', 'f-ama':'atenção', 'f-ver':'perto da meta', 'f-azul':'batido'};
+
+// Pela data real de quem está vendo: número com 7 dias ou mais sem atualizar fica com o selo
+// amarelo (Karen, 21/11). Ex.: hoje 21/11 → 14/11 ou antes fica amarelo; 15/11 em diante, verde.
+const AGORA = new Date();
+const HOJE0 = new Date(AGORA.getFullYear(), AGORA.getMonth(), AGORA.getDate());
+function selo(k){
+  if(!k.em) return '';
+  const [d,m] = k.em.split('/').map(Number);
+  const velho = Math.round((HOJE0 - new Date(2026, m-1, d)) / 864e5) >= 7; // ciclo Q4 2026
+  return `<span class="atz${velho?' velho':''}" title="atualizado em ${k.em}"><i></i>${k.em}</span>`;
+}
+
+// Drill-down (só no artefato, não vai para a TV): o que compõe cada KR. Atualizar junto com os números.
+const DET = {"1.1": {"conta": "Parceiros diferentes (campo ID do parceiro) com pelo menos uma oportunidade criada no Q4 — pipeline Closing, data da oportunidade desde 01/10, macro canal = Parcerias.", "fonte": "HubSpot · automático", "cols": ["Parceiro", "Oportunidades no Q4"], "rows": [["Xp Investimentos", "UCB da Amazônia (01/10) · Bravir (18/11) · Celta Embalagens (19/11) · W2W E-Commerce de Vinhos (23/11)"], ["Valor Capital", "Premium Tech (01/10) · Customs (19/10)"], ["Jfk Investimentos", "Sigpel (02/10)"], ["Cordier Investimentos", "Imp. Honorato (05/10) · Zero Grau (14/10) · Graef Trading (16/10) · Medquímica (20/10) · Máq. Agrícolas Jacto (28/10)"], ["One Investimentos", "Esthampa (06/10)"], ["Veedha Investimentos", "Siqueira Campos (08/10)"], ["Vequis Trading (Marcela Cotrim)", "Prodhigi (09/10) · Santa Fé Trading (21/10)"], ["Eqi", "Pneu Forte (14/10) · Amazônia Máquinas (15/10)"], ["Kat Assessores", "Lifemed (15/10)"], ["Fami Capital", "Cia do Jeans (20/10)"], ["Tricapital", "Unfair Advantage (26/10)"], ["Angatu", "Evidenciatextil (28/10) · Telas Metálicas MM (10/11)"], ["Fxport Câmbio", "GP Imports (28/10)"], ["Portfel Consultoria", "Daci (29/10)"], ["Manchester Investimentos", "Veloce (30/10)"], ["Target Business Solutions", "Vergus (03/11)"], ["And Consulting", "KTV (09/11)"], ["Santé Investimentos", "DSPlastic (10/11)"], ["Faz Capital", "Total Health (11/11) · Hovam (11/11)"], ["M7 Investimentos", "ACE Distribuidora (11/11)"], ["Monte Bravo Investimentos", "CFS do Brasil (11/11)"], ["Blue3 Investimentos", "WPX Locações (16/11) · Têxtil MN (16/11)"], ["Act Investimentos", "Rodrigues Colchões (18/11)"], ["Brazil Cred", "D7 Indústria Química (18/11)"], ["Hive Capital", "Nitrogen (18/11)"], ["Fidem Bank", "CCP Compostos de PVC (18/11)"], ["Comexland", "BZ Automotive (19/11)"]], "obs": ["Conta o parceiro uma vez, não importa quantas oportunidades ele trouxe.", "Oportunidade perdida continua contando: o KR é \"gerando oportunidades\".", "Vequis Trading entrou em 21/11: o Nando passou Prodhigi e Santa Fé de Trading para Parcerias no HubSpot."]}, "1.2": {"conta": "Tradings diferentes (campo ID do parceiro) com pelo menos uma oportunidade criada no Q4 — mesmo filtro dos parceiros, com macro canal = Trading.", "fonte": "HubSpot · automático", "cols": ["Trading", "Oportunidades no Q4"], "rows": [["First", "Adube.me Fertilizantes (07/10)"], ["Level Trade", "Gaabor Brasil (29/10)"], ["Macroex", "Petrospec Vix (17/11)"]], "obs": ["Fora: Vox Comercial (06/11) — está como Trading, mas sem finder/parceiro preenchido no HubSpot (decisão da Karen, 17/11).", "Saíram em 21/11, após a correção do Nando no HubSpot (combinada na reunião Karen/Alisson de 19/11): Degoeye Advogados (indicação de escritório de advocacia; a Silcor ficou sem parceiro) e Vequis Trading (ex-funcionária da Vex; Prodhigi e Santa Fé passaram para Parcerias e contam no KR de parceiros)."]}, "1.3": {"conta": "Empresas com Canal (Novo) = Retarget que viraram oportunidade desde 01/10: no pipeline de Retargeting, as que entraram em \"Oportunidade Qualificada\"; ou negócios criados direto no pipeline Closing. Inbound fica fora; cada empresa conta uma vez.", "fonte": "HubSpot · automático", "cols": ["Empresa", "Qualificada em", "Origem"], "rows": [["MAT Equipamentos para Gases", "26/10", "Campanha de retarget"], ["Modular DTC (Projeto XP)", "28/10", "Campanha retarget WhatsApp · criada direto no Closing"], ["Censi Ind. Hidrossanitários", "03/11", "Campanha de retarget"], ["SB Trade Comércio Exterior", "03/11", "Campanha de retarget"], ["Japi S/A", "04/11", "Retarget · modelo da Gal"], ["Biosul Produtos Diagnósticos", "13/11", "Retarget · modelo da Gal"], ["TDZ Comercial Importadora", "16/11", "Retarget · modelo da Gal (antes veio por parceria)"], ["Nexofour Importação & Exportação", "17/11", "Retarget"], ["Imprav Importação e Exportação", "18/11", "Retarget"], ["Mega Pack Plásticos", "23/11", "Campanha retarget WhatsApp"], ["OIW Indústria Eletrônica", "24/11", "Campanha de retarget"]], "obs": ["Ficam fora VerticalParts (12/11) e Sunny Brinquedos (18/11): vieram por Inbound (site).", "Japi, Biosul, Nexofour e Imprav (antes Outbound) e TDZ (antes Indicação) tiveram o Canal (Novo) trocado para Retarget no HubSpot em 18/11, pela classificação da Karen."]}, "1.4": {"conta": "Clientes com data de ativação no Q4 e negócio nas etapas de ativação do pipeline Closing, mais a Original Trading, que ativou mas não tem negócio no HubSpot.", "fonte": "HubSpot · automático + 1 ajuste manual", "cols": ["Cliente", "Ativação", "Volume ativado"], "rows": [["Cap Trade Brasil", "06/10", "R$ 500 mil"], ["Lion Packing", "08/10", "R$ 540 mil"], ["Total Comércio (Piloto XP)", "14/10", "R$ 839 mil"], ["Pedroni Logística", "16/10", "R$ 2,31M"], ["Siqueira Campos", "16/10", "R$ 5,00M"], ["Oslo Home", "30/10", "R$ 262 mil"], ["Original Trading", "30/10", "R$ 880 mil (carteira CR2; limite R$ 1,5M)"], ["Veel Trade (Grupo Cecil)", "24/11", "R$ 3,27M"]], "obs": ["Original Trading entra pelo CR2 (1ª operação de crédito em 30/10, farmer Carlos Ferrarezi) — o negócio dela não está no pipeline do HubSpot."]}, "1.5": {"conta": "Das ativações do Q4, as com volume ativado acima de R$ 2,5M.", "fonte": "HubSpot · automático", "cols": ["Cliente", "Ativação", "Volume ativado"], "rows": [["Siqueira Campos", "16/10", "R$ 5,00M"], ["Veel Trade (Grupo Cecil)", "24/11", "R$ 3,27M"]], "obs": ["Quase: Pedroni Logística, R$ 2,31M (16/10)."]}, "2.1": {"conta": "Empresas da carteira dos farmers marcadas como elegíveis (Sim ou Talvez) com visita feita (Visita = SIM) ÷ total de elegíveis. Visita em empresa não elegível não conta.", "fonte": "Manual · planilha controle de visitas_OKR (aba Empresas por Farmer)", "cols": ["Farmer", "Empresa", "Elegível", "Visitada"], "rows": [["André Vitoretti", "ADS Drones", "Talvez", "Sim"], ["André Vitoretti", "Brasilquímica", "Sim", "Sim"], ["André Vitoretti", "Carbono", "Talvez", "Sim"], ["André Vitoretti", "Eggerding", "Sim", "Sim"], ["André Vitoretti", "Fresnomaq (WAP)", "Talvez", "Sim"], ["André Vitoretti", "Imperial Home", "Sim", "Sim"], ["André Vitoretti", "JP Comércio", "Talvez", "Sim"], ["André Vitoretti", "NR Bennesby", "Sim", "Sim"], ["André Vitoretti", "Patagonia Trading", "Sim", "Sim"], ["André Vitoretti", "Pec Lub", "Sim", "Sim"], ["André Vitoretti", "Reicon Condutores Elétricos", "Sim", "Sim"], ["André Vitoretti", "Sicar", "Sim", "Sim"], ["André Vitoretti", "Tekweld", "Sim", "Sim"], ["André Vitoretti", "Terabyte", "Sim", "Sim"], ["André Vitoretti", "Cap Trade", "Sim", "—"], ["André Vitoretti", "FrioRio", "Sim", "—"], ["André Vitoretti", "GWT Global", "Sim", "—"], ["André Vitoretti", "Innova Brazil", "Sim", "—"], ["André Vitoretti", "Nova Credeal", "Sim", "—"], ["André Vitoretti", "One Touch 3D", "Sim", "—"], ["André Vitoretti", "Polibras", "Sim", "—"], ["André Vitoretti", "TCC Import", "Sim", "—"], ["André Vitoretti", "Traidex", "Sim", "—"], ["André Vitoretti", "Valentin Comercio (Grupo Valentin)", "Sim", "—"], ["Antonio Mourão", "Alic Harvest Company", "Sim", "Sim"], ["Antonio Mourão", "Aço Cearense", "Sim", "Sim"], ["Antonio Mourão", "BRV Brasil", "Sim", "Sim"], ["Antonio Mourão", "Caracol", "Sim", "Sim"], ["Antonio Mourão", "Forte Pneus", "Sim", "Sim"], ["Antonio Mourão", "FR Embalagens", "Talvez", "Sim"], ["Antonio Mourão", "Grupo Oxy", "Sim", "Sim"], ["Antonio Mourão", "Intersteel", "Sim", "Sim"], ["Antonio Mourão", "Japura Pneus", "Talvez", "Sim"], ["Antonio Mourão", "Lumare Import", "Sim", "Sim"], ["Antonio Mourão", "OK Energy", "Sim", "Sim"], ["Antonio Mourão", "SC Pneus", "Sim", "Sim"], ["Antonio Mourão", "UG Colchões", "Sim", "Sim"], ["Antonio Mourão", "Versa Trading", "Talvez", "Sim"], ["Antonio Mourão", "WiPrime", "Sim", "Sim"], ["Antonio Mourão", "Amora", "Sim", "—"], ["Antonio Mourão", "Apolum Comercio", "Sim", "—"], ["Antonio Mourão", "Brielli Home", "Sim", "—"], ["Antonio Mourão", "Catuaí Rótulos (Nova Fátima)", "Sim", "—"], ["Antonio Mourão", "Grupo Alltech", "Sim", "—"], ["Antonio Mourão", "Grupo Bier Wein", "Sim", "—"], ["Antonio Mourão", "Grupo TBX", "Sim", "—"], ["Antonio Mourão", "Meridian Distribuidora", "Sim", "—"], ["Antonio Mourão", "Planeta Bebe", "Sim", "—"], ["Antonio Mourão", "Prexx Comércio", "Sim", "—"], ["Antonio Mourão", "Siqueira Campos", "Sim", "—"], ["Antonio Mourão", "Stylux", "Sim", "—"], ["Antonio Mourão", "Sulboro", "Sim", "—"], ["Antonio Mourão", "Univel Metalúrgica (Grupo Universal)", "Sim", "—"], ["Carlos Ferrarezi", "Casa Flora", "Talvez", "Sim"], ["Carlos Ferrarezi", "CPE Comércio", "Talvez", "Sim"], ["Carlos Ferrarezi", "Diamantino e Hofman (Elettromec)", "Sim", "Sim"], ["Carlos Ferrarezi", "Four Distribuição", "Sim", "Sim"], ["Carlos Ferrarezi", "Indústrias Reunidas Renda", "Talvez", "Sim"], ["Carlos Ferrarezi", "Master Dealer", "Sim", "Sim"], ["Carlos Ferrarezi", "Obatrade", "Talvez", "Sim"], ["Carlos Ferrarezi", "Orbi Química", "Talvez", "Sim"], ["Carlos Ferrarezi", "Simmundo", "Talvez", "Sim"], ["Carlos Ferrarezi", "Texol", "Sim", "Sim"], ["Carlos Ferrarezi", "Thermoval", "Sim", "Sim"], ["Carlos Ferrarezi", "Tuicial Gráfica", "Sim", "Sim"], ["Carlos Ferrarezi", "Unique Trading", "Sim", "Sim"], ["Carlos Ferrarezi", "Vip Amazonia", "Talvez", "Sim"], ["Carlos Ferrarezi", "Wec Cabos Especiais", "Sim", "Sim"], ["Carlos Ferrarezi", "Centry Distribuidora", "Sim", "—"], ["Carlos Ferrarezi", "Fagundes Pneus", "Sim", "—"], ["Carlos Ferrarezi", "Gioca Ind e Com", "Sim", "—"], ["Carlos Ferrarezi", "Lyke", "Sim", "—"], ["Carlos Ferrarezi", "Mega Vest Casa", "Sim", "—"], ["Carlos Ferrarezi", "Mimo Importação", "Sim", "—"], ["Carlos Ferrarezi", "Mondax Comex", "Sim", "—"], ["Carlos Ferrarezi", "Original Trading", "Sim", "—"], ["Carlos Ferrarezi", "Pneutek", "Sim", "—"], ["Carlos Ferrarezi", "Raposo Plásticos Amazonas", "Sim", "—"], ["Carlos Ferrarezi", "Raposo Plásticos Minas", "Sim", "—"], ["Carlos Ferrarezi", "Yaro (Grupo Mauer)", "Sim", "—"], ["Tiago Viel", "Activas", "Talvez", "Sim"], ["Tiago Viel", "Advanced Polymers", "Sim", "Sim"], ["Tiago Viel", "Ar Fusion", "Sim", "Sim"], ["Tiago Viel", "Arte & Cazza", "Talvez", "Sim"], ["Tiago Viel", "Badan Artigos Esportivos", "Talvez", "Sim"], ["Tiago Viel", "CTB Têxtil", "Talvez", "Sim"], ["Tiago Viel", "Gallant Comercial", "Talvez", "Sim"], ["Tiago Viel", "Golden Distribuidora", "Talvez", "Sim"], ["Tiago Viel", "HomeNow", "Sim", "Sim"], ["Tiago Viel", "Lion Packing", "Sim", "Sim"], ["Tiago Viel", "Neotexpro", "Sim", "Sim"], ["Tiago Viel", "Oslo Home (Wenker)", "Sim", "Sim"], ["Tiago Viel", "Passamanaria do Nordeste", "Sim", "Sim"], ["Tiago Viel", "Pedroni Group", "Sim", "Sim"], ["Tiago Viel", "Prolink", "Sim", "Sim"], ["Tiago Viel", "Soufitness (MegaGym)", "Sim", "Sim"], ["Tiago Viel", "Top Taylor", "Talvez", "Sim"], ["Tiago Viel", "Total Comércio", "Sim", "Sim"], ["Tiago Viel", "Verde Brasil", "Sim", "Sim"], ["Tiago Viel", "VTC Válvulas", "Sim", "Sim"], ["Total", "100 elegíveis", "", "64 visitadas = 64%"]], "obs": ["Por farmer (visitadas de elegíveis): André Vitoretti 14 de 24; Antonio Mourão 15 de 29; Carlos Ferrarezi 15 de 27; Tiago Viel 20 de 20.", "Ficam fora 41 empresas não elegíveis, 5 delas visitadas.", "A conta junta as carteiras (soma das visitadas ÷ soma das elegíveis), não faz média dos percentuais."]}, "2.2": {"conta": "Desde 19/11 o KR mede o crescimento do uso do limite desde o fim do Q3: era 68%, a meta é +7 p.p. (chegar a 75%). Uso de hoje = soma da Carteira Desembolsada ÷ soma do Limite, só FIDC VIXTRA e só empresas com limite de verdade (91 empresas). Quem não tem limite fica fora, mesmo com carteira — inclusive limite de R$ 0,01, que é só preenchimento.", "fonte": "CR2 · Power BI (dado de 23/11 20:51)", "cols": ["Empresa", "Limite", "Carteira", "Uso"], "rows": [["Versa Trading", "R$ 6,71M", "R$ 3,44M", "51,3%"], ["HCI Hidraulica", "R$ 5,60M", "R$ 4,23M", "75,6%"], ["Four Distribuição", "R$ 5,20M", "R$ 4,72M", "90,7%"], ["Grupo Oxy", "R$ 5,20M", "R$ 0,91M", "17,4%"], ["Japura Pneus", "R$ 5,20M", "R$ 4,94M", "95,0%"], ["Mimo Importação", "R$ 5,20M", "R$ 4,17M", "80,3%"], ["One Touch 3D", "R$ 5,20M", "R$ 5,23M", "100,6%"], ["Planeta Bebe", "R$ 5,20M", "R$ 4,94M", "95,0%"], ["Yaro (Grupo Mauer)", "R$ 5,20M", "R$ 5,02M", "96,6%"], ["Thermoval", "R$ 5,01M", "R$ 4,53M", "90,3%"], ["Aço Cearense", "R$ 5,00M", "R$ 5,04M", "100,9%"], ["Fresnomaq (WAP)", "R$ 5,00M", "R$ 0,00M", "0,0%"], ["Grupo TBX", "R$ 5,00M", "R$ 3,22M", "64,4%"], ["GWT Global", "R$ 5,00M", "R$ 4,53M", "90,7%"], ["Nova Credeal", "R$ 5,00M", "R$ 5,03M", "100,7%"], ["OK Energy", "R$ 5,00M", "R$ 4,42M", "88,4%"], ["Patagonia Trading", "R$ 5,00M", "R$ 3,80M", "75,9%"], ["Reicon Condutores Elétricos", "R$ 5,00M", "R$ 5,04M", "100,7%"], ["Siqueira Campos", "R$ 5,00M", "R$ 5,03M", "100,6%"], ["Terabyte", "R$ 5,00M", "R$ 4,40M", "88,0%"], ["Trust Group", "R$ 5,00M", "R$ 4,54M", "90,7%"], ["Verde Brasil", "R$ 5,00M", "R$ 5,04M", "100,7%"], ["Xmobots", "R$ 5,00M", "R$ 5,03M", "100,6%"], ["Casa Flora", "R$ 4,90M", "R$ 1,19M", "24,3%"], ["Prexx Comércio", "R$ 4,80M", "R$ 4,59M", "95,7%"], ["Brasilquímica", "R$ 4,50M", "R$ 1,68M", "37,3%"], ["Clac Importação", "R$ 4,50M", "R$ 4,48M", "99,5%"], ["Grupo Alltech", "R$ 4,50M", "R$ 1,97M", "43,7%"], ["Vequis Trading", "R$ 4,50M", "R$ 3,53M", "78,4%"], ["Wec Cabos Especiais", "R$ 4,50M", "R$ 4,22M", "93,8%"], ["Raposo Plásticos Minas", "R$ 4,50M", "R$ 2,44M", "54,2%"], ["HomeNow", "R$ 4,00M", "R$ 2,03M", "50,7%"], ["Intersteel", "R$ 4,00M", "R$ 2,20M", "55,0%"], ["Valentin Comercio (Grupo Valentin)", "R$ 4,00M", "R$ 0,50M", "12,6%"], ["Fortuna Comércio (Chilli Beans)", "R$ 3,65M", "R$ 3,24M", "88,5%"], ["Fagundes Pneus", "R$ 3,50M", "R$ 2,39M", "68,3%"], ["Alic Harvest Company", "R$ 3,00M", "R$ 2,25M", "75,1%"], ["Diamantino e Hofman (Elettromec)", "R$ 3,00M", "R$ 1,01M", "33,5%"], ["JP Comércio", "R$ 3,00M", "R$ 3,02M", "100,6%"], ["South Bike", "R$ 3,00M", "R$ 3,08M", "102,5%"], ["Tekweld", "R$ 3,00M", "R$ 1,01M", "33,5%"], ["Carbono", "R$ 2,50M", "R$ 0,86M", "34,4%"], ["Univel Metalúrgica (Grupo Universal)", "R$ 2,20M", "R$ 1,28M", "58,2%"], ["Advanced Polymers", "R$ 2,00M", "R$ 0,63M", "31,6%"], ["Badan Artigos Esportivos", "R$ 2,00M", "R$ 1,45M", "72,4%"], ["Imperial Home", "R$ 2,00M", "R$ 1,87M", "93,4%"], ["Master Dealer", "R$ 2,00M", "R$ 2,19M", "109,6%"], ["Ortosintese", "R$ 2,00M", "R$ 0,00M", "0,0%"], ["Soufitness (MegaGym)", "R$ 2,00M", "R$ 2,89M", "144,6%"], ["Tuicial Gráfica", "R$ 2,00M", "R$ 0,69M", "34,6%"], ["Apolum Comercio", "R$ 1,80M", "R$ 1,57M", "87,0%"], ["Caracol", "R$ 1,70M", "R$ 0,22M", "13,0%"], ["FrioRio", "R$ 1,60M", "R$ 1,61M", "100,6%"], ["Forte Pneus", "R$ 1,50M", "R$ 0,22M", "14,7%"], ["Golden Distribuidora", "R$ 1,50M", "R$ 1,51M", "100,6%"], ["Lyke", "R$ 1,50M", "R$ 2,50M", "167,0%"], ["Maxfol", "R$ 1,50M", "R$ 0,20M", "13,5%"], ["Original Trading", "R$ 1,50M", "R$ 0,88M", "58,9%"], ["Teixeira Textil", "R$ 1,50M", "R$ 1,58M", "105,3%"], ["Total Comércio", "R$ 1,30M", "R$ 1,31M", "100,9%"], ["Vip Amazonia", "R$ 1,30M", "R$ 0,94M", "72,1%"], ["Sulboro", "R$ 1,20M", "R$ 1,21M", "100,6%"], ["BRV Brasil", "R$ 1,01M", "R$ 0,66M", "65,5%"], ["Centry Distribuidora", "R$ 1,00M", "R$ 0,88M", "88,1%"], ["Eggerding", "R$ 1,00M", "R$ 0,48M", "47,5%"], ["Mondax Comex", "R$ 1,00M", "R$ 0,92M", "91,8%"], ["Passamanaria do Nordeste", "R$ 1,00M", "R$ 1,01M", "100,6%"], ["Pneutek", "R$ 1,00M", "R$ 0,66M", "66,4%"], ["SC Pneus", "R$ 1,00M", "R$ 0,80M", "80,1%"], ["Texol", "R$ 1,00M", "R$ 0,35M", "34,9%"], ["Traidex", "R$ 1,00M", "R$ 0,30M", "30,2%"], ["Unique Trading", "R$ 1,00M", "R$ 0,30M", "30,2%"], ["Vendor Trade", "R$ 1,00M", "R$ 0,00M", "0,0%"], ["VTC Válvulas", "R$ 1,00M", "R$ 0,42M", "42,4%"], ["WiPrime", "R$ 1,00M", "R$ 0,37M", "37,4%"], ["NR Bennesby", "R$ 0,80M", "R$ 0,00M", "0,0%"], ["Pec Lub", "R$ 0,80M", "R$ 0,77M", "96,4%"], ["UG Colchões", "R$ 0,75M", "R$ 0,69M", "91,4%"], ["DNCM", "R$ 0,60M", "R$ 0,38M", "63,4%"], ["Lion Packing", "R$ 0,60M", "R$ 0,55M", "91,1%"], ["TT Importação", "R$ 0,60M", "R$ 0,60M", "100,6%"], ["Ar Fusion", "R$ 0,50M", "R$ 0,51M", "101,2%"], ["Cap Trade", "R$ 0,50M", "R$ 0,00M", "0,0%"], ["Obatrade", "R$ 0,50M", "R$ 0,48M", "95,1%"], ["Amora", "R$ 0,40M", "R$ 0,23M", "58,3%"], ["Arte & Cazza", "R$ 0,40M", "R$ 0,51M", "128,1%"], ["Brielli Home", "R$ 0,40M", "R$ 0,03M", "8,3%"], ["Lumare Import", "R$ 0,40M", "R$ 0,00M", "0,0%"], ["Neotexpro", "R$ 0,40M", "R$ 0,34M", "86,1%"], ["Oslo Home (Wenker)", "R$ 0,30M", "R$ 0,00M", "0,0%"], ["Sicar", "R$ 0,30M", "R$ 0,30M", "101,2%"], ["TCC Import", "R$ 0,20M", "R$ 0,00M", "0,0%"], ["Total (92)", "R$ 247,63M", "R$ 180,23M", "72,8%"]], "obs": ["Fora da conta: 37 empresas sem limite, com R$ 43,6M de carteira.", "DRC Solar (R$ 1,49M) está entre elas: tem limite de R$ 0,01 no CR2, que é preenchimento (decisão da Karen, 18/11). A Intersteel saiu desse grupo em 24/11: agora tem limite de R$ 4,00M e entrou na conta.", "Hoje: 72,8% − 68% = +4,8 p.p. de +7 p.p. (em 23/11 era 73,7%, +5,7 p.p.). A queda vem da entrada da Intersteel (R$ 4,00M de limite, 55,0% de uso) e das quedas de carteira de Raposo Plásticos Minas (−R$ 0,73M) e OK Energy (−R$ 0,44M)."]}, "2.3": {"conta": "Para quem teve aumento de limite desde 01/07: carteira usada acima do limite antigo, a partir de outubro. Valor = mín(carteira, limite atual) − máx(limite antigo, carteira de 01/10). Carteira pela foto do dia 1 de cada mês, só FIDC VIXTRA.", "fonte": "Limite: histórico do HubSpot · Carteira: CR2 (foto de 01/11)", "cols": ["Empresa", "Limite antigo → atual", "Carteira 01/10 → 01/11", "Conta"], "rows": [["Wec Cabos Especiais", "3,00 → 4,50M (21/08)", "2,57 → 4,22M", "R$ 1,22M"], ["Apolum", "0,50 → 1,80M (23/10)", "0,41 → 1,01M", "R$ 0,51M"], ["UG Colchões da Amazônia", "0,40 → 0,75M (13/10)", "0,00 → 0,69M", "R$ 0,29M"], ["Versa Trading", "3,20 → 6,71M (21/10)", "3,10 → 3,44M", "R$ 0,24M"], ["Badan Artigos Esportivos", "1,00 → 2,00M (29/09)", "0,08 → 1,19M", "R$ 0,19M"], ["Soufitness (MegaGym)", "1,00 → 2,00M (22/09)", "1,94 → 2,89M", "R$ 0,06M"], ["HomeNow", "2,00 → 4,00M (20/10)", "1,95 → 2,03M", "R$ 0,03M"], ["Total (7)", "", "", "R$ 2,54M"]], "obs": ["Muda só com a próxima foto (01/12). Aumentos de novembro (BRV, TT Importação, Tagia, Terabyte) só podem contar a partir dela.", "Xmobots, Trust e Planeta Bebe tiveram aumento, mas a carteira no FIDC não cresceu entre 01/10 e 01/11."]}, "2.4": {"conta": "Das 10 empresas com recíproca de câmbio, as que em algum mês do Q4 fizeram pelo menos 80% do câmbio acordado, ou passaram para a taxa \"sem câmbio\" (campo Taxa (CDI+Spread%) - Flex).", "fonte": "HubSpot · câmbio do mês e histórico", "cols": ["Empresa", "Acordo de câmbio", "Câmbio out", "Câmbio nov (até hoje)", "Taxa Flex hoje / sem câmbio", "Conta?"], "rows": [["Brasilquímica", "USD 300 mil/mês", "R$ 2,04M (≈USD 397 mil, 132%)", "R$ 833 mil (≈USD 147 mil, 49%)", "2,03% / —", "Sim"], ["MIMO", "R$ 2,5M/mês", "R$ 2,35M (94%)", "R$ 3,72M (149%)", "1,66% / 1,90%", "Sim"], ["Tuicial", "R$ 5,0M/mês", "R$ 200 mil (4%)", "R$ 702 mil (14%)", "2,00% / 2,01%", "Não"], ["Aço Cearense", "R$ 5M/mês", "—", "—", "1,76% / 1,95%", "Não"], ["Caracol", "USD 340 mil/mês", "—", "—", "1,89% / sem taxa definida", "Não"], ["Catuaí Rótulos", "R$ 1,5M/mês", "—", "—", "0% (sem taxa no HubSpot) / 2,14%", "Não"], ["Elettromec", "USD 400 mil/mês", "—", "—", "1,71% / 2,07%", "Não"], ["Fixfer/Patta", "não definido", "—", "—", "2,35% / 2,73%", "Não"], ["Hubner", "R$ 3,5M/mês", "—", "—", "1,73% / 2,06%", "Não"], ["Renda", "USD 500 mil/mês", "—", "—", "0% (sem taxa no HubSpot) / 1,96%", "Não"]], "obs": ["Taxa Flex = CDI do mês (1,16%) + spread. \"Sem câmbio\" = CDI + o % do acordo.", "Caracol subiu a taxa de 1,86% para 1,89% em 23/10, mas não conta: o acordo dela não define taxa sem câmbio (decisão da Karen, 10/11)."]}, "2.5": {"conta": "Desde 19/11 o KR mede a redução da inadimplência acima de 90 dias desde o Q3: era 2,67%, a meta é −0,67 p.p. (chegar a 2%). Redução de hoje = 2,67% − nível informado pelo Crédito.", "fonte": "Slack · Filipe Laham (Crédito)", "cols": ["Data-base", "Nível", "Redução", "Informado em"], "rows": [["17/11", "2,5%", "−0,17 p.p.", "17/11"], ["23/11", "2,5%", "−0,17 p.p.", "23/11"]], "obs": ["Cor: nível até 2% verde, acima de 2% vermelho (Karen, 18/11) — vale mesmo com a métrica de redução.", "Mudou de nível (até 2%) para redução na reunião Karen/Alisson de 19/11.", "Na caixa aparece o nível de hoje e a meta de até 2%; a redução (feita e a fazer) fica na nota embaixo. O % é a redução ÷ 0,67 (Karen, 19/11)."]}, "3.1": {"conta": "Clientes ativos que usaram o Agent ÷ total de clientes ativos.", "fonte": "Slack · Mayara Nobre", "cols": ["Data", "Valor"], "rows": [["09/11", "12%"], ["17/11", "17,52%"]], "obs": []}, "3.2": {"conta": "Kits validados corretamente ÷ kits validados.", "fonte": "Slack · Mayara Nobre", "cols": ["Data", "Valor"], "rows": [["09/11", "80,2%"], ["17/11", "80,2%"]], "obs": []}, "3.3": {"conta": "% de entrega do novo instrumento de garantia (0% = não iniciado, 100% = entregue).", "fonte": "Slack · Mayara Nobre", "cols": ["Data", "Valor"], "rows": [["09/11", "não iniciado"], ["17/11", "20%"]], "obs": []}, "4.1": {"conta": "Crescimento das buscas orgânicas no Google depois do lançamento da campanha.", "fonte": "Manual · informado pela Karen", "cols": ["Data", "Valor"], "rows": [["16/11", "+3,5% (regra antiga: buscas por \"Vixtra\" no Google no ciclo)"], ["18/11", "+21%"]], "obs": ["Em 18/11 o KR foi redefinido de \"buscas por Vixtra no Google\" para \"buscas orgânicas no Google após o lançamento da campanha\", com meta de +30%."]}, "4.2": {"conta": "Interações ÷ impressões do mês corrente, LinkedIn + Instagram somados (definição do dashboard de mkt).", "fonte": "Dashboard de mkt · coleta de 24/11", "cols": ["Rede (novembro)", "Interações", "Impressões", "Taxa"], "rows": [["LinkedIn", "353", "9.202", "3,8%"], ["Instagram", "807", "15.189", "5,3%"], ["Total", "1.160", "24.391", "4,8%"]], "obs": ["Outubro fechou em 1.080 ÷ 24.177 = 4,5%."]}, "4.3": {"conta": "Seguidores hoje (LinkedIn + Instagram) − ponto de partida de 8.228.", "fonte": "Dashboard de mkt · coleta de 24/11", "cols": ["Rede", "Seguidores hoje"], "rows": [["LinkedIn", "7.137"], ["Instagram", "1.420 (coleta de 23/11)"], ["Total", "8.557 → +329 sobre 8.228"]], "obs": ["Ponto de partida corrigido de 8.244 para 8.228 em 23/11 (Karen)."]}, "4.4": {"conta": "Eventos do ciclo com presença acima de 60% dos confirmados.", "fonte": "Manual · informado pela Karen", "cols": ["Data", "Eventos feitos", "Acima de 60%"], "rows": [["18/11", "4", "4"]], "obs": ["Meta: 5 eventos no ciclo."]}, "4.5": {"conta": "Taxa de resposta da pesquisa de NPS.", "fonte": "Manual", "cols": ["Situação"], "rows": [["Apurado só no fim do trimestre; fica fora da média até lá."]], "obs": []}};
+
+function linha(k, id){
+  const clic = id && DET[id] ? ` clic" data-kr="${id}` : '';
+  const fmt = v => (k.pre||'') + v.toLocaleString('pt-BR') + (k.un||'');
+  // mostraNivel (inadimplência): a caixa mostra o nível de hoje em %, não o atual (redução).
+  const valor = () => k.mostraNivel && k.nivel != null ? k.nivel.toLocaleString('pt-BR') + '%' : fmt(k.atual);
+  const fonte = ''; // a fonte (k.fonte) fica só nos dados, não aparece na TV
+  const nota = k.nota ? `<div class="nota-kr">${k.nota}</div>` : '';
+  if(k.atual == null){
+    return `<div class="kr${clic}">${selo(k)}
+      <div><div class="val vazio">—<span class="meta"> / ${fmt(k.meta)}</span></div>${nota}</div>
+      <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+        <div class="track"></div></div>
+      <div class="status"><span class="pct" style="color:rgba(255,255,255,.28)">—</span>${k.status || 'aguardando'}</div>
+    </div>`;
+  }
+  if(k.menor){
+    // KR de teto (inadimplência) é o contrário dos outros (Karen, 18/11): até o teto (2%) é
+    // verde; qualquer valor acima é vermelho. O % é o atingimento (meta ÷ atual).
+    const dentro = k.atual <= k.meta;
+    const ating = k.atual > 0 ? k.meta/k.atual : 2; // mesmo cálculo da média: 2% = 100%, 2,7% = 74%
+    return `<div class="kr ${dentro?'f-ver':'f-verm'}${clic}">${selo(k)}
+      <div><div class="val">${fmt(k.atual)}<span class="meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
+      <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+        <div class="track"><div class="fill" style="width:${Math.min(ating,1)*100}%"></div></div></div>
+      <div class="status"><span class="pct">${Math.round(ating*100)}%</span>${dentro?'dentro da meta':'acima da meta'}</div>
+    </div>`;
+  }
+  // Sem trava em 100%: quem passa da meta mostra o percentual real (a barra
+  // é que para no fim).
+  const p = k.atual/k.meta, larg = Math.min(p,1)*100;
+  // corTeto (inadimplência): a cor vem do nível, não do % da meta — até o teto verde, acima vermelho.
+  const cls = k.corTeto != null && k.nivel != null ? (k.nivel <= k.corTeto ? 'f-ver' : 'f-verm') : faixa(p);
+  let st;
+  if(k.acumulado){
+    // Total (seguidores) ou taxa (engajamento, limite em uso): mostra quanto
+    // falta. Taxa oscila: acima da meta é "no ritmo", nunca "batido".
+    const falta = k.meta - k.atual;
+    st = falta>0 ? 'faltam '+(+falta.toFixed(1)).toLocaleString('pt-BR')+(k.faltaUn||'') : (k.taxa ? 'no ritmo' : 'batido');
+  } else {
+    st = p>=1 ? 'batido' : ROTULO_FAIXA[cls];
+  }
+  return `<div class="kr ${cls}${clic}">${selo(k)}
+    <div><div class="val">${valor()}<span class="meta"> / ${k.metaTxt || fmt(k.meta)}</span></div>${nota}</div>
+    <div><div class="txt"><span><b>${k.b}</b> ${k.t}</span>${fonte}</div>
+      <div class="track"><div class="fill" style="width:${larg}%"></div></div></div>
+    <div class="status"><span class="pct">${Math.round(p*100)}%</span>${st}</div>
+  </div>`;
+}
+
+const stage = document.getElementById('stage'), dots = document.getElementById('dots');
+
+// ---- Resumo geral: média de conclusão por objetivo -----------------------
+// KR acima da meta conta pelo percentual real (pode passar de 100%). A média
+// divide pelo TOTAL de KRs: KR sem número ainda conta como 0%. KR com
+// congelado:true (NPS, apurado no fim do tri; R$ 15M, por enquanto) fica fora da conta.
+const ativos = l => l.filter(k=>!k.congelado);
+const pctKR = k => k.atual == null ? null : k.menor ? (k.atual > 0 ? k.meta/k.atual : 2) : k.atual/k.meta;
+const statusKR = k => {
+  const p = pctKR(k);
+  if(k.congelado) return 'cong';
+  if(p == null) return 'vazio';
+  // Resumo (página inicial) mantém a regra antiga: ritmo do trimestre, e
+  // total/taxa em azul. As faixas de 50%/30% valem só nos slides de KRs.
+  if(k.corTeto != null && k.nivel != null) return k.nivel <= k.corTeto ? 'ok' : 'atras';
+  if(k.acumulado) return p>=1 ? 'ok' : 'acum';
+  if(k.menor) return p>=1 ? 'ok' : 'atras'; // inadimplência: até 2% verde, acima vermelho
+  const r = p/decorrido;
+  return p>=1 || r>=1 ? 'ok' : r>=.7 ? 'atencao' : 'atras';
+};
+const media = l => l.length ? l.reduce((a,b)=>a+b,0)/l.length : null;
+
+
+function anel(p){
+  const R = 46, C = 2*Math.PI*R;
+  const fill = p == null ? '' :
+    `<circle cx="56" cy="56" r="${R}" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round"
+       stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 56 56)"/>`;
+  return `<svg width="112" height="112" viewBox="0 0 112 112">
+    <circle cx="56" cy="56" r="${R}" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="10"/>${fill}
+    <text x="56" y="64" text-anchor="middle" fill="${p==null?'rgba(255,255,255,.3)':'#fff'}" font-family="Rubik" font-size="26" font-weight="500">${p==null?'—':Math.round(p*100)+'%'}</text>
+  </svg>`;
+}
+
+const SUB = {
+  '01':'Trazer novos importadores em ritmo acelerado.',
+  '02':'Clientes que ficam e crescem com a gente.',
+  '03':'Tecnologia que escala e gera novos produtos.',
+  '04':'Marca conhecida que atrai clientes e parceiros.',
+};
+const todosMedidos = OBJETIVOS.flatMap(o=>ativos(o.krs).map(pctKR)).filter(p=>p!=null);
+const totalKRs = OBJETIVOS.reduce((s,o)=>s+ativos(o.krs).length,0);
+const congelados = OBJETIVOS.reduce((s,o)=>s+o.krs.length-ativos(o.krs).length,0);
+const geral = media(OBJETIVOS.flatMap(o=>ativos(o.krs).map(k=>pctKR(k)||0)));
+
+stage.insertAdjacentHTML('beforeend', `<div class="slide resumo">
+  <div class="eyebrow"><span>OKRs do ciclo · Resumo geral</span><span class="q">Q4 · ${Math.round(decorrido*100)}% do trimestre</span></div>
+  <div class="ns-linha"><b>⭐ Para onde vamos</b>North Star: R$ 125M de ARR ao longo do 1º semestre de 2027</div>
+  <div class="okr-topo"><span class="n">${geral==null?'—':Math.round(geral*100)+'%'}</span>
+    <div class="meio"><div class="t">de avanço médio dos OKRs no ciclo<small>média dos ${totalKRs} KRs · ${todosMedidos.length} já com número${congelados ? ' · '+congelados+' fora da média' : ''}</small></div>
+      <div class="track"><div class="fill" style="width:${Math.min(geral||0,1)*100}%"></div></div></div>
+  </div>
+  <div class="cards">${OBJETIVOS.map(o=>{
+    const at = ativos(o.krs), ps = at.map(pctKR).filter(p=>p!=null), cg = o.krs.length-at.length;
+    return `<div class="card">
+      <div class="c-tag">${o.n} · ${o.tag}</div>
+      <div class="c-t">${o.titulo}</div>
+      <div class="c-meio">${anel(ps.length ? media(at.map(k=>pctKR(k)||0)) : null)}<div class="c-sub">${SUB[o.n]}</div></div>
+      <div class="c-pe"><span class="pts">${o.krs.map(k=>`<i class="${statusKR(k)}"></i>`).join('')}</span>
+        <span>${(ps.length===at.length ? at.length+' KRs' : ps.length+' de '+at.length+' KRs medidos') + (cg ? ' · '+cg+' fora da média' : '')}</span></div>
+    </div>`;}).join('')}</div>
+</div>`);
+dots.insertAdjacentHTML('beforeend','<span></span>');
+
+OBJETIVOS.forEach((o,i)=>{
+  stage.insertAdjacentHTML('beforeend', `<div class="slide">
+    <div class="eyebrow"><span>KRs do ciclo · ${o.n} · ${o.tag}</span><span class="q">Q4 · ${Math.round(decorrido*100)}% do trimestre</span></div>
+    <h1>${o.titulo}</h1>
+    <div class="krs">${o.krs.map((k,j)=>linha(k, (+o.n)+'.'+(j+1))).join('')}</div>
+    <div class="legenda pontos"><span><i class="f-verm"></i>abaixo de 30%</span><span><i class="f-lar"></i>30 a 49%</span><span><i class="f-ama"></i>50 a 69%</span><span><i class="f-ver"></i>70 a 99%</span><span><i class="f-azul"></i>100% ou mais</span></div>
+  </div>`);
+  dots.insertAdjacentHTML('beforeend','<span></span>');
+});
+let atual = 0;
+// Encolhe o valor do KR (ex.: "R$ 2,5M / R$ 15M") até caber na coluna, sem invadir o texto ao lado.
+function ajustaValores(root){
+  root.querySelectorAll('.kr .val').forEach(v=>{
+    const m = v.querySelector('.meta');
+    v.style.fontSize=''; if(m) m.style.fontSize='';
+    const max = v.parentElement.clientWidth; let f = 40;
+    while(v.scrollWidth > max && f > 20){ f -= 2; v.style.fontSize = f+'px'; if(m) m.style.fontSize = Math.round(f*0.55)+'px'; }
+  });
+}
+function mostra(i){
+  atual = (i+stage.children.length)%stage.children.length;
+  [...stage.children].forEach((s,j)=>s.classList.toggle('active',j===atual));
+  ajustaValores(stage.children[atual]);
+  [...dots.children].forEach((d,j)=>d.classList.toggle('on',j===atual));
+}
+mostra(0);
+let timer = setInterval(()=>mostra(atual+1), 12000);
+dots.addEventListener('click',e=>{const i=[...dots.children].indexOf(e.target); if(i>=0){clearInterval(timer);mostra(i);}});
+addEventListener('keydown',e=>{
+  if((e.key==='ArrowRight'||e.key==='ArrowLeft') && !document.getElementById('det')){clearInterval(timer);mostra(atual+(e.key==='ArrowRight'?1:-1));}
+});
+
+// ---- Drill-down: clique no KR abre o que compõe o número (só no artefato) ----
+const KRS_POR_ID = {};
+OBJETIVOS.forEach(o=>o.krs.forEach((k,j)=>{ KRS_POR_ID[(+o.n)+'.'+(j+1)] = {k, o}; }));
+const esc = t => String(t).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function abreDet(id){
+  const d = DET[id], {k, o} = KRS_POR_ID[id];
+  const fmt = v => (k.pre||'') + v.toLocaleString('pt-BR') + (k.un||'');
+  const p = pctKR(k);
+  const num = k.atual == null ? '—' : k.mostraNivel && k.nivel != null ? k.nivel.toLocaleString('pt-BR') + '%' : fmt(k.atual);
+  const rows = d.rows.map(r=>`<tr${/^Total/.test(r[0])?' class="tot"':''}>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('');
+  document.getElementById('tv').insertAdjacentHTML('beforeend', `<div class="det-fundo" id="det"><div class="det" role="dialog" aria-label="Detalhe do KR ${id}">
+    <div class="det-topo"><div><div class="det-id">KR ${id} · ${o.tag}</div><div class="det-t">${k.b} ${k.t}</div></div>
+      <div style="display:flex;gap:18px;align-items:flex-start"><div class="det-num"><div class="v">${num}<small> / ${k.metaTxt || fmt(k.meta)}</small></div>
+        <div class="p">${k.congelado ? 'fora da média' : p==null ? 'sem número' : Math.round(p*100)+'% da meta'}${k.em ? ' · atualizado em '+k.em : ''}</div></div>
+      <button class="det-x" id="det-x" aria-label="Fechar">×</button></div></div>
+    <div class="det-corpo">
+      <div class="det-sec">Como é calculado</div><div class="det-txt">${esc(d.conta)}</div><span class="det-fonte">Fonte: ${esc(d.fonte)}</span>
+      <div class="det-sec">O que compõe o número</div>
+      <table><thead><tr>${d.cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>
+      ${d.obs.length ? `<div class="det-sec">Observações</div><ul>${d.obs.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+    </div></div></div>`);
+  document.getElementById('det-x').onclick = fechaDet;
+  document.getElementById('det').addEventListener('click', e=>{ if(e.target.id==='det') fechaDet(); });
+}
+function fechaDet(){ const el = document.getElementById('det'); if(el) el.remove(); }
+stage.addEventListener('click', e=>{
+  const kr = e.target.closest('.kr.clic'); if(!kr) return;
+  clearInterval(timer); abreDet(kr.dataset.kr);
+});
+addEventListener('keydown', e=>{ if(e.key==='Escape') fechaDet(); });
+function encaixa(){
+  const s = Math.min(innerWidth/1280, innerHeight/720);
+  const tv = document.getElementById('tv');
+  tv.style.transform = `scale(${s})`;
+  tv.style.left = (innerWidth-1280*s)/2+'px'; tv.style.top = (innerHeight-720*s)/2+'px';
+}
+addEventListener('resize',encaixa); encaixa();
+if(document.fonts) document.fonts.ready.then(()=>ajustaValores(stage.children[atual]));
+</script>
+
