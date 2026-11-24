@@ -19,32 +19,6 @@
     "visivelAte": "2026-12-01"
   },
   {
-    "type": "campanha",
-    "duration": 18000,
-    "tema": "azul",
-    "eyebrow": "People · Pesquisa de clima",
-    "titulo": "A Vixtra que a gente quer se constrói <em>ouvindo quem faz ela acontecer.</em>",
-    "texto": "Esta pesquisa é o seu espaço para dizer o que funciona e o que pode ser melhor.",
-    "fatos": [
-      {
-        "val": "~15 min",
-        "rot": "para responder"
-      },
-      {
-        "val": "100%",
-        "rot": "anônima"
-      },
-      {
-        "val": "até 27/11",
-        "rot": "período para responder"
-      }
-    ],
-    "chamada": "Sua voz faz a diferença ;)",
-    "qr": "qr/pesquisa-clima.png",
-    "qrRotulo": "Escaneie e responda",
-    "visivelAte": "2026-11-27"
-  },
-  {
     "type": "goal",
     "duration": 20000,
     "eyebrow": "Progresso da meta",
@@ -1654,5 +1628,31 @@
         "fonte": "manual"
       }
     ]
+  },
+  {
+    "type": "campanha",
+    "duration": 18000,
+    "tema": "azul",
+    "eyebrow": "People · Pesquisa de clima",
+    "titulo": "A Vixtra que a gente quer se constrói <em>ouvindo quem faz ela acontecer.</em>",
+    "texto": "Esta pesquisa é o seu espaço para dizer o que funciona e o que pode ser melhor.",
+    "fatos": [
+      {
+        "val": "~15 min",
+        "rot": "para responder"
+      },
+      {
+        "val": "100%",
+        "rot": "anônima"
+      },
+      {
+        "val": "até 27/11",
+        "rot": "período para responder"
+      }
+    ],
+    "chamada": "Sua voz faz a diferença ;)",
+    "qr": "qr/pesquisa-clima.png",
+    "qrRotulo": "Escaneie e responda",
+    "visivelAte": "2026-11-27"
   }
 ]
