@@ -552,6 +552,15 @@ html,body{
 /* --tema é a cor de destaque da ação; sem tema, fica o ciano da marca. */
 .campanha{--tema:var(--gold);display:flex;align-items:center;gap:40px;}
 .campanha.halloween{--tema:#FF8A2A;}
+.campanha.azul{--tema:var(--sky);}
+/* QR Code da campanha: quadro branco para o celular ler bem na TV. */
+.campanha-qr{flex-shrink:0;background:#fff;border-radius:24px;padding:22px 22px 16px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,0.35);}
+.campanha-qr img{width:300px;height:300px;display:block;image-rendering:pixelated;}
+.campanha-qr .rot{margin-top:10px;font-size:20px;font-weight:600;color:#1B2A55;}
+.campanha-fatos{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;}
+.campanha-fato{background:rgba(95,192,233,0.10);border:1px solid rgba(95,192,233,0.35);border-radius:14px;padding:12px 18px;}
+.campanha-fato .val{display:block;font-size:30px;font-weight:500;color:var(--paper);letter-spacing:-0.01em;}
+.campanha-fato .rot{display:block;font-size:16px;color:var(--muted);margin-top:2px;}
 .campanha-texto{flex:1;min-width:0;}
 .campanha-titulo{font-weight:300;font-size:58px;line-height:1.06;letter-spacing:-0.02em;}
 .campanha-titulo em{font-style:normal;color:var(--tema);}
@@ -1210,7 +1219,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-24-03';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-24-04';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -1721,6 +1730,8 @@ function renderSlide(s){
     // primeiro fica grande, os outros flutuam em volta. Cada item pode ser um
     // emoji ou o caminho de uma imagem (.svg/.png): emoji muda de desenho de
     // aparelho para aparelho (Apple no Mac, Google na Mi Box), imagem não.
+    // "qr" é o caminho de uma imagem de QR Code (ocupa o lugar da arte), com
+    // "qrRotulo" embaixo; "fatos" é uma lista de {val, rot} em destaque.
     const arte = s.arte || [];
     const desenho = (e) => /\.(svg|png)$/i.test(e) ? `<img src="${e}" alt="">` : e;
     return `
@@ -1729,11 +1740,13 @@ function renderSlide(s){
           <div class="eyebrow">${eyebrowText(s)}</div>
           <div class="campanha-titulo">${s.titulo}</div>
           ${s.texto ? `<div class="campanha-desc">${s.texto}</div>` : ''}
+          ${s.fatos ? `<div class="campanha-fatos">${s.fatos.map(f=>`<div class="campanha-fato"><span class="val">${f.val}</span><span class="rot">${f.rot}</span></div>`).join('')}</div>` : ''}
           ${s.premio ? `<div class="campanha-premio"><span class="rot">${s.premioRotulo || 'Prêmio'}</span><span class="val">${s.premio}</span></div>` : ''}
           ${s.chamada ? `<div class="campanha-chamada">${s.chamada}</div>` : ''}
           ${s.pergunta ? `<div class="campanha-pergunta">${s.pergunta}</div>` : ''}
         </div>
-        ${arte.length ? `<div class="campanha-arte"><span class="principal">${desenho(arte[0])}</span>${arte.slice(1, 5).map((e,i)=>`<span class="e${i+1}">${desenho(e)}</span>`).join('')}</div>` : ''}
+        ${s.qr ? `<div class="campanha-qr"><img src="${s.qr}" alt="QR Code"><div class="rot">${s.qrRotulo || 'Escaneie e responda'}</div></div>`
+          : arte.length ? `<div class="campanha-arte"><span class="principal">${desenho(arte[0])}</span>${arte.slice(1, 5).map((e,i)=>`<span class="e${i+1}">${desenho(e)}</span>`).join('')}</div>` : ''}
       </div>`;
   }
   // Parceiros: reservas de leads e oportunidades do mês (mesma regra do
