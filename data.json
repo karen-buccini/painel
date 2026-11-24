@@ -1383,9 +1383,9 @@
     "sub": "Trazer novos importadores em ritmo acelerado.",
     "krs": [
       {
-        "atual": 26,
+        "atual": 27,
         "meta": 22,
-        "em": "23/11",
+        "em": "24/11",
         "b": "Parceiros",
         "t": "gerando oportunidades",
         "fonte": "auto"
@@ -1393,15 +1393,15 @@
       {
         "atual": 3,
         "meta": 5,
-        "em": "23/11",
+        "em": "24/11",
         "b": "Tradings",
         "t": "gerando oportunidades",
         "fonte": "auto"
       },
       {
-        "atual": 9,
+        "atual": 10,
         "meta": 20,
-        "em": "23/11",
+        "em": "24/11",
         "b": "Oportunidades",
         "t": "via retargeting",
         "fonte": "auto"
@@ -1409,7 +1409,7 @@
       {
         "atual": 7,
         "meta": 30,
-        "em": "23/11",
+        "em": "24/11",
         "b": "Clientes",
         "t": "ativados no trimestre",
         "fonte": "auto"
@@ -1417,7 +1417,7 @@
       {
         "atual": 1,
         "meta": 6,
-        "em": "23/11",
+        "em": "24/11",
         "b": "Ativações",
         "t": "acima de R$ 2,5M",
         "fonte": "auto"
@@ -1473,7 +1473,7 @@
         "meta": 50,
         "un": "%",
         "nota": "2 de 10 empresas",
-        "em": "23/11",
+        "em": "24/11",
         "b": "das renegociações",
         "t": "com cross-sell ou nova taxa",
         "fonte": "hubspot"
@@ -1557,24 +1557,24 @@
         "fonte": "manual"
       },
       {
-        "atual": 4.7,
+        "atual": 4.8,
         "meta": 8,
         "un": "%",
         "acumulado": true,
         "taxa": true,
         "faltaUn": " p.p.",
         "nota": "novembro · LinkedIn + Instagram",
-        "em": "23/11",
+        "em": "24/11",
         "b": "de engajamento",
         "t": "nas redes sociais",
         "fonte": "mkt"
       },
       {
-        "atual": 325,
+        "atual": 329,
         "meta": 1700,
         "pre": "+",
-        "nota": "8.553 em 23/11 · partida 8.228",
-        "em": "23/11",
+        "nota": "8.557 em 24/11 · partida 8.228",
+        "em": "24/11",
         "b": "novos seguidores",
         "t": "no Instagram + LinkedIn",
         "fonte": "auto"
