@@ -35,18 +35,10 @@
     "type": "wallet",
     "duration": 20000,
     "eyebrow": "Evolução da carteira · Últimos 30 dias",
-    "source": "Fonte: CR2 · série diária de 23/10 a 22/11",
-    "current": 248640000,
-    "pctChange": -0.28,
+    "source": "Fonte: CR2 · série diária de 25/10 a 24/11",
+    "current": 249730000,
+    "pctChange": 0.15,
     "series": [
-      {
-        "t": "23/10",
-        "v": 249350000
-      },
-      {
-        "t": "24/10",
-        "v": 249340000
-      },
       {
         "t": "25/10",
         "v": 249340000
@@ -162,6 +154,14 @@
       {
         "t": "22/11",
         "v": 248640000
+      },
+      {
+        "t": "23/11",
+        "v": 249730000
+      },
+      {
+        "t": "24/11",
+        "v": 249730000
       }
     ],
     "metaCarteira": 324000000,
