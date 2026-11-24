@@ -1436,7 +1436,7 @@
         "fonte": "auto"
       },
       {
-        "atual": 7,
+        "atual": 8,
         "meta": 30,
         "em": "24/11",
         "b": "Clientes",
@@ -1444,7 +1444,7 @@
         "fonte": "auto"
       },
       {
-        "atual": 1,
+        "atual": 2,
         "meta": 6,
         "em": "24/11",
         "b": "Ativações",
@@ -1471,7 +1471,7 @@
         "fonte": "manual"
       },
       {
-        "atual": 5.7,
+        "atual": 4.8,
         "meta": 7,
         "pre": "+",
         "un": " p.p.",
@@ -1479,9 +1479,9 @@
         "taxa": true,
         "faltaUn": " p.p.",
         "base": 68,
-        "nivel": 73.7,
-        "nota": "68% → 73,7%",
-        "em": "23/11",
+        "nivel": 72.8,
+        "nota": "68% → 72,8%",
+        "em": "24/11",
         "b": "de crescimento",
         "t": "no limite de crédito em uso",
         "fonte": "cr2"
