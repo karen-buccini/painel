@@ -407,11 +407,11 @@ async function parceriasFarming() {
 
 /**
  * Retargeting: cards do pipeline Retarget que entraram na etapa
- * "Oportunidade Qualificada" no mês, contados pelo campo "Nome BDR/ Hunter/
- * Farmer" do card (regra da Karen, 06/11/2026). Antes contava pelo dono do
- * negócio, que nem sempre é o BDR: em novembro o painel mostrava Juliane 2 e
- * Josemir 1, e os três cards eram da Juliane no campo BDR. Card sem BDR
- * preenchido não entra na contagem.
+ * "Oportunidade Qualificada" no mês, contados pelo proprietário do negócio
+ * (regra da Karen, 24/11/2026: "olhe sempre o proprietário do negócio quando
+ * no funil de retarget"). Entre 06/11 e 24/11 contava pelo campo "Nome BDR/
+ * Hunter/ Farmer", e card sem BDR preenchido ficava de fora mesmo tendo dono
+ * (Mega Pack, 23/11). Card sem proprietário não entra na contagem.
  *
  * Vale qualquer dono, de qualquer time. Antes havia também um filtro pelo
  * time de retargeting (60328493), e quem respondia por oportunidade de
@@ -429,19 +429,18 @@ async function retargeting() {
       { propertyName: 'pipeline', operator: 'IN', values: [PIPELINES.RETARGETING] },
       { propertyName: DATE_RETARGETING, operator: 'BETWEEN', value: p.inicioHora, highValue: p.fimHora },
     ],
-    ['dealname', 'nome_bdr__hunter__farmer_']
+    ['dealname', 'hubspot_owner_id']
   );
 
-  // Os valores do campo BDR são os mesmos IDs de usuário do HubSpot.
   const nomes = await owners();
   const porPessoa = {};
   const mesAtual = `${p.ano}-${String(p.mes).padStart(2, '0')}`;
   for (const d of negocios) {
     const mesContado = RETARGET_MES_CONTADO[String(d.id)];
     if (mesContado && mesContado !== mesAtual) continue;
-    const bdr = d.properties.nome_bdr__hunter__farmer_;
-    if (!bdr) continue;
-    porPessoa[bdr] = (porPessoa[bdr] || 0) + 1;
+    const dono = d.properties.hubspot_owner_id;
+    if (!dono) continue;
+    porPessoa[dono] = (porPessoa[dono] || 0) + 1;
   }
 
   return Object.entries(porPessoa)
