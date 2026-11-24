@@ -1210,7 +1210,7 @@ function isSlideActive(s){
 //
 // IMPORTANTE: ao mexer no index.html, troque a data/número abaixo. É ela que
 // avisa às telas abertas que existe coisa nova.
-const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-24-02';
+const VERSAO_PAINEL = /* versao-do-painel */ '2026-11-24-03';
 
 async function conferirVersaoDoPainel(){
   try{
@@ -2177,28 +2177,31 @@ async function refreshSelic(){
 }
 
 // ---------- JUROS FUTURO AO VIVO (API pública da B3, sem chave) ----------
-// Contrato de DI de 1 dia (DI1) que vence no janeiro seguinte a 12 meses de
-// hoje: a referência de "juros de 1 ano" do mercado (em nov/26, o jan/28).
-// A taxa é a do último negócio do pregão; sem negócio no dia (fim de semana,
-// antes da abertura), vale o ajuste do dia anterior. A variação é em pontos
-// percentuais contra esse ajuste. Se a B3 não responder, a faixa some.
+// Contrato de DI de 1 dia (DI1) de vencimento mais longo que teve negócio no
+// pregão (em 24/11/26, o jan/38). Os vencimentos mais distantes passam dias sem
+// negócio, por isso a escolha é entre os que negociaram hoje. Sem negócio
+// nenhum (fim de semana, antes da abertura), vale o mais longo com ajuste do
+// dia anterior, sem variação. A variação é em pontos percentuais contra o
+// ajuste do dia anterior. Se a B3 não responder, a faixa some.
 let jurosFuturo = null;
 async function refreshJurosFuturo(){
   try{
     const res = await fetch('https://cotacao.b3.com.br/mds/api/v1/DerivativeQuotation/DI1');
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const dados = await res.json();
-    const limite = new Date(Date.now() + 365*24*60*60*1000).toISOString().slice(0,10);
-    const c = (dados.Scty || [])
-      .filter(x => /^DI1F\d\d$/.test(x.symb) && x.asset && x.asset.AsstSummry && x.asset.AsstSummry.mtrtyCode > limite)
-      .sort((a,b) => a.asset.AsstSummry.mtrtyCode.localeCompare(b.asset.AsstSummry.mtrtyCode))[0];
+    const contratos = (dados.Scty || [])
+      .filter(x => /^DI1[FGHJKMNQUVXZ]\d\d$/.test(x.symb) && x.asset && x.asset.AsstSummry && x.SctyQtn)
+      .sort((a,b) => b.asset.AsstSummry.mtrtyCode.localeCompare(a.asset.AsstSummry.mtrtyCode));
+    const c = contratos.find(x => x.SctyQtn.curPrc != null)
+           || contratos.find(x => x.SctyQtn.prvsDayAdjstmntPric != null);
     if(!c) throw new Error('contrato não encontrado');
     const q = c.SctyQtn || {};
     const ajuste = q.prvsDayAdjstmntPric;
     const valor = q.curPrc != null ? q.curPrc : ajuste;
     if(valor == null) throw new Error('sem taxa');
-    const ano = c.asset.AsstSummry.mtrtyCode.slice(2,4);
-    jurosFuturo = { valor, venc: `jan/${ano}`, delta: q.curPrc != null && ajuste != null ? q.curPrc - ajuste : null };
+    const [ano, mes] = c.asset.AsstSummry.mtrtyCode.split('-');
+    const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    jurosFuturo = { valor, venc: `${meses[Number(mes)-1]}/${ano.slice(2)}`, delta: q.curPrc != null && ajuste != null ? q.curPrc - ajuste : null };
   }catch(err){
     console.warn('Falha ao buscar o juros futuro (B3):', err);
   }
