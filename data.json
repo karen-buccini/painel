@@ -173,15 +173,9 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 6273273,
+    "quenteTotal": 3000000,
     "mornoTotal": 9500000,
     "top3": [
-      {
-        "name": "Veel Trade (grupo Cecil) - Sociedade Catarinense de Comércio, Imp. e Exp.",
-        "value": 3273273,
-        "temp": "quente",
-        "owner": "Fernando Velloso"
-      },
       {
         "name": "Vila Porto International Business",
         "value": 2000000,
@@ -193,6 +187,12 @@
         "value": 500000,
         "temp": "quente",
         "owner": "Kaio Oliveira"
+      },
+      {
+        "name": "Vergus Export Import",
+        "value": 500000,
+        "temp": "quente",
+        "owner": "Josemir Sousa"
       }
     ]
   },
@@ -228,7 +228,7 @@
         "sellers": [
           {
             "name": "Matheus Ferreira",
-            "oportunidades": 8,
+            "oportunidades": 9,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-09-24/12142448331717_5490170fdad1ee55fb52_512.jpg",
             "metricLabel": "oportunidades"
@@ -267,7 +267,7 @@
         "sellers": [
           {
             "name": "Juliane Gadi",
-            "oportunidades": 7,
+            "oportunidades": 8,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-10-19/12355347063828_c2aacb6b862e76d3265f_512.png",
             "metricLabel": "oportunidades"
@@ -334,9 +334,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 146,
-    "parceirosReservaram": 42,
-    "oportunidades": 18,
+    "reservas": 159,
+    "parceirosReservaram": 44,
+    "oportunidades": 19,
     "rankings": [
       {
         "titulo": "Reservas no mês",
@@ -369,7 +369,7 @@
           },
           {
             "name": "Cordier Investimentos",
-            "reservas": 108,
+            "reservas": 109,
             "logo": "logos/cordier.png"
           },
           {
@@ -1349,8 +1349,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 22,8M no mês",
-        "text": "Soma do limite de crédito aprovado em 14 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 30,3M no mês",
+        "text": "Soma do limite de crédito aprovado em 17 créditos no mês."
       },
       {
         "tag": "evento",
