@@ -1536,19 +1536,19 @@
     "sub": "Tecnologia que escala e gera novos produtos.",
     "krs": [
       {
-        "atual": 17.5,
+        "atual": 19,
         "meta": 45,
         "un": "%",
-        "em": "17/11",
+        "em": "25/11",
         "b": "dos clientes ativos",
         "t": "usando o Agent",
         "fonte": "manual"
       },
       {
-        "atual": 80.2,
+        "atual": 84.4,
         "meta": 100,
         "un": "%",
-        "em": "17/11",
+        "em": "25/11",
         "b": "de acurácia",
         "t": "na validação dos kits de garantia",
         "fonte": "manual"
@@ -1557,7 +1557,7 @@
         "atual": 20,
         "meta": 100,
         "un": "%",
-        "em": "17/11",
+        "em": "25/11",
         "b": "do novo instrumento",
         "t": "de garantia entregue",
         "fonte": "manual"
