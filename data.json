@@ -247,17 +247,17 @@
         "empilhar": true,
         "sellers": [
           {
+            "name": "Julia Porto",
+            "oportunidades": 4,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
+            "metricLabel": "oportunidades"
+          },
+          {
             "name": "Amanda Pczbiowski",
             "oportunidades": 3,
             "color": "var(--mint)",
             "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png",
-            "metricLabel": "oportunidades"
-          },
-          {
-            "name": "Julia Porto",
-            "oportunidades": 3,
-            "color": "var(--gold)",
-            "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           }
         ]
@@ -334,9 +334,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 165,
+    "reservas": 167,
     "parceirosReservaram": 46,
-    "oportunidades": 21,
+    "oportunidades": 22,
     "rankings": [
       {
         "titulo": "Reservas no mês",
@@ -1349,8 +1349,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 30,3M no mês",
-        "text": "Soma do limite de crédito aprovado em 17 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 35,3M no mês",
+        "text": "Soma do limite de crédito aprovado em 18 créditos no mês."
       },
       {
         "tag": "evento",
