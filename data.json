@@ -24,10 +24,11 @@
     "eyebrow": "Progresso da meta",
     "showMonth": true,
     "metaValor": 16000000,
-    "atual": 3273273,
-    "clientesAtivados": 1,
+    "atual": 3560090,
+    "clientesAtivados": 2,
     "clientesLista": [
-      "Veel Trade (grupo Cecil) - Sociedade Catarinense de Comércio, Imp. e Exp."
+      "Veel Trade (grupo Cecil) - Sociedade Catarinense de Comércio, Imp. e Exp.",
+      "Customs Importacao Exportacao Consultoria e Assessoria"
     ],
     "periodo": "2026-11"
   },
@@ -173,8 +174,8 @@
     "eyebrow": "Forecasting closing",
     "showMonth": true,
     "subtitle": "Proposta em aprovação · Abertura de conta · Aguardando ativação",
-    "quenteTotal": 3000000,
-    "mornoTotal": 9500000,
+    "quenteTotal": 2500000,
+    "mornoTotal": 7500000,
     "top3": [
       {
         "name": "Vila Porto International Business",
@@ -183,16 +184,16 @@
         "owner": "Kaio Oliveira"
       },
       {
-        "name": "Customs Importacao Exportacao Consultoria e Assessoria",
-        "value": 500000,
-        "temp": "quente",
-        "owner": "Kaio Oliveira"
-      },
-      {
         "name": "Vergus Export Import",
         "value": 500000,
         "temp": "quente",
         "owner": "Josemir Sousa"
+      },
+      {
+        "name": "Green Place",
+        "value": 5000000,
+        "temp": "morno",
+        "owner": "Cecília Moreira"
       }
     ]
   },
@@ -212,6 +213,13 @@
             "deals": 1,
             "color": "#9B8CFF",
             "photo": "https://avatars.slack-edge.com/2026-08-28/11929341580899_ad448f83f67214a68488_512.jpg"
+          },
+          {
+            "name": "Kaio Oliveira",
+            "value": 286817,
+            "deals": 1,
+            "color": "var(--gold)",
+            "photo": "https://avatars.slack-edge.com/2024-10-22/7905267593719_af4e22e63399aa29662c_512.jpg"
           }
         ]
       }
@@ -287,7 +295,7 @@
         "sellers": [
           {
             "name": "Luciana Turisco",
-            "oportunidades": 9,
+            "oportunidades": 16,
             "metricLabel": "embarques confirmados",
             "color": "var(--sky)",
             "photo": "https://avatars.slack-edge.com/2026-07-06/11523554386418_8ca4e2220136e060a41f_512.png"
@@ -334,9 +342,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 167,
-    "parceirosReservaram": 46,
-    "oportunidades": 22,
+    "reservas": 174,
+    "parceirosReservaram": 49,
+    "oportunidades": 24,
     "rankings": [
       {
         "titulo": "Reservas no mês",
@@ -344,7 +352,7 @@
         "lista": [
           {
             "name": "Tricapital",
-            "reservas": 31,
+            "reservas": 32,
             "logo": "logos/tricapital.png"
           },
           {
@@ -369,7 +377,7 @@
           },
           {
             "name": "Cordier Investimentos",
-            "reservas": 109,
+            "reservas": 110,
             "logo": "logos/cordier.png"
           },
           {
@@ -382,7 +390,13 @@
       {
         "titulo": "Ativações no mês",
         "tipo": "ativacoes",
-        "lista": []
+        "lista": [
+          {
+            "name": "Valor Capital",
+            "ativacoes": 1,
+            "volume": 286817
+          }
+        ]
       },
       {
         "titulo": "Ativações em 2026",
@@ -1349,8 +1363,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 35,3M no mês",
-        "text": "Soma do limite de crédito aprovado em 18 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 39,3M no mês",
+        "text": "Soma do limite de crédito aprovado em 20 créditos no mês."
       },
       {
         "tag": "evento",
