@@ -795,6 +795,12 @@
         "photo": "https://avatars.slack-edge.com/2026-08-03/11768367877520_f847761676c295644be7_original.png"
       },
       {
+        "name": "Guilherme Zart",
+        "date": "27/11",
+        "color": "var(--gold)",
+        "photo": "https://avatars.slack-edge.com/2026-08-01/11728478869377_9a881dcfcdb2eeb5c405_original.jpg"
+      },
+      {
         "name": "Jennifer Kauffman",
         "date": "09/12",
         "color": "var(--sky)",
