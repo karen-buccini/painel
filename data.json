@@ -271,14 +271,14 @@
         "sellers": [
           {
             "name": "Julia Porto",
-            "oportunidades": 4,
+            "oportunidades": 6,
             "color": "var(--gold)",
             "photo": "https://avatars.slack-edge.com/2026-07-27/11681187214774_4d65265aedf197015d18_512.png",
             "metricLabel": "oportunidades"
           },
           {
             "name": "Amanda Pczbiowski",
-            "oportunidades": 3,
+            "oportunidades": 5,
             "color": "var(--mint)",
             "photo": "https://avatars.slack-edge.com/2026-07-27/11667432337943_1d36f0d0eb8c7a0aeda4_original.png",
             "metricLabel": "oportunidades"
@@ -357,9 +357,9 @@
     "duration": 18000,
     "eyebrow": "Parceiros",
     "showMonth": true,
-    "reservas": 177,
+    "reservas": 179,
     "parceirosReservaram": 51,
-    "oportunidades": 25,
+    "oportunidades": 29,
     "rankings": [
       {
         "titulo": "Reservas no mês",
@@ -372,7 +372,7 @@
           },
           {
             "name": "XP Investimentos",
-            "reservas": 29,
+            "reservas": 30,
             "logo": "logos/xp.png"
           },
           {
@@ -387,12 +387,12 @@
         "lista": [
           {
             "name": "XP Investimentos",
-            "reservas": 130,
+            "reservas": 131,
             "logo": "logos/xp.png"
           },
           {
             "name": "Cordier Investimentos",
-            "reservas": 111,
+            "reservas": 112,
             "logo": "logos/cordier.png"
           },
           {
@@ -1384,8 +1384,8 @@
       },
       {
         "tag": "credito",
-        "title": "Crédito aprovado chega a R$ 39,3M no mês",
-        "text": "Soma do limite de crédito aprovado em 20 créditos no mês."
+        "title": "Crédito aprovado chega a R$ 43,8M no mês",
+        "text": "Soma do limite de crédito aprovado em 22 créditos no mês."
       },
       {
         "tag": "evento",
